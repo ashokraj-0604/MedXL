@@ -1,0 +1,501 @@
+/*
+ * medxl-hero.css — MedXL Design System v2.0
+ * Shared hero styles for About, Product, Price, and any inner pages.
+ *
+ * Usage:
+ *   import '../styles/medxl-hero.css'
+ *   (or) import './medxl-hero.css'
+ *
+ * Relies on root tokens defined in medxl.css (:root block).
+ * Font @import is in medxl.css — do NOT duplicate here.
+ *
+ * ── CLASS NAMESPACE ──
+ *   .mh-*   → "medxl-hero" — all shared hero primitives
+ *
+ * ── WHAT'S INSIDE ──
+ *   Keyframes          : mh-blob, mh-spin-cw/ccw, mh-pulse-ring, mh-float-y,
+ *                        mh-fade-up, mh-fade-in
+ *   Hero shell         : .mh-hero, .mh-hero-mesh, .mh-hero-grid, .mh-hero-blob
+ *   Orbital rings      : .mh-rings, .mh-ring, .mh-ring-{1-4}, .mh-ring-dot, .mh-ring-center
+ *   Layout             : .mh-inner
+ *   Left copy          : .mh-eyebrow, .mh-pulse, .mh-h1, .mh-h1 .grad,
+ *                        .mh-desc, .mh-actions
+ *   Buttons            : .mh-btn-primary, .mh-btn-secondary
+ *   Trust strip        : .mh-trust, .mh-trust-badge, .mh-trust-icon,
+ *                        .mh-trust-num, .mh-trust-label
+ *   Right card         : .mh-card-wrap, .mh-card,
+ *                        .mh-card-header, .mh-card-hl, .mh-card-icon,
+ *                        .mh-card-title, .mh-card-sub, .mh-card-dot,
+ *                        .mh-card-chip
+ *                        .mh-card-body
+ *                        .mh-card-footer, .mh-card-status, .mh-card-status-dot,
+ *                        .mh-card-footer-btn
+ *   Floating badges    : .mh-float, .mh-float-1, .mh-float-2,
+ *                        .mh-float-icon, .mh-float-num, .mh-float-label
+ *   Breadcrumb         : .mh-breadcrumb
+ *   Responsive         : ≤1024px, ≤768px, ≤480px
+ *
+ * ── PER-PAGE CUSTOMISATION ──
+ *   Each page may add a tiny <style> block for:
+ *     • .mh-card-body content (stat grids, tag lists, price display, etc.)
+ *     • Page-specific section styles
+ *   The hero shell, rings, blobs, buttons, trust, and card frame never need overriding.
+ */
+
+/* ══════════════════════════════════════════════
+   KEYFRAMES
+══════════════════════════════════════════════ */
+@keyframes mh-blob {
+  0%,100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  33%     { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  66%     { border-radius: 50% 40% 60% 30% / 40% 70% 40% 60%; }
+}
+@keyframes mh-spin-cw  { to { transform: translate(-50%,-50%) rotate(360deg);  } }
+@keyframes mh-spin-ccw { to { transform: translate(-50%,-50%) rotate(-360deg); } }
+@keyframes mh-pulse-ring {
+  0%   { transform: scale(1);   opacity: .8; }
+  100% { transform: scale(2.4); opacity: 0;  }
+}
+@keyframes mh-float-y {
+  0%,100% { transform: translateY(0);     }
+  50%     { transform: translateY(-11px); }
+}
+@keyframes mh-fade-up {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+@keyframes mh-fade-in {
+  from { opacity: 0; transform: scale(.97); }
+  to   { opacity: 1; transform: scale(1);   }
+}
+
+/* ══════════════════════════════════════════════
+   HERO SHELL
+══════════════════════════════════════════════ */
+.mh-hero {
+  min-height: 92vh;
+  background: var(--bg-base);
+  display: flex;
+  align-items: center;
+  padding: 130px 56px 90px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ambient mesh */
+.mh-hero-mesh {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 55% 50% at 12% 50%, rgba(197,45,181,.15) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 38% at 86% 18%, rgba(92,37,132,.13)  0%, transparent 60%),
+    radial-gradient(ellipse 32% 32% at 70% 88%, rgba(140,42,158,.11) 0%, transparent 60%);
+}
+
+/* Dot grid */
+.mh-hero-grid {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(197,45,181,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(197,45,181,.05) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+/* Morphing glow blob */
+.mh-hero-blob {
+  position: absolute; top: 44%; left: 63%;
+  transform: translate(-50%,-50%);
+  width: 680px; height: 680px;
+  background: radial-gradient(circle, rgba(197,45,181,.09) 0%, transparent 70%);
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: mh-blob 13s ease-in-out infinite;
+  filter: blur(50px);
+  transition: transform 1.4s cubic-bezier(.4,0,.2,1);
+  pointer-events: none; z-index: 0;
+}
+
+/* ══════════════════════════════════════════════
+   ORBITAL RINGS  (desktop only — hidden ≤1024px)
+══════════════════════════════════════════════ */
+.mh-rings {
+  position: absolute; right: 4%; top: 50%;
+  transform: translateY(-50%);
+  width: 480px; height: 480px;
+  z-index: 1; pointer-events: none;
+}
+.mh-ring {
+  position: absolute; border-radius: 50%;
+  border: 1px solid rgba(197,45,181,.10);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+}
+.mh-ring-1 { width:160px; height:160px; border-color:rgba(197,45,181,.32); animation: mh-spin-cw  18s linear infinite; }
+.mh-ring-2 { width:280px; height:280px;                                    animation: mh-spin-ccw 26s linear infinite; }
+.mh-ring-3 { width:400px; height:400px;                                    animation: mh-spin-cw  38s linear infinite; }
+.mh-ring-4 { width:480px; height:480px; border-color:rgba(197,45,181,.04); }
+
+.mh-ring-dot {
+  position: absolute; width:8px; height:8px; border-radius:50%;
+  background: var(--brand-grad);
+  box-shadow: 0 0 14px var(--brand-hot);
+  top:50%; left:0; transform:translate(-50%,-50%);
+}
+.mh-ring-dot-alt {
+  background: var(--brand-light);
+  box-shadow: 0 0 14px var(--brand-light);
+  top:0; left:50%;
+}
+.mh-ring-center {
+  position: absolute; top:50%; left:50%;
+  transform: translate(-50%,-50%);
+  width:110px; height:110px; border-radius:50%;
+  background: var(--bg-raised);
+  border: 2px solid var(--border-default);
+  display: flex; align-items:center; justify-content:center;
+  box-shadow: 0 0 60px rgba(197,45,181,.22), inset 0 0 24px rgba(197,45,181,.07);
+}
+
+/* ══════════════════════════════════════════════
+   TWO-COLUMN INNER GRID
+══════════════════════════════════════════════ */
+.mh-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  max-width: 1240px;
+  margin: 0 auto;
+  position: relative; z-index: 2; width: 100%;
+}
+
+/* ══════════════════════════════════════════════
+   LEFT COLUMN — COPY
+══════════════════════════════════════════════ */
+
+/* Breadcrumb */
+.mh-breadcrumb {
+  font-family: var(--font-mono); font-size:10px; letter-spacing:1.5px;
+  text-transform:uppercase; color:var(--text-muted); margin-bottom:20px;
+}
+.mh-breadcrumb a { color:var(--brand-light); text-decoration:none; transition:color .2s; }
+.mh-breadcrumb a:hover { color:var(--text-primary); }
+
+/* Eyebrow badge */
+.mh-eyebrow {
+  display: inline-flex; align-items:center; gap:10px;
+  font-family: var(--font-mono); font-size:10px; letter-spacing:3px;
+  text-transform:uppercase; color:var(--brand-light);
+  background:rgba(197,45,181,.12); border:1px solid rgba(197,45,181,.28);
+  padding:6px 14px; border-radius:100px; width:fit-content;
+  margin-bottom:24px;
+  animation: mh-fade-up .6s var(--ease) both;
+}
+.mh-pulse {
+  width:6px; height:6px; border-radius:50%;
+  background:var(--brand-hot); position:relative; flex-shrink:0;
+}
+.mh-pulse::after {
+  content:''; position:absolute; inset:-4px; border-radius:50%;
+  border:1px solid var(--brand-hot);
+  animation: mh-pulse-ring 2s ease-out infinite;
+}
+
+/* Headline */
+.mh-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.2vw, 72px);
+  font-weight: 800; line-height: 1.04;
+  color: var(--text-primary);
+  letter-spacing: -2.5px; margin-bottom: 22px; max-width: 640px;
+  animation: mh-fade-up .6s .1s var(--ease) both;
+}
+/* Gradient span: <span className="grad">…</span> */
+.mh-h1 .grad,
+.mh-h1 em {
+  font-style: normal;
+  background: var(--brand-grad);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Description */
+.mh-desc {
+  font-family: var(--font-body);
+  font-size: 16.5px; color: var(--text-secondary);
+  line-height: 1.8; font-weight: 300;
+  max-width: 500px; margin-bottom: 32px;
+  animation: mh-fade-up .6s .2s var(--ease) both;
+}
+
+/* CTA row */
+.mh-actions {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  animation: mh-fade-up .6s .3s var(--ease) both;
+}
+
+/* Primary button */
+.mh-btn-primary {
+  display: inline-flex; align-items:center; gap:8px;
+  background: var(--brand-grad); color:#fff;
+  padding:13px 28px; border-radius:100px;
+  font-family:var(--font-body); font-weight:700; font-size:14px;
+  text-decoration:none; border:none; cursor:pointer;
+  transition:all .3s var(--ease);
+  box-shadow:0 4px 20px rgba(197,45,181,.4);
+  letter-spacing:.1px;
+}
+.mh-btn-primary:hover {
+  background:var(--brand-grad-h);
+  transform:translateY(-2px);
+  box-shadow:0 8px 32px rgba(197,45,181,.55);
+}
+
+/* Secondary button */
+.mh-btn-secondary {
+  display: inline-flex; align-items:center; gap:8px;
+  background:transparent; color:var(--text-primary);
+  padding:12px 24px; border-radius:100px;
+  font-family:var(--font-body); font-weight:600; font-size:14px;
+  text-decoration:none; border:1.5px solid var(--border-default);
+  cursor:pointer; transition:all .3s; letter-spacing:.1px;
+}
+.mh-btn-secondary:hover {
+  border-color:var(--border-strong);
+  background:rgba(197,45,181,.08);
+  transform:translateY(-2px);
+}
+
+/* ── Trust strip ── */
+.mh-trust {
+  display:flex; gap:12px; flex-wrap:wrap;
+  margin-top:40px; padding-top:32px;
+  border-top:1px solid var(--border-faint);
+  animation: mh-fade-up .6s .44s var(--ease) both;
+}
+.mh-trust-badge {
+  display:flex; align-items:center; gap:10px;
+  padding:10px 16px; border-radius:12px;
+  background:var(--bg-raised); border:1px solid var(--border-faint);
+  transition:border-color .3s, background .3s;
+}
+.mh-trust-badge:hover { border-color:var(--border-default); background:var(--bg-elevated); }
+.mh-trust-icon {
+  width:30px; height:30px; border-radius:8px;
+  background:rgba(197,45,181,.12); border:1px solid rgba(197,45,181,.25);
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; flex-shrink:0;
+}
+.mh-trust-num {
+  font-family:var(--font-display); font-size:16px; font-weight:700;
+  color:var(--text-primary); letter-spacing:-.5px; line-height:1;
+}
+.mh-trust-label {
+  font-family:var(--font-mono); font-size:9px;
+  color:var(--text-muted); margin-top:3px;
+  letter-spacing:.5px; text-transform:uppercase;
+}
+
+/* ══════════════════════════════════════════════
+   RIGHT COLUMN — CARD FRAME
+   (card body content is injected per page)
+══════════════════════════════════════════════ */
+.mh-card-wrap {
+  position:relative; padding:32px 0 28px;
+  animation: mh-fade-in .8s .3s var(--ease) both;
+}
+.mh-card {
+  background:var(--bg-raised);
+  border:1px solid var(--border-subtle);
+  border-radius:28px; overflow:hidden; position:relative;
+  box-shadow:
+    0 0 0 1px var(--border-faint),
+    0 40px 80px rgba(0,0,0,.55),
+    0 0 80px rgba(197,45,181,.07);
+}
+/* Top gradient bar */
+.mh-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:var(--brand-grad);
+}
+/* Inner glow */
+.mh-card::after {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(ellipse 80% 38% at 50% 0%, rgba(197,45,181,.06) 0%, transparent 70%);
+}
+
+/* Card header */
+.mh-card-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:22px 26px 18px;
+  border-bottom:1px solid var(--border-faint);
+  position:relative; z-index:1;
+}
+.mh-card-hl { display:flex; align-items:center; gap:14px; }
+.mh-card-icon {
+  width:46px; height:46px; border-radius:13px;
+  background:linear-gradient(135deg, rgba(197,45,181,.25), rgba(92,37,132,.14));
+  border:1px solid var(--border-default);
+  display:flex; align-items:center; justify-content:center;
+  font-size:21px; flex-shrink:0;
+  box-shadow:0 4px 16px rgba(197,45,181,.18);
+}
+.mh-card-title {
+  font-family:var(--font-display); font-size:15px; font-weight:700;
+  color:var(--text-primary); letter-spacing:-.3px;
+}
+.mh-card-sub {
+  font-family:var(--font-mono); font-size:10px; color:var(--text-muted);
+  margin-top:3px; letter-spacing:.5px; text-transform:uppercase;
+  display:flex; align-items:center; gap:6px;
+}
+.mh-card-dot {
+  width:5px; height:5px; border-radius:50%; background:#22C55E; flex-shrink:0;
+  box-shadow:0 0 7px #22C55E;
+  animation: mh-pulse-ring 2s ease-out infinite;
+}
+.mh-card-chip {
+  font-family:var(--font-mono); font-size:10px; letter-spacing:1px;
+  color:var(--text-muted); background:rgba(197,45,181,.08);
+  border:1px solid var(--border-faint); padding:4px 10px; border-radius:6px;
+  white-space:nowrap;
+}
+
+/* Card body — content injected per page via child elements */
+.mh-card-body {
+  padding:24px 26px 8px;
+  position:relative; z-index:1;
+}
+
+/* Card footer */
+.mh-card-footer {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:13px 26px 16px;
+  border-top:1px solid var(--border-faint);
+  background:rgba(197,45,181,.03); position:relative; z-index:1;
+}
+.mh-card-status {
+  display:flex; align-items:center; gap:7px;
+  font-family:var(--font-mono); font-size:10px;
+  color:var(--text-muted); letter-spacing:.5px; text-transform:uppercase;
+}
+.mh-card-status-dot {
+  width:5px; height:5px; border-radius:50%; background:#22C55E; flex-shrink:0;
+}
+.mh-card-footer-btn {
+  font-family:var(--font-mono); font-size:10px; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--brand-light); background:rgba(197,45,181,.10);
+  border:1px solid rgba(197,45,181,.22); padding:5px 13px; border-radius:100px;
+  cursor:pointer; transition:all .25s; text-decoration:none;
+}
+.mh-card-footer-btn:hover {
+  background:rgba(197,45,181,.22); border-color:var(--border-default); color:var(--text-primary);
+}
+
+/* ── Shared card body primitives (usable in any page's card body) ── */
+
+/* 2-col stat grid */
+.mh-stat-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px;
+}
+.mh-stat-cell {
+  background:var(--bg-elevated); border:1px solid var(--border-faint);
+  border-radius:14px; padding:18px 16px;
+  transition:border-color .25s, background .25s;
+}
+.mh-stat-cell:hover { border-color:var(--border-default); background:var(--bg-overlay); }
+.mh-stat-num {
+  font-family:var(--font-display); font-size:28px; font-weight:800;
+  letter-spacing:-1px; line-height:1;
+  background:var(--brand-grad);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.mh-stat-num.gold {
+  background:linear-gradient(135deg,#F5A623,#FFD166);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.mh-stat-lbl {
+  font-family:var(--font-mono); font-size:9px; font-weight:500;
+  color:var(--text-muted); margin-top:6px;
+  letter-spacing:.8px; text-transform:uppercase;
+}
+
+/* Tag list (service chips) */
+.mh-tag-list { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:20px; }
+.mh-tag-chip {
+  font-family:var(--font-mono); font-size:10px; font-weight:500;
+  letter-spacing:.5px; text-transform:uppercase;
+  padding:4px 12px; border-radius:100px;
+  background:rgba(197,45,181,.11); border:1px solid rgba(197,45,181,.24);
+  color:var(--brand-light);
+  transition:background .2s, border-color .2s;
+}
+.mh-tag-chip:hover { background:rgba(197,45,181,.2); border-color:var(--border-default); }
+
+/* Price display (for pricing page hero card) */
+.mh-price-row { display:flex; align-items:baseline; gap:10px; margin-bottom:6px; }
+.mh-price {
+  font-family:var(--font-display);
+  font-size: clamp(52px, 6vw, 68px);
+  font-weight:800; line-height:1; letter-spacing:-2px;
+  background:var(--brand-grad);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.mh-price-suffix {
+  font-family:var(--font-body); font-size:16px; font-weight:400;
+  color:var(--text-muted);
+}
+.mh-promo {
+  display:flex; align-items:center; gap:8px;
+  font-family:var(--font-body); font-size:13.5px; font-weight:500;
+  color:var(--brand-light); margin-top:16px; margin-bottom:22px;
+}
+.mh-promo-icon { font-size:10px; color:var(--brand-hot); }
+
+/* ══════════════════════════════════════════════
+   FLOATING BADGES
+══════════════════════════════════════════════ */
+.mh-float {
+  position:absolute; border-radius:14px; padding:12px 16px;
+  display:flex; align-items:center; gap:11px;
+  backdrop-filter:blur(16px); z-index:3;
+  box-shadow:0 16px 40px rgba(0,0,0,.45);
+}
+.mh-float-1 {
+  top:-4px; right:-20px;
+  background:linear-gradient(135deg, rgba(197,45,181,.22), rgba(197,45,181,.07));
+  border:1px solid var(--border-default);
+  animation: mh-float-y 5s ease-in-out infinite;
+}
+.mh-float-2 {
+  bottom:-4px; left:-20px;
+  background:linear-gradient(135deg, rgba(245,166,35,.18), rgba(245,166,35,.06));
+  border:1px solid rgba(245,166,35,.3);
+  animation: mh-float-y 6s 1.2s ease-in-out infinite;
+}
+.mh-float-icon { font-size:24px; flex-shrink:0; }
+.mh-float-num {
+  font-family:var(--font-display); font-size:18px; font-weight:700;
+  color:var(--text-primary); line-height:1; letter-spacing:-.5px;
+}
+.mh-float-label {
+  font-family:var(--font-mono); font-size:9px; color:var(--text-muted);
+  margin-top:3px; letter-spacing:.5px; text-transform:uppercase;
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .mh-hero        { padding: 110px 28px 80px; }
+  .mh-inner       { grid-template-columns: 1fr; gap: 48px; }
+  .mh-rings       { display: none; }
+  .mh-float-1,
+  .mh-float-2     { display: none; }
+}
+@media (max-width: 768px) {
+  .mh-hero        { padding: 100px 20px 72px; min-height: auto; }
+  .mh-stat-grid   { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .mh-trust       { gap: 8px; }
+  .mh-trust-badge { padding: 8px 12px; }
+}

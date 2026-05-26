@@ -1,261 +1,220 @@
 import { useState, useEffect } from 'react'
- 
+import { Link } from 'react-router-dom'
+import MedXLLogo from './MedXLLogo'
+
 const links = [
-  { label: 'Home',         href: '#home' },
-  { label: 'About',        href: '#about' },
-  { label: 'Products',     href: '#' },
-  { label: 'Services',     href: '#services' },
-  { label: 'Case Studies', href: '#case-studies' },
-  { label: 'Blogs',        href: '#blogs' },
-  { label: 'Contact',      href: '#contact' },
+  { label: 'Home',         href: '/#home',        route: null      },
+  { label: 'About',        href: '/about',         route: '/about'  },
+  { label: 'Services',     href: '/services',     route: '/services' },
+  { label: 'Products',     href: '/products',     route: '/products' },
+  { label: 'Price',        href: '/price',        route: '/price'      },
+  { label: 'Contact',      href: '/#contact',      route: null      },
 ]
- 
+
 export default function Navbar() {
-  const [scrolled,  setScrolled]  = useState(false)
-  const [menuOpen,  setMenuOpen]  = useState(false)
- 
-  /* scroll detection */
+  const [scrolled, setScrolled] = useState(false)
+  const [open, setOpen]         = useState(false)
+
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 60)
     window.addEventListener('scroll', fn)
     return () => window.removeEventListener('scroll', fn)
   }, [])
- 
-  /* lock body scroll while drawer is open */
+
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    document.body.style.overflow = open ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
-  }, [menuOpen])
- 
-  const close = () => setMenuOpen(false)
- 
+  }, [open])
+
+  const close = () => setOpen(false)
+
   return (
     <>
       <style>{`
-        /* ---------- NAVBAR ---------- */
-        .navbar {
+        .nav {
           position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
-          height: 72px; padding: 0 60px;
+          height: 72px; padding: 0 56px;
           display: flex; align-items: center; justify-content: space-between;
-          transition: background .4s, box-shadow .4s, height .3s;
+          transition: all .4s var(--ease);
         }
-        .navbar.scrolled {
-          background: rgba(5,13,26,.96);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          box-shadow: 0 1px 0 rgba(59,123,255,.15);
+        .nav.scrolled {
           height: 64px;
+          background: rgba(8,4,18,.96);
+          backdrop-filter: blur(24px);
+          border-bottom: 1px solid var(--border-faint);
+          box-shadow: 0 4px 32px rgba(197,45,181,.08);
         }
- 
-        /* ---------- LOGO ---------- */
-        .nav-logo {
-          font-family:'Syne',sans-serif; font-size:26px; font-weight:800;
-          color:#fff; text-decoration:none; letter-spacing:-.5px;
-          flex-shrink:0; position:relative; z-index:10001;
+        .nav-logo-wrap {
+          display: flex; align-items: center; gap: 10px;
+          text-decoration: none; flex-shrink: 0; z-index: 10001;
         }
-        .nav-logo em {
-          font-style:normal;
-          background:linear-gradient(135deg,#1354f9,#00d4ff);
-          -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+        .nav-logo-text {
+          font-family: var(--font-display); font-size: 22px; font-weight: 800;
+          background: var(--brand-grad);
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+          background-clip: text; letter-spacing: .5px;
         }
- 
-        /* ---------- DESKTOP NAV LINKS ---------- */
         .nav-links {
-          display:flex; align-items:center; gap:32px;
-          list-style:none; margin:0; padding:0;
+          display: flex; align-items: center; gap: 32px;
+          list-style: none; margin: 0; padding: 0;
         }
         .nav-links a {
-          font-family:'DM Sans',sans-serif; font-size:14px; font-weight:500;
-          color:rgba(232,238,255,.75); text-decoration:none;
-          transition:color .25s; position:relative; white-space:nowrap;
+          font-family: var(--font-body); font-size: 13.5px; font-weight: 500;
+          color: var(--text-secondary); text-decoration: none;
+          transition: color .2s; position: relative;
         }
         .nav-links a::after {
-          content:''; position:absolute; bottom:-4px; left:0; right:0;
-          height:2px; background:linear-gradient(90deg,#1354f9,#00d4ff);
-          transform:scaleX(0); transition:transform .25s; border-radius:2px;
+          content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+          height: 1.5px; background: var(--brand-grad);
+          transform: scaleX(0); transform-origin: left;
+          transition: transform .3s var(--ease); border-radius: 2px;
         }
-        .nav-links a:hover { color:#fff; }
-        .nav-links a:hover::after { transform:scaleX(1); }
- 
-        /* ---------- DESKTOP CTA ---------- */
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a:hover::after { transform: scaleX(1); }
         .nav-cta {
-          background:linear-gradient(135deg,#1354f9,#3b7bff);
-          color:#fff; padding:10px 22px; border-radius:8px;
-          font-family:'DM Sans',sans-serif; font-weight:600; font-size:14px;
-          text-decoration:none; flex-shrink:0;
-          box-shadow:0 0 20px rgba(19,84,249,.4); transition:all .3s;
+          background: var(--brand-grad); color: #fff;
+          padding: 9px 22px; border-radius: 100px;
+          font-family: var(--font-body); font-weight: 600; font-size: 13px;
+          text-decoration: none; flex-shrink: 0;
+          box-shadow: 0 4px 18px rgba(197,45,181,.4);
+          transition: all .3s var(--ease); letter-spacing: .2px;
         }
-        .nav-cta:hover { transform:translateY(-2px); box-shadow:0 0 32px rgba(19,84,249,.6); }
- 
-        /* ---------- HAMBURGER BUTTON ---------- */
-        .hamburger {
-          display: none;          /* shown only on mobile via media query */
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          gap: 5px;
-          width: 42px; height: 42px;
-          cursor: pointer;
-          z-index: 10001;         /* above drawer */
-          position: relative;
-          flex-shrink: 0;
-          background: rgba(255,255,255,.06);
-          border: 1px solid rgba(59,123,255,.25);
-          border-radius: 8px;
-          transition: background .25s, border-color .25s;
+        .nav-cta:hover {
+          background: var(--brand-grad-h);
+          transform: translateY(-2px);
+          box-shadow: 0 10px 28px rgba(197,45,181,.5);
         }
-        .hamburger:hover {
-          background: rgba(19,84,249,.15);
-          border-color: rgba(59,123,255,.45);
+        /* Phone link */
+        .nav-phone {
+          font-family: var(--font-mono); font-size: 11px;
+          color: var(--text-muted); text-decoration: none;
+          letter-spacing: .5px; transition: color .2s;
         }
-        .hamburger .bar {
-          width: 20px; height: 2px;
-          background: #fff; border-radius: 2px;
-          transition: transform .35s cubic-bezier(.4,0,.2,1),
-                      opacity   .35s cubic-bezier(.4,0,.2,1);
-          transform-origin: center;
-          display: block;
+        .nav-phone:hover { color: var(--brand-light); }
+
+        /* Hamburger */
+        .nav-ham {
+          display: none; flex-direction: column; justify-content: center;
+          align-items: center; gap: 5px;
+          width: 42px; height: 42px; border-radius: 10px;
+          background: var(--bg-raised); border: 1px solid var(--border-subtle);
+          cursor: pointer; z-index: 10001; flex-shrink: 0; transition: all .25s;
         }
-        /* Morph into × */
-        .hamburger.open .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        .hamburger.open .bar:nth-child(2) { opacity:0; transform:scaleX(0); }
-        .hamburger.open .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
- 
-        /* ---------- BACKDROP ---------- */
-        .mob-backdrop {
-          position: fixed; inset: 0;
-          background: rgba(0,0,0,.55);
-          backdrop-filter: blur(4px);
-          -webkit-backdrop-filter: blur(4px);
-          z-index: 9997;
-          opacity: 0; pointer-events: none;
-          transition: opacity .35s;
+        .nav-ham:hover { background: var(--bg-elevated); border-color: var(--border-default); }
+        .nav-ham .bar {
+          width: 18px; height: 1.5px; background: var(--text-primary); border-radius: 2px;
+          transition: transform .35s var(--ease), opacity .3s; display: block;
         }
-        .mob-backdrop.open { opacity:1; pointer-events:auto; }
- 
-        /* ---------- SIDE DRAWER ---------- */
-        .mob-drawer {
-          position: fixed;
-          top: 0; right: 0; bottom: 0;
-          width: min(300px, 85vw);
-          background: #060e1c;
-          border-left: 1px solid rgba(59,123,255,.18);
-          z-index: 9998;
+        .nav-ham.open .bar:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .nav-ham.open .bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .nav-ham.open .bar:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* Backdrop */
+        .nav-backdrop {
+          position: fixed; inset: 0; z-index: 9997;
+          background: rgba(4,2,10,.7); backdrop-filter: blur(6px);
+          opacity: 0; pointer-events: none; transition: opacity .35s;
+        }
+        .nav-backdrop.open { opacity: 1; pointer-events: auto; }
+
+        /* Drawer */
+        .nav-drawer {
+          position: fixed; top: 0; right: 0; bottom: 0;
+          width: min(310px,88vw); z-index: 9998;
+          background: var(--bg-surface);
+          border-left: 1px solid var(--border-subtle);
+          box-shadow: -8px 0 40px rgba(197,45,181,.12);
           transform: translateX(100%);
-          transition: transform .4s cubic-bezier(.4,0,.2,1);
+          transition: transform .4s var(--ease);
           display: flex; flex-direction: column;
-          padding: 90px 28px 40px;
-          overflow-y: auto;
+          padding: 88px 28px 40px; overflow-y: auto;
         }
-        .mob-drawer.open { transform: translateX(0); }
- 
-        /* drawer nav links */
-        .mob-drawer ul {
-          list-style:none; margin:0; padding:0;
-          display:flex; flex-direction:column; gap:4px;
-          flex:1;
+        .nav-drawer.open { transform: translateX(0); }
+        .drawer-top {
+          display: flex; align-items: center; gap: 10px; margin-bottom: 28px;
+          padding-bottom: 24px; border-bottom: 1px solid var(--border-faint);
         }
-        .mob-drawer ul li a {
+        .drawer-links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+        .drawer-links li a {
           display: flex; align-items: center; justify-content: space-between;
           padding: 13px 16px; border-radius: 10px;
-          font-family: 'DM Sans',sans-serif;
-          font-size: 16px; font-weight: 500;
-          color: rgba(232,238,255,.75);
-          text-decoration: none;
-          border: 1px solid transparent;
-          transition: all .25s;
+          font-family: var(--font-body); font-size: 15px; font-weight: 500;
+          color: var(--text-secondary); text-decoration: none;
+          border: 1px solid transparent; transition: all .25s;
         }
-        .mob-drawer ul li a:hover {
-          background: rgba(19,84,249,.1);
-          border-color: rgba(19,84,249,.2);
-          color: #fff;
-          padding-left: 22px;
+        .drawer-links li a:hover {
+          background: var(--bg-elevated); border-color: var(--border-subtle);
+          color: var(--text-primary); padding-left: 22px;
         }
-        .mob-arrow { color: rgba(59,123,255,.5); font-size:18px; }
- 
-        .mob-divider {
-          height:1px; background:rgba(59,123,255,.1);
-          margin:20px 0;
+        .drawer-arrow { color: var(--brand-light); font-size: 18px; }
+        .drawer-sep { height: 1px; background: var(--border-faint); margin: 20px 0; }
+        .drawer-cta {
+          display: block; text-align: center;
+          background: var(--brand-grad); color: #fff;
+          padding: 14px; border-radius: 100px;
+          font-family: var(--font-body); font-weight: 700; font-size: 14px;
+          text-decoration: none; transition: all .3s;
+          box-shadow: 0 8px 24px rgba(197,45,181,.4);
         }
-        .mob-cta {
-          display:block; text-align:center;
-          background:linear-gradient(135deg,#1354f9,#3b7bff);
-          color:#fff; padding:14px 24px; border-radius:10px;
-          font-family:'DM Sans',sans-serif; font-weight:700; font-size:15px;
-          text-decoration:none;
-          box-shadow:0 8px 24px rgba(19,84,249,.4); transition:all .3s;
+        .drawer-cta:hover { background: var(--brand-grad-h); transform: translateY(-2px); }
+        .drawer-meta { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+        .drawer-meta a {
+          display: flex; align-items: center; gap: 10px;
+          font-family: var(--font-mono); font-size: 12px;
+          color: var(--text-muted); text-decoration: none; padding: 8px 12px;
+          border-radius: 8px; transition: color .2s;
         }
-        .mob-cta:hover { transform:translateY(-2px); box-shadow:0 12px 32px rgba(19,84,249,.55); }
- 
-        .mob-contact {
-          display:flex; flex-direction:column; gap:8px; margin-top:20px;
-        }
-        .mob-contact a {
-          display:flex; align-items:center; gap:10px;
-          font-size:13px; color:rgba(200,212,240,.5);
-          text-decoration:none; padding:8px 12px; border-radius:8px;
-          transition:color .25s;
-        }
-        .mob-contact a:hover { color:rgba(200,212,240,.9); }
- 
-        /* ---------- RESPONSIVE BREAKPOINT ---------- */
-        @media (max-width:960px) {
-          .navbar    { padding:0 20px; }
-          .nav-links { display:none !important; }
-          .nav-cta   { display:none !important; }
-          .hamburger { display:flex; }
+        .drawer-meta a:hover { color: var(--brand-light); }
+
+        @media (max-width: 960px) {
+          .nav { padding: 0 20px; }
+          .nav-links, .nav-cta, .nav-phone { display: none !important; }
+          .nav-ham { display: flex; }
         }
       `}</style>
- 
-      {/* ── NAVBAR BAR ── */}
-      <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-        <a href="#home" className="nav-logo">Med<em>XL</em></a>
- 
+
+      <nav className={`nav ${scrolled ? 'scrolled' : ''}`}>
+        <a href="/" className="nav-logo-wrap">
+          <MedXLLogo size={34} />
+          <span className="nav-logo-text">MEDXL</span>
+        </a>
         <ul className="nav-links">
           {links.map(l => (
-            <li key={l.label}><a href={l.href}>{l.label}</a></li>
-          ))}
-        </ul>
- 
-        <a href="#contact" className="nav-cta">Free Consultation</a>
- 
-        {/* Hamburger — visible on mobile only */}
-        <div
-          className={`hamburger ${menuOpen ? 'open' : ''}`}
-          onClick={() => setMenuOpen(v => !v)}
-          role="button"
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-        >
-          <span className="bar" />
-          <span className="bar" />
-          <span className="bar" />
-        </div>
-      </nav>
- 
-      {/* ── BACKDROP (click to close) ── */}
-      <div className={`mob-backdrop ${menuOpen ? 'open' : ''}`} onClick={close} />
- 
-      {/* ── SLIDE-OUT DRAWER ── */}
-      <div className={`mob-drawer ${menuOpen ? 'open' : ''}`}>
-        <ul>
-          {links.map(l => (
             <li key={l.label}>
-              <a href={l.href} onClick={close}>
-                {l.label}
-                <span className="mob-arrow">›</span>
-              </a>
+              {l.route
+                ? <Link to={l.route}>{l.label}</Link>
+                : <a href={l.href}>{l.label}</a>}
             </li>
           ))}
         </ul>
- 
-        <div className="mob-divider" />
- 
-        <a href="#contact" className="mob-cta" onClick={close}>
-          Free Consultation →
-        </a>
- 
-        <div className="mob-contact">
-          <a href="tel:+918148181288">📞 +91 8148181288</a>
+        <div style={{display:'flex',alignItems:'center',gap:20}}>
+          <a href="tel:+918148181288" className="nav-phone">📞 +91 81481 81288</a>
+          <a href="/#contact" className="nav-cta">Free Consultation</a>
+        </div>
+        <div className={`nav-ham ${open ? 'open' : ''}`} onClick={() => setOpen(v => !v)}>
+          <span className="bar"/><span className="bar"/><span className="bar"/>
+        </div>
+      </nav>
+
+      <div className={`nav-backdrop ${open ? 'open' : ''}`} onClick={close} />
+      <div className={`nav-drawer ${open ? 'open' : ''}`}>
+        <div className="drawer-top">
+          <MedXLLogo size={30} />
+          <span style={{fontFamily:'var(--font-display)',fontSize:18,fontWeight:800,background:'var(--brand-grad)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>MEDXL</span>
+        </div>
+        <ul className="drawer-links">
+          {links.map(l => (
+            <li key={l.label}>
+              {l.route
+                ? <Link to={l.route} onClick={close}>{l.label}<span className="drawer-arrow">›</span></Link>
+                : <a href={l.href} onClick={close}>{l.label}<span className="drawer-arrow">›</span></a>}
+            </li>
+          ))}
+        </ul>
+        <div className="drawer-sep" />
+        <a href="/#contact" className="drawer-cta" onClick={close}>Free Consultation →</a>
+        <div className="drawer-meta">
+          <a href="tel:+918148181288">📞 +91 81481 81288</a>
           <a href="mailto:info@medxl.in">✉️ info@medxl.in</a>
         </div>
       </div>

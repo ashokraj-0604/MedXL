@@ -1,244 +1,530 @@
 import { useState } from 'react'
- 
+import { useLocation } from 'react-router-dom'
+import {Link} from 'react-router-dom'
+// import './medxl.css'   ← already imported at the app root; remove if you import it here instead
+
+/* ─────────────────────────────────────────────────────────
+   DATA
+───────────────────────────────────────────────────────── */
 const footerLinks = {
-  Company: ['About', 'Our Products', 'Our Services', 'Blogs', 'Careers', 'Contacts'],
-  'For Hospitals': ['Cloud Solutions', 'Data Analytics', 'Web Development', 'Mobile Apps', 'IT Consulting', 'Digital Marketing'],
-  Products: ['LMS for Hospitals', 'Cloud based EHR', 'Cloud based HIMS', 'SaaS HMS', 'Cloud based LIMS', 'OP Billing'],
+  Company: [
+    { label: 'About MedXL',   icon: '🏢', href: '/about' },
+    { label: 'Our Team',      icon: '👥' },
+    { label: 'Blogs',         icon: '📝' },
+    { label: 'Careers',       icon: '💼' },
+    { label: 'Contact Us',    icon: '✉️' },
+  ],
+  'Our Services': [
+    { label: 'Cloud Solutions',   icon: '☁️',href:'/Cloudhosting' },
+    { label: 'Data Analytics',    icon: '🔬', href: '/Analytics' },
+    { label: 'Web Development',   icon: '🌐', href:'/Hospitalwebsite' },
+    { label: 'Mobile Apps',       icon: '📱', href:'/Mobileapp' },
+    { label: 'IT Consulting',     icon: '💡', href:'/ITconsulting' },
+    { label: 'Digital Marketing', icon: '📣', href:'/SeoMarketing' },
+  ],
+  Products: [
+    { label: 'LMS for Hospitals', icon: '🎓', href :'/Lms' },
+    { label: 'EHR System',        icon: '🏥', href:'/Ehr' },
+    { label: 'LIMS',              icon: '🗂️', href:'/Lims' },
+    { label: 'HMS (Cloud)',        icon: '☁️', href:'/Hms' },
+    { label: 'Telemedicine',      icon: '🩺', href:'/Telemedicine' },
+    { label: 'OP Billing',        icon: '💳', href:'/OpBilling' },
+  ],
 }
- 
+
 const tags = [
-  'Data Analytics','Website Design','Web Development','Software Solutions',
-  'Digital Marketing','eLearning','LMS for Healthcare','Healthcare IT Audit',
-  'Cloud Based EHR','Cloud Solutions','Hospital Branding','Cloud Based HIMS',
+  'Data Analytics', 'Website Design', 'Web Development',
+  'Software Solutions', 'Digital Marketing', 'eLearning',
+  'LMS for Healthcare', 'Healthcare IT', 'Cloud EHR',
+  'Cloud Solutions', 'Hospital Branding', 'Cloud HIMS',
 ]
- 
+
+const socials = [
+  { icon: '𝕏',  label: 'Twitter',  href: 'https://x.com/medxl_in' },
+  { icon: 'in', label: 'LinkedIn', href: 'https://www.linkedin.com/company/medxl' },
+  { icon: 'ig',  label: 'Facebook', href: 'https://www.instagram.com/medxl/' },
+  { icon: '▶',  label: 'YouTube',  href: 'https://www.youtube.com/@medxl' },
+]
+
+const stats = [
+  { num: '1,800+', label: 'Hospitals Served', icon: '🏥' },
+  { num: '20+',    label: 'Yrs of Expertise', icon: '✅' },
+  { num: '2cr+',   label: 'Saved / year',     icon: '💰' },
+  { num: '99%',    label: 'Uptime SLA',       icon: '⭐' },
+]
+
+/* ─────────────────────────────────────────────────────────
+   COMPONENT
+───────────────────────────────────────────────────────── */
 export default function Footer() {
-  const [email, setEmail] = useState('')
+  const [email, setEmail]       = useState('')
   const [subscribed, setSubscribed] = useState(false)
- 
+
+  const handleSubscribe = () => {
+    if (email.includes('@')) setSubscribed(true)
+  }
+
   return (
     <>
       <style>{`
-        .footer {
-          background: var(--navy-2);
-          border-top: 1px solid rgba(59,123,255,0.1);
-          padding: 80px 60px 0;
-          position: relative; overflow: hidden;
+        /* ── FOOTER SHELL ── */
+        .ft {
+          background: var(--bg-base);
+          border-top: 1px solid var(--border-faint);
+          position: relative;
+          overflow: hidden;
+          font-family: var(--font-body);
         }
-        .footer::before {
-          content: '';
-          position: absolute; top: -200px; left: 50%;
+
+        /* Ambient glow — reuses brand tokens */
+        .ft-glow {
+          position: absolute;
+          bottom: -240px; left: 50%;
           transform: translateX(-50%);
-          width: 600px; height: 400px; border-radius: 50%;
-          background: radial-gradient(circle, rgba(19,84,249,0.05) 0%, transparent 70%);
+          width: 900px; height: 480px;
+          border-radius: 50%;
+          background: radial-gradient(ellipse, rgba(197,45,181,.06) 0%, transparent 70%);
+          pointer-events: none; z-index: 0;
+          filter: blur(48px);
+        }
+
+        /* Dot-grid texture (matches mx-hero pattern) */
+        .ft::before {
+          content: '';
+          position: absolute; inset: 0; z-index: 0; pointer-events: none;
+          background-image: radial-gradient(rgba(197,45,181,.04) 1px, transparent 1px);
+          background-size: 36px 36px;
+        }
+
+        /* ── CTA BANNER — extends .mx-cta-banner layout but dark variant ── */
+        .ft-banner {
+          position: relative; z-index: 1;
+          margin: 72px 56px 0;
+          border-radius: 24px;
+          background: linear-gradient(135deg,
+            rgba(197,45,181,.13) 0%,
+            rgba(140,42,158,.08) 50%,
+            rgba(92,37,132,.05) 100%);
+          border: 1px solid var(--border-subtle);
+          padding: 52px 56px;
+          display: flex; align-items: center;
+          justify-content: space-between;
+          gap: 40px; flex-wrap: wrap;
+          overflow: hidden;
+        }
+        .ft-banner::before {
+          content: '';
+          position: absolute; top: -60px; right: -60px;
+          width: 280px; height: 280px; border-radius: 50%;
+          background: radial-gradient(circle, rgba(197,45,181,.14), transparent 70%);
           pointer-events: none;
         }
-        .footer-top {
-          display: grid;
-          grid-template-columns: 1.6fr 1fr 1fr 1fr;
-          gap: 48px; padding-bottom: 60px;
-          border-bottom: 1px solid rgba(59,123,255,0.08);
-          max-width: 1200px; margin: 0 auto;
+        .ft-banner::after {
+          content: '';
+          position: absolute; bottom: -40px; left: 200px;
+          width: 180px; height: 180px; border-radius: 50%;
+          background: radial-gradient(circle, rgba(245,166,35,.07), transparent 70%);
+          pointer-events: none;
         }
-        .footer-brand {}
-        .footer-logo {
-          font-family: 'Syne', sans-serif; font-size: 28px;
-          font-weight: 800; color: #fff; margin-bottom: 16px;
-          display: inline-block;
+        .ft-banner-left { position: relative; z-index: 1; }
+        .ft-banner-eyebrow {
+          /* reuse .mx-tag styles inline to avoid extra DOM node */
+          display: inline-flex; align-items: center; gap: 8px;
+          font-family: var(--font-mono); font-size: 10px;
+          letter-spacing: 3px; text-transform: uppercase;
+          color: var(--brand-light);
+          margin-bottom: 14px;
         }
-        .footer-logo em {
+        .ft-banner-eyebrow::before {
+          content: ''; width: 20px; height: 1px;
+          background: var(--brand-grad);
+        }
+        .ft-banner-title {
+          font-family: var(--font-display);
+          font-size: clamp(24px, 3vw, 38px);
+          font-weight: 800;
+          color: var(--text-primary);
+          line-height: 1.1; letter-spacing: -1px;
+        }
+        .ft-banner-title em {
           font-style: normal;
-          background: linear-gradient(135deg, #1354f9, #00d4ff);
-          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+          background: var(--brand-grad);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
         }
-        .footer-tagline {
-          font-size: 14px; color: var(--text-muted); line-height: 1.7;
-          margin-bottom: 28px; font-weight: 300; max-width: 280px;
+        .ft-banner-sub {
+          font-size: 14px; color: var(--text-muted);
+          margin-top: 10px; font-weight: 300;
         }
-        .footer-socials { display: flex; gap: 10px; }
-        .social-btn {
+        .ft-banner-actions {
+          display: flex; gap: 12px; flex-wrap: wrap;
+          position: relative; z-index: 1;
+        }
+
+        /* ── MAIN GRID ── */
+        .ft-main {
+          position: relative; z-index: 1;
+          padding: 72px 56px 0;
+          display: grid;
+          grid-template-columns: 1.8fr 1fr 1fr 1fr;
+          gap: 56px;
+          max-width: 1400px; margin: 0 auto;
+        }
+
+        /* Brand column */
+        .ft-logo {
+          font-family: var(--font-display); font-size: 28px; font-weight: 800;
+          color: var(--text-primary); text-decoration: none;
+          letter-spacing: -1.5px;
+          display: inline-flex; align-items: center; gap: 8px;
+          margin-bottom: 20px;
+        }
+        .ft-logo-dot {
+          width: 8px; height: 8px; border-radius: 50%;
+          background: var(--brand-grad);
+          box-shadow: 0 0 14px var(--brand-hot);
+          animation: ftPulse 2.5s ease-out infinite;
+        }
+        @keyframes ftPulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50%       { opacity: .6; transform: scale(1.5); }
+        }
+        .ft-tagline {
+          font-size: 14px; color: var(--text-muted); line-height: 1.75;
+          max-width: 280px; font-weight: 300; margin-bottom: 28px;
+        }
+
+        /* Stat chips — uses bg-raised + border-faint from design system */
+        .ft-stats { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+        .ft-stat-chip {
+          display: flex; align-items: center; gap: 8px;
+          padding: 8px 14px; border-radius: 10px;
+          background: var(--bg-raised);
+          border: 1px solid var(--border-faint);
+          transition: border-color .25s;
+        }
+        .ft-stat-chip:hover { border-color: var(--border-default); }
+        .ft-stat-num {
+          font-family: var(--font-display); font-size: 15px; font-weight: 800;
+          color: var(--text-primary); letter-spacing: -0.4px;
+        }
+        .ft-stat-label {
+          font-size: 11px; color: var(--text-muted);
+          font-family: var(--font-mono);
+        }
+
+        /* Social links */
+        .ft-socials { display: flex; gap: 8px; }
+        .ft-social {
           width: 38px; height: 38px; border-radius: 10px;
-          background: rgba(255,255,255,0.05);
-          border: 1px solid rgba(59,123,255,0.15);
+          background: var(--bg-raised);
+          border: 1px solid var(--border-faint);
           display: flex; align-items: center; justify-content: center;
-          font-size: 16px; cursor: pointer;
-          transition: all 0.3s; text-decoration: none;
+          font-size: 13px; font-weight: 700;
+          color: var(--text-muted); text-decoration: none;
+          transition: all .3s var(--ease);
         }
-        .social-btn:hover {
-          background: rgba(19,84,249,0.15);
-          border-color: rgba(19,84,249,0.35);
-          transform: translateY(-3px);
+        .ft-social:hover {
+          background: rgba(197,45,181,.12);
+          border-color: var(--border-default);
+          color: var(--brand-light);
+          transform: translateY(-4px);
+          box-shadow: 0 8px 20px rgba(197,45,181,.2);
         }
-        .footer-col-title {
-          font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
-          color: #fff; margin-bottom: 24px; text-transform: uppercase;
-          letter-spacing: 1px;
+
+        /* Link columns */
+        .ft-col-title {
+          font-family: var(--font-display); font-size: 12px; font-weight: 700;
+          color: var(--text-primary); margin-bottom: 22px;
+          text-transform: uppercase; letter-spacing: 2px;
+          padding-bottom: 14px;
+          border-bottom: 1px solid var(--border-faint);
+          position: relative;
         }
-        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-        .footer-links a {
-          font-size: 14px; color: var(--text-muted); text-decoration: none;
-          transition: color 0.25s; display: flex; align-items: center; gap: 6px;
-          font-weight: 300;
+        .ft-col-title::after {
+          content: ''; position: absolute; bottom: -1px; left: 0;
+          width: 28px; height: 1px;
+          background: var(--brand-grad);
+          transition: width .3s var(--ease);
         }
-        .footer-links a::before {
-          content: '›'; color: rgba(19,84,249,0.5); font-size: 16px;
-          transition: color 0.25s;
+        .ft-col:hover .ft-col-title::after { width: 100%; }
+
+        .ft-links { display: flex; flex-direction: column; gap: 2px; }
+        .ft-links a {
+          display: flex; align-items: center; gap: 9px;
+          padding: 7px 10px; border-radius: 8px;
+          font-size: 13.5px; color: var(--text-muted);
+          text-decoration: none; font-weight: 400;
+          border: 1px solid transparent;
+          transition: all .25s var(--ease);
         }
-        .footer-links a:hover { color: rgba(200,212,240,0.9); }
-        .footer-links a:hover::before { color: #1354f9; }
- 
-        /* Tags section */
-        .footer-tags {
-          max-width: 1200px; margin: 0 auto;
-          padding: 40px 0; border-bottom: 1px solid rgba(59,123,255,0.08);
-          display: flex; flex-wrap: wrap; gap: 10px;
+        .ft-links a:hover {
+          color: var(--text-primary);
+          background: var(--bg-raised);
+          border-color: var(--border-faint);
+          padding-left: 16px;
         }
-        .footer-tag {
-          padding: 6px 14px; border-radius: 100px;
-          font-size: 12px; font-weight: 600;
-          background: rgba(10,22,40,0.8);
-          border: 1px solid rgba(59,123,255,0.12);
-          color: var(--text-muted);
-          text-decoration: none; transition: all 0.25s;
-        }
-        .footer-tag:hover {
-          border-color: rgba(59,123,255,0.3);
-          color: #93c5fd; background: rgba(19,84,249,0.08);
-        }
- 
-        /* Newsletter */
-        .footer-newsletter {
-          max-width: 1200px; margin: 0 auto;
-          padding: 40px 0; border-bottom: 1px solid rgba(59,123,255,0.08);
+        .ft-link-icon { font-size: 13px; opacity: .45; transition: opacity .25s; }
+        .ft-links a:hover .ft-link-icon { opacity: 1; }
+
+        /* ── NEWSLETTER ── */
+        .ft-newsletter {
+          position: relative; z-index: 1;
+          margin: 56px 56px 0;
+          padding: 36px 40px;
+          background: var(--bg-surface);
+          border: 1px solid var(--border-faint);
+          border-radius: 20px;
           display: flex; align-items: center;
-          justify-content: space-between; gap: 32px; flex-wrap: wrap;
+          justify-content: space-between;
+          gap: 32px; flex-wrap: wrap;
         }
-        .newsletter-text {}
-        .newsletter-title {
-          font-family: 'Syne', sans-serif; font-size: 20px;
-          font-weight: 700; color: #fff; margin-bottom: 6px;
+        .ft-nl-left { display: flex; align-items: center; gap: 16px; }
+        /* Reuse .mx-icon-box.brand */
+        .ft-nl-icon {
+          width: 48px; height: 48px; border-radius: 12px;
+          background: rgba(197,45,181,.12);
+          border: 1px solid rgba(197,45,181,.28);
+          display: flex; align-items: center; justify-content: center;
+          font-size: 22px; flex-shrink: 0;
         }
-        .newsletter-sub { font-size: 14px; color: var(--text-muted); font-weight: 300; }
-        .newsletter-form {
-          display: flex; gap: 12px; flex-shrink: 0; flex-wrap: wrap;
+        .ft-nl-title {
+          font-family: var(--font-display); font-size: 18px;
+          font-weight: 700; color: var(--text-primary); letter-spacing: -0.4px;
         }
-        .newsletter-input {
-          padding: 12px 20px; border-radius: 10px;
-          background: rgba(5,13,26,0.8);
-          border: 1px solid rgba(59,123,255,0.2);
-          color: #e8eeff; font-family: 'DM Sans', sans-serif;
-          font-size: 14px; outline: none; width: 260px;
-          transition: border-color 0.3s;
+        .ft-nl-sub { font-size: 13px; color: var(--text-muted); margin-top: 3px; font-weight: 300; }
+        .ft-nl-form { display: flex; gap: 10px; flex-wrap: wrap; }
+        .ft-nl-input {
+          padding: 11px 18px; border-radius: 10px;
+          background: var(--bg-raised);
+          border: 1px solid var(--border-faint);
+          color: var(--text-primary); font-family: var(--font-body);
+          font-size: 14px; outline: none; width: 240px;
+          transition: border-color .3s, box-shadow .3s;
         }
-        .newsletter-input:focus { border-color: rgba(19,84,249,0.5); }
-        .newsletter-input::placeholder { color: var(--text-muted); }
-        .newsletter-btn {
-          padding: 12px 24px; border-radius: 10px; border: none;
-          background: linear-gradient(135deg, #1354f9, #3b7bff);
-          color: #fff; font-family: 'DM Sans', sans-serif;
-          font-weight: 700; font-size: 14px; cursor: pointer;
-          transition: all 0.3s; white-space: nowrap;
-          box-shadow: 0 4px 16px rgba(19,84,249,0.35);
+        .ft-nl-input:focus {
+          border-color: var(--border-default);
+          box-shadow: 0 0 0 3px rgba(197,45,181,.1);
         }
-        .newsletter-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(19,84,249,0.5); }
- 
-        /* Bottom bar */
-        .footer-bottom {
-          max-width: 1200px; margin: 0 auto;
-          padding: 24px 0; display: flex;
-          align-items: center; justify-content: space-between;
+        .ft-nl-input::placeholder { color: var(--text-disabled); }
+        .ft-nl-success {
+          display: flex; align-items: center; gap: 10px;
+          font-size: 14px; color: var(--brand-light); font-weight: 600;
+        }
+
+        /* ── TAGS ── */
+        .ft-tags-section {
+          position: relative; z-index: 1;
+          padding: 32px 56px;
+          border-top: 1px solid var(--border-faint);
+          margin-top: 56px;
+        }
+        .ft-tags-label {
+          font-family: var(--font-mono); font-size: 10px;
+          letter-spacing: 3px; text-transform: uppercase;
+          color: var(--text-disabled); margin-bottom: 16px;
+        }
+        .ft-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .ft-tag {
+          padding: 5px 14px; border-radius: 100px;
+          font-size: 12px; font-weight: 500;
+          background: var(--bg-raised);
+          border: 1px solid var(--border-faint);
+          color: var(--text-muted); text-decoration: none;
+          transition: all .25s var(--ease);
+        }
+        .ft-tag:hover {
+          border-color: var(--border-default);
+          color: var(--brand-light);
+          background: rgba(197,45,181,.1);
+          transform: translateY(-2px);
+        }
+
+        /* ── BOTTOM BAR ── */
+        .ft-bottom {
+          position: relative; z-index: 1;
+          padding: 24px 56px;
+          border-top: 1px solid var(--border-faint);
+          display: flex; align-items: center;
+          justify-content: space-between;
           flex-wrap: wrap; gap: 16px;
         }
-        .footer-copy {
-          font-size: 13px; color: var(--text-muted);
+        .ft-copy {
+          font-size: 13px; color: var(--text-disabled); font-weight: 300;
         }
-        .footer-copy span { color: rgba(200,212,240,0.6); }
-        .footer-bottom-links { display: flex; gap: 24px; }
-        .footer-bottom-links a {
-          font-size: 13px; color: var(--text-muted);
-          text-decoration: none; transition: color 0.25s;
+        .ft-copy strong { color: var(--text-muted); font-weight: 500; }
+        .ft-bottom-links { display: flex; }
+        .ft-bottom-links a {
+          font-size: 12px; color: var(--text-disabled); text-decoration: none;
+          padding: 4px 16px; border-right: 1px solid var(--border-faint);
+          transition: color .25s;
         }
-        .footer-bottom-links a:hover { color: #fff; }
- 
-        @media (max-width: 1024px) {
-          .footer-top { grid-template-columns: 1fr 1fr; }
+        .ft-bottom-links a:last-child { border-right: none; }
+        .ft-bottom-links a:hover { color: var(--text-primary); }
+        .ft-made {
+          font-size: 12px; color: var(--text-disabled);
+          font-family: var(--font-mono);
+          display: flex; align-items: center; gap: 6px;
         }
-        @media (max-width: 640px) {
-          .footer { padding: 60px 24px 0; }
-          .footer-top { grid-template-columns: 1fr; gap: 36px; }
-          .footer-newsletter { flex-direction: column; align-items: flex-start; }
-          .newsletter-input { width: 100%; }
-          .footer-bottom { flex-direction: column; text-align: center; }
+        .ft-made span { color: var(--brand-light); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1100px) {
+          .ft-main { grid-template-columns: 1.4fr 1fr 1fr; }
+          .ft-brand { grid-column: 1 / -1; }
+        }
+        @media (max-width: 768px) {
+          .ft-banner      { margin: 56px 20px 0; padding: 36px 24px; }
+          .ft-main        { grid-template-columns: 1fr 1fr; padding: 48px 20px 0; gap: 36px; }
+          .ft-brand       { grid-column: 1 / -1; }
+          .ft-newsletter  { margin: 40px 20px 0; padding: 28px 24px; flex-direction: column; align-items: flex-start; }
+          .ft-nl-input    { width: 100%; }
+          .ft-tags-section { padding: 24px 20px; }
+          .ft-bottom      { padding: 20px; flex-direction: column; text-align: center; }
+          .ft-bottom-links { flex-wrap: wrap; justify-content: center; }
+          .ft-made        { display: none; }
+        }
+        @media (max-width: 480px) {
+          .ft-main { grid-template-columns: 1fr; }
+          .ft-banner-actions { flex-direction: column; }
+          .ft-banner-actions a { width: 100%; justify-content: center; }
         }
       `}</style>
- 
-      <footer className="footer">
-        {/* Main grid */}
-        <div className="footer-top">
-          <div className="footer-brand">
-            <div className="footer-logo">Med<em>XL</em></div>
-            <p className="footer-tagline">
-              Empowering hospitals and clinics with innovative technology solutions
-              that streamline operations and elevate patient care.
+
+      <footer className="ft">
+        <div className="ft-glow" />
+
+        {/* ── CTA BANNER ── */}
+        <div className="ft-banner">
+          <div className="ft-banner-left">
+            <div className="ft-banner-eyebrow">Ready to transform?</div>
+            <h2 className="ft-banner-title">
+              Ready To Give Your Hospital<br />
+              A <em>Dedicated</em> IT Team?
+            </h2>
+            <p className="ft-banner-sub">
+              Free consultation · No commitment · Response within 24 hrs
             </p>
-            <div className="footer-socials">
-              {['𝕏','in','f','▶'].map((s,i) => (
-                <a href="#" className="social-btn" key={i}>{s}</a>
+          </div>
+          <div className="ft-banner-actions">
+            <a href="#contact" className="mx-btn-primary">
+              Book Free Consultation
+            </a>
+            <a href="tel:+918148181288" className="mx-btn-ghost">
+              📞 Call Us Now
+            </a>
+          </div>
+        </div>
+
+        {/* ── MAIN GRID ── */}
+        <div className="ft-main">
+          {/* Brand column */}
+          <div className="ft-brand">
+            <a href="#home" className="ft-logo">
+              MedXL
+              <span className="ft-logo-dot" />
+            </a>
+            <p className="ft-tagline">
+              India's dedicated IT partner for 30–150 bedded hospitals.
+              Technology that lets your clinical team focus on what matters: patient care.
+            </p>
+
+            {/* Stats chips */}
+            <div className="ft-stats">
+              {stats.map(s => (
+                <div className="ft-stat-chip" key={s.label}>
+                  <span style={{ fontSize: 14 }}>{s.icon}</span>
+                  <div>
+                    <div className="ft-stat-num">{s.num}</div>
+                    <div className="ft-stat-label">{s.label}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Socials */}
+            <div className="ft-socials">
+              {socials.map(s => (
+                <a key={s.label} href={s.href} className="ft-social" aria-label={s.label}>
+                  {s.icon}
+                </a>
               ))}
             </div>
           </div>
- 
+
+          {/* Link columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
-            <div key={title}>
-              <div className="footer-col-title">{title}</div>
-              <ul className="footer-links">
-                {links.map(l => <li key={l}><a href="#">{l}</a></li>)}
+            <div className="ft-col" key={title}>
+              <div className="ft-col-title">{title}</div>
+              <ul className="ft-links">
+                {links.map(l => (
+                  <li key={l.label}>
+                    <a href={l.href}>
+                      <span className="ft-link-icon">{l.icon}</span>
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
           ))}
         </div>
- 
-        {/* Tags */}
-        <div className="footer-tags">
-          {tags.map(t => <a href="#" className="footer-tag" key={t}>{t}</a>)}
-        </div>
- 
-        {/* Newsletter */}
-        <div className="footer-newsletter">
-          <div className="newsletter-text">
-            <div className="newsletter-title">📬 Stay Updated</div>
-            <div className="newsletter-sub">Subscribe to the latest technology trends in Healthcare.</div>
+
+        {/* ── NEWSLETTER ── */}
+        <div className="ft-newsletter">
+          <div className="ft-nl-left">
+            <div className="ft-nl-icon">📬</div>
+            <div>
+              <div className="ft-nl-title">Stay in the Loop</div>
+              <div className="ft-nl-sub">Latest healthcare technology insights, weekly.</div>
+            </div>
           </div>
-          <div className="newsletter-form">
+          <div className="ft-nl-form">
             {subscribed ? (
-              <div style={{color:'#34d399', fontWeight:600, fontSize:15}}>
-                ✅ Subscribed! Thank you.
-              </div>
+              <div className="ft-nl-success">✅ Subscribed! Welcome aboard.</div>
             ) : (
               <>
                 <input
-                  className="newsletter-input"
-                  type="email" placeholder="Enter your email address"
-                  value={email} onChange={e => setEmail(e.target.value)}
+                  className="ft-nl-input"
+                  type="email"
+                  placeholder="Enter your email address"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && handleSubscribe()}
                 />
-                <button className="newsletter-btn"
-                  onClick={() => { if (email) setSubscribed(true) }}>
+                <button className="mx-btn-primary" onClick={handleSubscribe}>
                   Subscribe →
                 </button>
               </>
             )}
           </div>
         </div>
- 
-        {/* Bottom */}
-        <div className="footer-bottom">
-          <div className="footer-copy">
-            Copyright © <span>MedXL Ventures Private Limited</span>, All rights reserved.
+
+        {/* ── TAGS ── */}
+        <div className="ft-tags-section">
+          <div className="ft-tags-label">Popular Topics</div>
+          <div className="ft-tags">
+            {tags.map(t => (
+              <a href="#" className="ft-tag" key={t}>{t}</a>
+            ))}
           </div>
-          <div className="footer-bottom-links">
-            <a href="#">Terms of Use</a>
-            <a href="#">Privacy Policy</a>
+        </div>
+
+        {/* ── BOTTOM BAR ── */}
+        <div className="ft-bottom">
+          <div className="ft-copy">
+            Copyright © 2024 <strong>MedXL Ventures Private Limited</strong>.
+            All rights reserved.
+          </div>
+          <div className="ft-bottom-links">
+            <a href="/Terms">Terms of Use</a>
+            <a href="/Privacy">Privacy Policy</a>
             <a href="#">Sitemap</a>
+            <a href="#">Cookie Policy</a>
+          </div>
+          <div className="ft-made">
+            Built with <span>♥</span> for Healthcare
           </div>
         </div>
       </footer>

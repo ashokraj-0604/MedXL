@@ -1,212 +1,174 @@
 import { useEffect, useRef, useState } from 'react'
- 
-function useCountUp(target, duration = 2000, start = false) {
-  const [count, setCount] = useState(0)
+
+function useCountUp(target, started) {
+  const [val, setVal] = useState(0)
   useEffect(() => {
-    if (!start) return
-    let startTime = null
-    const step = (timestamp) => {
-      if (!startTime) startTime = timestamp
-      const progress = Math.min((timestamp - startTime) / duration, 1)
-      const ease = 1 - Math.pow(1 - progress, 3)
-      setCount(Math.floor(ease * target))
-      if (progress < 1) requestAnimationFrame(step)
+    if (!started) return
+    let start = null
+    const step = (ts) => {
+      if (!start) start = ts
+      const p = Math.min((ts - start) / 2000, 1)
+      const e = 1 - Math.pow(1 - p, 4)
+      setVal(Math.floor(e * target))
+      if (p < 1) requestAnimationFrame(step)
     }
     requestAnimationFrame(step)
-  }, [target, duration, start])
-  return count
+  }, [target, started])
+  return val
 }
- 
+
 export default function About() {
-  const [visible, setVisible] = useState(false)
   const ref = useRef(null)
- 
+  const [started, setStarted] = useState(false)
   useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true) }, { threshold: 0.3 })
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setStarted(true) }, { threshold: 0.3 })
     if (ref.current) obs.observe(ref.current)
     return () => obs.disconnect()
   }, [])
- 
-  const projects = useCountUp(500, 2000, visible)
-  const results = useCountUp(98, 2000, visible)
-  const hospitals = useCountUp(1800, 2200, visible)
- 
+  const c0 = useCountUp(30,started)
+  const c1 = useCountUp(150, started)
+  const c2 = useCountUp(40,   started)
+  const c3 = useCountUp(2,   started)
+  const counts = [c0, c1, c2, c3]
+
   return (
     <>
       <style>{`
-        .about-section {
-          padding: 120px 60px;
-          background: linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%);
+        .about {
+          padding: 100px 56px;
+          background: var(--bg-surface);
           position: relative; overflow: hidden;
         }
         .about-inner {
           display: grid; grid-template-columns: 1fr 1fr;
-          gap: 80px; align-items: center; max-width: 1200px; margin: 0 auto;
+          gap: 80px; align-items: center;
+          max-width: 1200px; margin: 0 auto;
         }
-        .about-visual {
-          position: relative; display: flex; align-items: center; justify-content: center;
+        /* Left */
+        .about-items { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
+        .about-item {
+          display: flex; align-items: flex-start; gap: 16px;
+          padding: 18px 20px; border-radius: 14px;
+          background: var(--bg-raised); border: 1px solid var(--border-faint);
+          transition: all .3s var(--ease);
         }
-        .about-card-main {
-          background: rgba(10,22,40,0.9);
-          border: 1px solid rgba(59,123,255,0.2);
-          border-radius: 24px; padding: 48px;
-          position: relative; z-index: 2;
-          width: 100%;
-          box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+        .about-item:hover {
+          border-color: var(--border-default);
+          background: var(--bg-elevated);
+          transform: translateX(6px);
         }
-        .about-stat-row {
-          display: flex; gap: 0;
-          border-radius: 16px; overflow: hidden;
-          border: 1px solid rgba(59,123,255,0.15);
-          margin-bottom: 20px;
+        .about-item-icon {
+          width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+          background: rgba(197,45,181,.12); border: 1px solid var(--border-subtle);
+          display: flex; align-items: center; justify-content: center; font-size: 16px;
         }
-        .about-stat {
-          flex: 1; padding: 24px 20px; text-align: center;
-          border-right: 1px solid rgba(59,123,255,0.1);
-          background: rgba(19,84,249,0.04);
-          transition: background 0.3s;
+        .about-item-title {
+          font-family: var(--font-display); font-size: 14px; font-weight: 700;
+          color: var(--text-primary); margin-bottom: 4px;
         }
-        .about-stat:last-child { border-right: none; }
-        .about-stat:hover { background: rgba(19,84,249,0.1); }
-        .about-stat-num {
-          font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800;
-          background: linear-gradient(135deg, #fff, #93c5fd);
+        .about-item-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+        /* Right — counters */
+        .about-counters { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .about-counter {
+          background: var(--bg-raised); border: 1px solid var(--border-faint);
+          border-radius: 18px; padding: 28px 24px;
+          position: relative; overflow: hidden;
+          transition: border-color .3s, transform .3s var(--spring);
+        }
+        .about-counter:hover {
+          border-color: var(--border-default);
+          transform: translateY(-5px);
+          box-shadow: 0 20px 48px rgba(0,0,0,.3);
+        }
+        .about-counter::after {
+          content: ''; position: absolute; bottom: -30px; right: -30px;
+          width: 110px; height: 110px; border-radius: 50%;
+          background: var(--c-glow); filter: blur(28px);
+          pointer-events: none; opacity: 0; transition: opacity .4s;
+        }
+        .about-counter:hover::after { opacity: 1; }
+        .about-counter-icon { font-size: 26px; margin-bottom: 14px; display: block; }
+        .about-counter-num {
+          font-family: var(--font-display); font-weight: 800; font-size: 42px;
+          background: var(--brand-grad);
           -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-          line-height: 1;
+          background-clip: text; line-height: 1; letter-spacing: -1.5px;
+          display: flex; align-items: baseline; gap: 3px;
         }
-        .about-stat-suffix {
-          font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800;
-          background: linear-gradient(135deg, #1354f9, #00d4ff);
+        .about-counter-suf {
+          font-size: 22px;
+          background: var(--brand-grad);
           -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+          background-clip: text;
         }
-        .about-stat-label {
-          font-size: 12px; color: var(--text-muted); margin-top: 6px;
-          text-transform: uppercase; letter-spacing: 1px; font-weight: 500;
+        .about-counter-label {
+          font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px;
+          text-transform: uppercase; color: var(--text-muted); margin-top: 8px;
         }
-        .about-avatars {
-          display: flex; align-items: center; gap: 16px;
-          padding: 20px 24px;
-          background: rgba(19,84,249,0.06);
-          border: 1px solid rgba(59,123,255,0.15);
-          border-radius: 14px;
+        .about-quote {
+          margin-top: 20px; padding: 22px;
+          background: rgba(197,45,181,.07);
+          border: 1px solid var(--border-subtle);
+          border-radius: 14px; position: relative;
         }
-        .avatar-stack { display: flex; }
-        .avatar {
-          width: 36px; height: 36px; border-radius: 50%;
-          border: 2px solid var(--navy-2);
-          margin-left: -10px; overflow: hidden;
-          background: linear-gradient(135deg, #1354f9, #00d4ff);
-          display: flex; align-items: center; justify-content: center;
-          font-size: 14px; font-weight: 700; color: #fff;
-          font-family: 'Syne', sans-serif;
+        .about-quote::before {
+          content: '"'; font-family: var(--font-display); font-size: 56px;
+          color: var(--brand-hot); position: absolute; top: -8px; left: 14px;
+          line-height: 1; opacity: .3;
         }
-        .avatar:first-child { margin-left: 0; }
-        .avatar-text { font-size: 13px; color: rgba(200,212,240,0.8); }
-        .avatar-text strong { color: #fff; font-weight: 600; }
- 
-        /* Floating badge */
-        .floating-badge {
-          position: absolute; top: -20px; right: -20px;
-          background: linear-gradient(135deg, #1354f9, #3b7bff);
-          border-radius: 14px; padding: 16px 20px; z-index: 3;
-          box-shadow: 0 16px 40px rgba(19,84,249,0.4);
-          animation: float 5s ease-in-out infinite;
+        .about-quote p {
+          font-size: 13.5px; color: var(--text-secondary);
+          line-height: 1.75; font-style: italic; padding-top: 8px;
         }
-        .floating-badge-num {
-          font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: #fff;
-        }
-        .floating-badge-text { font-size: 11px; color: rgba(255,255,255,0.75); font-weight: 500; }
- 
-        /* Decorative glow */
-        .about-glow {
-          position: absolute; width: 400px; height: 400px; border-radius: 50%;
-          background: radial-gradient(circle, rgba(19,84,249,0.15) 0%, transparent 70%);
-          filter: blur(60px); top: 50%; left: 50%;
-          transform: translate(-50%,-50%); pointer-events: none;
-        }
- 
-        .about-content {}
-        .about-mission {
-          background: rgba(10,22,40,0.6); border: 1px solid rgba(59,123,255,0.12);
-          border-radius: 16px; padding: 28px; margin-top: 32px;
-        }
-        .about-mission-title {
-          font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
-          color: #1354f9; text-transform: uppercase; letter-spacing: 2px;
-          margin-bottom: 12px;
-        }
-        .about-mission p {
-          font-size: 15px; color: var(--text-muted); line-height: 1.7; font-weight: 300;
-        }
-        .about-link {
-          display: inline-flex; align-items: center; gap: 8px;
-          color: #3b7bff; font-weight: 600; font-size: 15px;
-          text-decoration: none; margin-top: 24px;
-          transition: gap 0.3s;
-        }
-        .about-link:hover { gap: 14px; }
         @media (max-width: 960px) {
-          .about-section { padding: 80px 24px; }
+          .about { padding: 80px 20px; }
           .about-inner { grid-template-columns: 1fr; gap: 48px; }
-          .floating-badge { top: -10px; right: 10px; }
         }
       `}</style>
- 
-      <section className="about-section" id="about" ref={ref}>
+      <section className="about" id="about" ref={ref}>
         <div className="about-inner">
-          <div className="about-visual">
-            <div className="about-glow" />
-            <div className="about-card-main">
-              <div className="about-stat-row">
-                <div className="about-stat">
-                  <div className="about-stat-num">{projects}<span className="about-stat-suffix">+</span></div>
-                  <div className="about-stat-label">Projects Done</div>
+          <div>
+            <div className="section-eyebrow">About MedXL</div>
+            <h2 className="section-title">Mission &amp; <em>Vision</em></h2>
+            <p className="section-desc"> We understand that mid-sized hospitals have complex needs but lack a dedicated IT team. MedXL fills that gap — completely. Whether you're a single-speciality hospital, a community health centre, or a growing multi-specialty facility, we have a plan for you.</p>
+            <div className="about-items">
+              {[
+                { icon:'🎯', title:'Single-speciality & super-speciality hospitals', },
+                { icon:'🔒', title:'Community hospitals & nursing homes in Tier 2/3 cities',},
+                { icon:'🤝', title:'Multi-speciality hospitals looking to digitise operations', },
+                { icon:'⭐', title:'Diagnostic centres, maternity hospitals & surgical centres', },
+              ].map(i=>(
+                <div className="about-item" key={i.title}>
+                  <div className="about-item-icon">{i.icon}</div>
+                  <div>
+                    <div className="about-item-title">{i.title}</div>
+                    <div className="about-item-desc">{i.desc}</div>
+                  </div>
                 </div>
-                <div className="about-stat">
-                  <div className="about-stat-num">{results}<span className="about-stat-suffix">%</span></div>
-                  <div className="about-stat-label">Results Guaranteed</div>
-                </div>
-              </div>
-              <div className="about-stat-row">
-                <div className="about-stat" style={{flex:'1 1 100%'}}>
-                  <div className="about-stat-num">{hospitals}<span className="about-stat-suffix">+</span></div>
-                  <div className="about-stat-label">Hospitals & Clinics Trust Us</div>
-                </div>
-              </div>
-              <div className="about-avatars">
-                <div className="avatar-stack">
-                  {['A','B','C'].map((l,i) => (
-                    <div className="avatar" key={i} style={{
-                      background: `linear-gradient(135deg, ${['#1354f9','#7c3aed','#059669'][i]}, ${['#3b7bff','#a78bfa','#34d399'][i]})`
-                    }}>{l}</div>
-                  ))}
-                </div>
-                <div className="avatar-text"><strong>6,000+</strong> Happy Customers</div>
-              </div>
-            </div>
-            <div className="floating-badge">
-              <div className="floating-badge-num">20+</div>
-              <div className="floating-badge-text">Years of Expertise</div>
+              ))}
             </div>
           </div>
- 
-          <div className="about-content">
-            <div className="section-label">About Us</div>
-            <h2 className="section-title">MEDXL Mission &amp; Goal</h2>
-            <p style={{fontSize:16, color:'var(--text-muted)', lineHeight:1.75, fontWeight:300}}>
-              At MedXL, we help hospitals and clinics work smarter with our innovative
-              software. Our solutions make daily operations easier, help healthcare
-              organizations grow, and support their success.
-            </p>
-            <div className="about-mission">
-              <div className="about-mission-title">Our Commitment</div>
-              <p>
-                We're committed to delivering quality tools that make healthcare better
-                for everyone. Our technology simplifies complex tasks, giving medical
-                teams more time to focus on what matters most: patient care.
-              </p>
+          <div>
+            <div className="about-counters">
+              {[
+                { icon:'🏥', num:c0, suf:'+', label:'Min. Bed Strength', glow:'rgba(197,45,181,.3)' },
+                { icon:'✅', num:c1, suf:'+', label:'Max Beds(Core)',  glow:'rgba(245,166,35,.3)' },
+                { icon:'⭐', num:c2, suf:'%', label:'Wait Times', glow:'rgba(96,165,250,.3)'  },
+                { icon:'📅', num:c3, suf:'cr',label:'Avg. Annual Savings',  glow:'rgba(168,85,247,.3)'  },
+              ].map((a,i)=>(
+                <div className="about-counter" key={a.label} style={{'--c-glow':a.glow}}>
+                  <span className="about-counter-icon">{a.icon}</span>
+                  <div className="about-counter-num">
+                    {counts[i].toLocaleString()}
+                    <span className="about-counter-suf">{a.suf}</span>
+                  </div>
+                  <div className="about-counter-label">{a.label}</div>
+                </div>
+              ))}
             </div>
-            <a href="#contact" className="about-link">Learn More →</a>
+            <div className="about-quote">
+              <p>99.9% Uptime SLA. MedXL's solutions led to a Guaranteed for all plans. Backed by cloud infrastructure.</p>
+            </div>
           </div>
         </div>
       </section>

@@ -1,169 +1,143 @@
-const techs = [
-  { name: 'React JS', icon: '⚛️', color: '#61DAFB' },
-  { name: 'Node.js', icon: '🟢', color: '#339933' },
-  { name: 'MongoDB', icon: '🍃', color: '#47A248' },
-  { name: 'Python', icon: '🐍', color: '#3776AB' },
-  { name: 'TypeScript', icon: '🔷', color: '#3178C6' },
-  { name: 'PostgreSQL', icon: '🐘', color: '#4169E1' },
-  { name: 'PHP', icon: '🐘', color: '#777BB4' },
-  { name: 'Java', icon: '☕', color: '#ED8B00' },
-  { name: 'Swift', icon: '🦅', color: '#F05138' },
-  { name: 'Laravel', icon: '🔴', color: '#FF2D20' },
-  { name: 'Ruby', icon: '💎', color: '#CC342D' },
-  { name: 'Docker', icon: '🐋', color: '#2496ED' },
-  { name: 'AWS', icon: '☁️', color: '#FF9900' },
-  { name: 'Kubernetes', icon: '⚙️', color: '#326CE5' },
+import React from 'react'
+const row1 = [
+  { name:'React JS',    icon:'⚛️',  color:'#61DAFB' },
+  { name:'Node.js',     icon:'🟢',  color:'#68A063' },
+  { name:'MongoDB',     icon:'🍃',  color:'#47A248' },
+  { name:'Python',      icon:'🐍',  color:'#3776AB' },
+  { name:'TypeScript',  icon:'🔷',  color:'#3178C6' },
+  { name:'PostgreSQL',  icon:'🐘',  color:'#4169E1' },
+  { name:'Docker',      icon:'🐋',  color:'#2496ED' },
 ]
- 
-const tabs = ['Web Platform','Databases','Cloud & DevOps','Mobile Apps','Other Frameworks']
- 
+const row2 = [
+  { name:'AWS',         icon:'☁️',  color:'#FF9900' },
+  { name:'Swift',       icon:'🦅',  color:'#F05138' },
+  { name:'Laravel',     icon:'🔴',  color:'#FF2D20' },
+  { name:'Java',        icon:'☕',  color:'#ED8B00' },
+  { name:'Kubernetes',  icon:'⎈',   color:'#326CE5' },
+  { name:'PHP',         icon:'🐘',  color:'#777BB4' },
+  { name:'Flutter',     icon:'💙',  color:'#02569B' },
+]
+
+function Chip({ name, icon, color }) {
+  return (
+    <div className="tech-chip" style={{'--chip-color': color}}>
+      <span className="tech-chip-icon">{icon}</span>
+      <span className="tech-chip-name">{name}</span>
+    </div>
+  )
+}
+
 export default function Technologies() {
   return (
     <>
       <style>{`
-        .tech-section {
-          padding: 120px 0;
-          background: var(--navy-2); overflow: hidden;
-          position: relative;
+        .tech {
+          padding: 100px 0;
+          background: var(--ink);
+          overflow: hidden; position: relative;
         }
-        .tech-header {
-          padding: 0 60px; margin-bottom: 64px;
+        .tech-header { padding: 0 56px; margin-bottom: 56px; max-width: 1200px; margin-left:auto; margin-right:auto; }
+        .tech-grid-header { display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:24px; margin-bottom:56px; }
+
+        .tech-track { overflow: hidden; margin-bottom: 16px;
+          mask: linear-gradient(90deg,transparent,black 10%,black 90%,transparent);
+          -webkit-mask: linear-gradient(90deg,transparent,black 10%,black 90%,transparent);
         }
-        .tech-tabs {
-          display: flex; gap: 8px; flex-wrap: wrap;
-          margin-top: 36px;
+        .tech-row {
+          display: flex; gap: 12px; min-width: max-content;
+          animation: marquee-ltr 28s linear infinite;
+          padding: 4px 0;
         }
-        .tech-tab {
-          padding: 8px 20px; border-radius: 100px;
-          font-family: 'DM Sans', sans-serif;
-          font-size: 13px; font-weight: 600;
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(59,123,255,0.12);
-          color: var(--text-muted); cursor: pointer;
-          transition: all 0.25s;
-        }
-        .tech-tab:first-child, .tech-tab:hover {
-          background: rgba(19,84,249,0.12);
-          border-color: rgba(19,84,249,0.3);
-          color: #93c5fd;
-        }
-        .tech-marquee-wrap {
-          overflow: hidden;
-          -webkit-mask: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
-          mask: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
-          margin-bottom: 20px;
-        }
-        .tech-marquee-row {
-          display: flex; gap: 0;
-        }
-        .tech-marquee-inner {
-          display: flex; gap: 0;
-          animation: marquee 25s linear infinite;
-          flex-shrink: 0;
-          min-width: max-content;
-        }
-        .tech-marquee-inner.reverse {
-          animation-direction: reverse;
-          animation-duration: 32s;
-        }
+        .tech-row.rev { animation: marquee-rtl 36s linear infinite; }
+        .tech-row:hover { animation-play-state: paused; }
+
         .tech-chip {
           display: flex; align-items: center; gap: 10px;
-          padding: 14px 28px;
-          margin: 0 8px;
-          background: rgba(10,22,40,0.8);
-          border: 1px solid rgba(59,123,255,0.1);
-          border-radius: 12px;
-          white-space: nowrap;
-          transition: all 0.3s;
-          cursor: default;
+          padding: 12px 22px; border-radius: 100px;
+          background: var(--ink-2); border: 1px solid var(--border);
+          white-space: nowrap; cursor: default;
+          transition: all .3s var(--ease);
         }
         .tech-chip:hover {
-          border-color: rgba(59,123,255,0.35);
-          background: rgba(19,84,249,0.08);
+          border-color: var(--chip-color);
+          background: color-mix(in srgb, var(--chip-color) 10%, var(--ink-2));
           transform: translateY(-3px);
+          box-shadow: 0 8px 24px rgba(0,0,0,.3);
         }
-        .tech-chip-icon { font-size: 20px; }
+        .tech-chip-icon { font-size: 18px; }
         .tech-chip-name {
-          font-family: 'DM Sans', sans-serif;
-          font-size: 15px; font-weight: 600;
-          color: rgba(200,212,240,0.8);
+          font-family: var(--font-body); font-size: 14px; font-weight: 500;
+          color: var(--fog-3); transition: color .3s;
         }
+        .tech-chip:hover .tech-chip-name { color: var(--chip-color); }
+
         .tech-trust {
-          display: flex; align-items: center; justify-content: center; gap: 40px;
-          padding: 48px 60px 0; flex-wrap: wrap;
+          display: flex; align-items: center; justify-content: center; gap: 48px;
+          padding: 48px 56px 0; flex-wrap: wrap; margin-top: 16px;
+          border-top: 1px solid var(--border);
         }
-        .tech-trust-item {
-          display: flex; flex-direction: column; align-items: center; gap: 8px;
+        .trust-item { display: flex; align-items: center; gap: 16px; }
+        .trust-badge {
+          width: 48px; height: 48px; border-radius: 12px;
+          background: var(--purple-dim); border: 1px solid var(--border-em);
+          display: flex; align-items: center; justify-content: center;
+          font-size: 22px;
         }
-        .tech-trust-score {
-          display: flex; gap: 4px;
-          font-size: 18px;
+        .trust-label { font-size: 13px; color: var(--fog-3); font-weight: 400; }
+        .trust-val {
+          font-family: var(--font-display); font-size: 22px; font-weight: 800;
+          color: var(--cream);
         }
-        .tech-trust-label {
-          font-size: 13px; color: var(--text-muted);
-        }
-        .tech-trust-brand {
-          font-family: 'Syne', sans-serif; font-size: 15px;
-          font-weight: 700; color: #fff;
-        }
+        .trust-sep { width: 1px; height: 40px; background: var(--border); }
+
         @media (max-width: 768px) {
-          .tech-header { padding: 0 24px; }
+          .tech-header { padding: 0 20px; }
+          .tech-trust { gap: 24px; padding: 32px 20px 0; }
+          .trust-sep { display: none; }
         }
       `}</style>
- 
-      <section className="tech-section" id="technologies">
-        <div className="tech-header">
-          <div className="section-label">Our Technologies</div>
-          <h2 className="section-title">We Use Technologies</h2>
-          <div className="tech-tabs">
-            {tabs.map(t => <div className="tech-tab" key={t}>{t}</div>)}
+
+      <section className="tech" id="technologies">
+        <div className="tech-grid-header" style={{padding:'0 56px', maxWidth:1200, margin:'0 auto 56px'}}>
+          <div>
+            <div className="section-eyebrow">Our Stack</div>
+            <h2 className="section-title">Technologies We <em>Master</em></h2>
+          </div>
+          <p className="section-desc" style={{maxWidth:360}}>
+            We use the right tool for each job — battle-tested stacks chosen
+            for reliability, scalability, and long-term maintainability.
+          </p>
+        </div>
+
+        <div className="tech-track">
+          <div className="tech-row">
+            {[...row1,...row1,...row1].map((t,i)=><Chip key={i} {...t}/>)}
           </div>
         </div>
- 
-        <div className="tech-marquee-wrap">
-          <div className="tech-marquee-row">
-            <div className="tech-marquee-inner">
-              {[...techs, ...techs].map((t, i) => (
-                <div className="tech-chip" key={i}>
-                  <span className="tech-chip-icon">{t.icon}</span>
-                  <span className="tech-chip-name" style={{color: t.color === '#61DAFB' ? t.color : undefined}}>{t.name}</span>
-                </div>
-              ))}
-            </div>
+        <div className="tech-track">
+          <div className="tech-row rev">
+            {[...row2,...row2,...row2].map((t,i)=><Chip key={i} {...t}/>)}
           </div>
         </div>
-        <div className="tech-marquee-wrap">
-          <div className="tech-marquee-row">
-            <div className="tech-marquee-inner reverse">
-              {[...techs.slice(7), ...techs.slice(0,7), ...techs.slice(7), ...techs.slice(0,7)].map((t, i) => (
-                <div className="tech-chip" key={i}>
-                  <span className="tech-chip-icon">{t.icon}</span>
-                  <span className="tech-chip-name">{t.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
- 
+
         <div className="tech-trust">
           {[
-            { emoji: '⭐⭐⭐⭐⭐', brand: 'Capterra', reviews: '300+ reviews' },
-            { emoji: '⭐⭐⭐⭐⭐', brand: 'G2', reviews: '550+ reviews' },
-          ].map(({ emoji, brand, reviews }) => (
-            <div className="tech-trust-item" key={brand}>
-              <div className="tech-trust-score">{emoji}</div>
-              <div className="tech-trust-brand">{brand}</div>
-              <div className="tech-trust-label">From {reviews}</div>
-            </div>
+            { badge:'⭐', val:'4.9/5',  label:'Average Client Rating' },
+            { badge:'🏆', val:'300+',   label:'Capterra Reviews' },
+            { badge:'💬', val:'550+',   label:'G2 Reviews' },
+            { badge:'🌍', val:'1,800+', label:'Institutions Trust Us' },
+          ].map((t,i,arr) => (
+            <React.Fragment key={t.val}>
+              <div className="trust-item">
+                <div className="trust-badge">{t.badge}</div>
+                <div>
+                  <div className="trust-val">{t.val}</div>
+                  <div className="trust-label">{t.label}</div>
+                </div>
+              </div>
+              {i < arr.length-1 && (<div className="trust-sep" />)}
+            </React.Fragment>
           ))}
-          <div className="tech-trust-item">
-            <div style={{fontFamily:'Syne,sans-serif', fontSize:36, fontWeight:800,
-              background:'linear-gradient(135deg,#fff,#93c5fd)',
-              WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent'}}>
-              1,800+
-            </div>
-            <div className="tech-trust-label">Hospitals & Clinics Trust Us</div>
-          </div>
         </div>
       </section>
     </>
