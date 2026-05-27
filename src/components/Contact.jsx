@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+const WHATSAPP_NUMBER = '919884021188' // country code + number, no +
+
 const steps = [
   { num:'01', label:'Share your requirements',   icon:'📋' },
   { num:'02', label:'Discuss with our experts',  icon:'💬' },
@@ -15,9 +17,35 @@ export default function Contact() {
   const change = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
   const submit = () => {
-    if (!form.name || !form.email || !form.message) { setStatus('error'); return }
+    if (!form.name || !form.email || !form.message) {
+      setStatus('error')
+      return
+    }
+
     setStatus('loading')
-    setTimeout(() => setStatus('success'), 1600)
+
+    // Build the WhatsApp message text
+    const lines = [
+      `👋 *New Contact Form Submission*`,
+      ``,
+      `*Name:* ${form.name}`,
+      `*Email:* ${form.email}`,
+      form.phone   ? `*Phone:* ${form.phone}`     : null,
+      form.service ? `*Service:* ${form.service}` : null,
+      ``,
+      `*Message:*`,
+      form.message,
+    ]
+      .filter((l) => l !== null)
+      .join('\n')
+
+    const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines)}`
+
+    // Short delay so the user sees "Sending…" feedback, then open WhatsApp
+    setTimeout(() => {
+      setStatus('success')
+      window.open(waUrl, '_blank', 'noopener,noreferrer')
+    }, 800)
   }
 
   const base = {
@@ -115,8 +143,8 @@ export default function Contact() {
           display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
         }
         .form-msg.success {
-          background: rgba(155,39,175,.1); border: 1px solid rgba(155,39,175,.25);
-          color: var(--purple-light);
+          background: rgba(37,211,102,.08); border: 1px solid rgba(37,211,102,.25);
+          color: #25d366;
         }
         .form-msg.error {
           background: rgba(255,107,107,.08); border: 1px solid rgba(255,107,107,.2);
@@ -141,6 +169,7 @@ export default function Contact() {
           border: 2px solid rgba(0,0,0,.2); border-top-color: var(--ink);
           animation: spin-cw .7s linear infinite;
         }
+        @keyframes spin-cw { to { transform: rotate(360deg); } }
 
         select option { background: #141714; }
 
@@ -175,7 +204,7 @@ export default function Contact() {
 
             <div className="contact-info">
               {[
-                ['📞', '+91 8148181288', 'tel:+918148181288'],
+                ['📞', '+91 98840 21188', 'tel:+919884021188'],
                 ['✉️', 'info@medxl.in',  'mailto:info@medxl.in'],
                 ['📍', 'Chennai, Tamil Nadu, India', '#'],
               ].map(([icon, text, href]) => (
@@ -193,7 +222,9 @@ export default function Contact() {
             <div className="form-sub">We respond within 24 hours, guaranteed.</div>
 
             {status === 'success' && (
-              <div className="form-msg success">✅ Message sent! We'll be in touch soon.</div>
+              <div className="form-msg success">
+                ✅ WhatsApp is opening with your message — just hit Send!
+              </div>
             )}
             {status === 'error' && (
               <div className="form-msg error">⚠️ Please fill in Name, Email and Message.</div>
@@ -228,7 +259,7 @@ export default function Contact() {
             <button className="submit-btn" onClick={submit} disabled={status==='loading'}>
               {status === 'loading'
                 ? <><div className="btn-spinner" /> Sending...</>
-                : <>Send Message →</>
+                : <>Send via WhatsApp →</>
               }
             </button>
           </div>

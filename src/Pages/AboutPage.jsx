@@ -161,7 +161,7 @@ export default function AboutPage() {
 
               {/* CTAs */}
               <div className="mh-actions">
-                <a href="/contact" className="mh-btn-primary">Book Free Consultation →</a>
+                <a href="/#contact" className="mh-btn-primary">Book Free Consultation →</a>
                 <a href="/price"   className="mh-btn-secondary">View Pricing</a>
               </div>
 

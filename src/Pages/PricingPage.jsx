@@ -19,7 +19,7 @@ const plans = [
   {
     id: 'starter', name: 'Starter', price: '₹1L', featured: false,
     desc: 'For small hospitals setting up their digital presence for the first time.',
-    cta: { label: 'Get Started', href: 'https://api.whatsapp.com/send/?phone=918148181288' },
+    cta: { label: 'Get Started', href: 'https://api.whatsapp.com/send/?phone=919884021188' },
     features: [
       { text: 'Professional Hospital Website (5 pages)',       included: true  },
       { text: 'Online Appointment Booking System',             included: true  },
@@ -41,7 +41,7 @@ const plans = [
   {
     id: 'growth', name: 'Growth', price: '₹2.5L', badge: '✦ MOST POPULAR', featured: true,
     desc: 'For established hospitals scaling their digital operations and clinical workflows.',
-    cta: { label: 'Get Started', href: 'https://api.whatsapp.com/send/?phone=918148181288' },
+    cta: { label: 'Get Started', href: 'https://api.whatsapp.com/send/?phone=919884021188' },
     features: [
       { text: 'Everything in Starter',                             included: true  },
       { text: 'Hospital Management System (HMS Cloud)',            included: true  },
@@ -63,7 +63,7 @@ const plans = [
   {
     id: 'enterprise', name: 'Enterprise', price: '₹5L', featured: false,
     desc: 'Full IT transformation for growing multi-specialty hospitals with complex needs.',
-    cta: { label: 'Talk to Us', href: 'https://api.whatsapp.com/send/?phone=918148181288' },
+    cta: { label: 'Talk to Us', href: 'https://api.whatsapp.com/send/?phone=919884021188' },
     features: [
       { text: 'Everything in Growth',                             included: true },
       { text: 'Hospital Mobile App (Android + iOS)',              included: true },
@@ -274,11 +274,11 @@ export default function PricingPage() {
               </p>
 
               <div className="mh-actions">
-                <a href="https://api.whatsapp.com/send/?phone=918148181288" className="mh-btn-primary" target="_blank" rel="noreferrer">
+                <a href="https://api.whatsapp.com/send/?phone=919884021188" className="mh-btn-primary" target="_blank" rel="noreferrer">
                   Start From ₹1L/yr →
                 </a>
-                <a href="tel:+918148181288" className="mh-btn-secondary">
-                  📞 +91 81481 81288
+                <a href="tel:+919884021188" className="mh-btn-secondary">
+                  📞 +91 98840 21188
                 </a>
               </div>
 
@@ -340,7 +340,7 @@ export default function PricingPage() {
                     <span className="mh-card-status-dot" />
                     All Plans Available
                   </div>
-                  <a href="https://api.whatsapp.com/send/?phone=918148181288" className="mh-card-footer-btn" target="_blank" rel="noreferrer">
+                  <a href="https://api.whatsapp.com/send/?phone=919884021188" className="mh-card-footer-btn" target="_blank" rel="noreferrer">
                     Get a Quote →
                   </a>
                 </div>

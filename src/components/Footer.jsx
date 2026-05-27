@@ -408,10 +408,10 @@ export default function Footer() {
             </p>
           </div>
           <div className="ft-banner-actions">
-            <a href="#contact" className="mx-btn-primary">
+            <a href="/#contact" className="mx-btn-primary">
               Book Free Consultation
             </a>
-            <a href="tel:+918148181288" className="mx-btn-ghost">
+            <a href="tel:+919884021188" className="mx-btn-ghost">
               📞 Call Us Now
             </a>
           </div>
@@ -426,7 +426,7 @@ export default function Footer() {
               <span className="ft-logo-dot" />
             </a>
             <p className="ft-tagline">
-              India's dedicated IT partner for 30–150 bedded hospitals.
+              India's dedicated IT partner for 20–150 bedded hospitals.
               Technology that lets your clinical team focus on what matters: patient care.
             </p>
 
@@ -520,8 +520,7 @@ export default function Footer() {
           <div className="ft-bottom-links">
             <a href="/Terms">Terms of Use</a>
             <a href="/Privacy">Privacy Policy</a>
-            <a href="#">Sitemap</a>
-            <a href="#">Cookie Policy</a>
+            <a href="/Cookies">Cookie Policy</a>
           </div>
           <div className="ft-made">
             Built with <span>♥</span> for Healthcare

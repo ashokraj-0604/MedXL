@@ -112,7 +112,7 @@ const SERVICES = [
       'Branded email signature templates',
       'Spam filtering & security',
     ],
-    href: '/services/email-comms',
+    href: '/Email',
   },
   {
     icon: '🎓', color: 'green',
@@ -125,7 +125,7 @@ const SERVICES = [
       'Ongoing support for new joiners',
       'Quarterly refresher sessions',
     ],
-    href: '/services/staff-training',
+    href: '/Training',
   },
 ]
 
@@ -555,12 +555,12 @@ useEffect(() => {
 
         <p className="sh-desc">
           Nine comprehensive IT services, one annual plan, one dedicated team.
-          Starting at ₹1 Lakh per year for hospitals of 30–150 beds.
+          Starting at ₹1 Lakh per year for hospitals of 20–150 beds.
         </p>
 
         <div className="sh-actions">
-          <a href="/pricing" className="mx-btn-primary">View Pricing Plans →</a>
-          <a href="/contact" className="mx-btn-ghost">Free Consultation</a>
+          <a href="/price" className="mx-btn-primary">View Pricing Plans →</a>
+          <a href="/#contact" className="mx-btn-ghost">Free Consultation</a>
         </div>
 
         {/* Trust badges */}

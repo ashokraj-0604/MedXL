@@ -494,9 +494,9 @@ export default function ProductDetailPage({ config }) {
               <p className="pdp-hero-desc">{subtitle}</p>
 
               <div className="pdp-hero-actions">
-                <Link to="/pricing" className="mx-btn-primary">See Pricing →</Link>
+                <Link to="/price" className="mx-btn-primary">See Pricing →</Link>
                 <a
-                  href="https://api.whatsapp.com/send/?phone=918148181288"
+                  href="https://api.whatsapp.com/send/?phone=919884021188"
                   className="mx-btn-ghost"
                   target="_blank"
                   rel="noreferrer"
@@ -552,7 +552,7 @@ export default function ProductDetailPage({ config }) {
               ))}
             </ul>
             <div style={{ marginTop: 28 }}>
-              <Link to="/pricing" className="mx-btn-primary">Get This in Your Plan →</Link>
+              <Link to="/price" className="mx-btn-primary">Get This in Your Plan →</Link>
             </div>
           </div>
 
@@ -630,9 +630,9 @@ export default function ProductDetailPage({ config }) {
               <h2>{ctaTitle}</h2>
               <p>{ctaDesc}</p>
               <div className="pdp-cta-btns">
-                <Link to="/pricing" className="mx-btn-primary">View Plans & Pricing →</Link>
+                <Link to="/price" className="mx-btn-primary">View Plans & Pricing →</Link>
                 <a
-                  href="https://api.whatsapp.com/send/?phone=918148181288"
+                  href="https://api.whatsapp.com/send/?phone=919884021188"
                   className="mx-btn-ghost"
                   target="_blank"
                   rel="noreferrer"

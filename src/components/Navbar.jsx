@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import MedXLLogo from './MedXLLogo'
+import medxlIcon from '../assets/Favicon.png'
+
 
 const links = [
   { label: 'Home',         href: '/#home',        route: null      },
@@ -175,9 +176,11 @@ export default function Navbar() {
 
       <nav className={`nav ${scrolled ? 'scrolled' : ''}`}>
         <a href="/" className="nav-logo-wrap">
-          <MedXLLogo size={34} />
-          <span className="nav-logo-text">MEDXL</span>
-        </a>
+  <img src={medxlIcon} alt="MedXL" width={34} height={34}
+       style={{ display: 'block', flexShrink: 0 }} />
+  <span className="nav-logo-text">MEDXL</span>
+</a>
+
         <ul className="nav-links">
           {links.map(l => (
             <li key={l.label}>
@@ -188,7 +191,7 @@ export default function Navbar() {
           ))}
         </ul>
         <div style={{display:'flex',alignItems:'center',gap:20}}>
-          <a href="tel:+918148181288" className="nav-phone">📞 +91 81481 81288</a>
+          <a href="tel:+919884021188" className="nav-phone">📞 +91 98840 21188</a>
           <a href="/#contact" className="nav-cta">Free Consultation</a>
         </div>
         <div className={`nav-ham ${open ? 'open' : ''}`} onClick={() => setOpen(v => !v)}>
@@ -199,9 +202,10 @@ export default function Navbar() {
       <div className={`nav-backdrop ${open ? 'open' : ''}`} onClick={close} />
       <div className={`nav-drawer ${open ? 'open' : ''}`}>
         <div className="drawer-top">
-          <MedXLLogo size={30} />
-          <span style={{fontFamily:'var(--font-display)',fontSize:18,fontWeight:800,background:'var(--brand-grad)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>MEDXL</span>
-        </div>
+  <img src={medxlIcon} alt="MedXL" width={30} height={30}
+       style={{ display: 'block', flexShrink: 0 }} />
+  <span style={{fontFamily:'var(--font-display)',fontSize:18,fontWeight:800,background:'var(--brand-grad)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>MEDXL</span>
+</div>
         <ul className="drawer-links">
           {links.map(l => (
             <li key={l.label}>
@@ -214,7 +218,7 @@ export default function Navbar() {
         <div className="drawer-sep" />
         <a href="/#contact" className="drawer-cta" onClick={close}>Free Consultation →</a>
         <div className="drawer-meta">
-          <a href="tel:+918148181288">📞 +91 81481 81288</a>
+          <a href="tel:+919884021188">📞 +91 98840 21188</a>
           <a href="mailto:info@medxl.in">✉️ info@medxl.in</a>
         </div>
       </div>

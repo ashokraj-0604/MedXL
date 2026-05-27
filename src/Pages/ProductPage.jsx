@@ -76,7 +76,7 @@ const compactProducts = [
     iconVariant: 'gold',
     name: 'OP Billing & Revenue Management',
     desc: 'Smart outpatient billing with GST, insurance claim preparation, revenue analytics, and automated invoicing. Reduces billing errors by up to 80%.',
-    href: '/products/hms',
+    href: '/Opbilling',
     cta: 'Learn More →',
   },
 ]
@@ -758,14 +758,14 @@ export default function ProductsPage() {
             <div className="pd-integration-box">
               <div className="pd-integration-nodes">
                 {integrationNodes.map((node, i) => (
-                  <>
+                  <div key={node.label} className="pd-int-wrapper">
                     <div className="pd-int-node" key={node.label}>
                       {node.icon} {node.label}
                     </div>
                     {i < integrationNodes.length - 1 && (
                       <div className="pd-int-arrow" key={`arr-${i}`}>⇄</div>
                     )}
-                  </>
+                  </div>
                 ))}
               </div>
               <p className="pd-integration-note">

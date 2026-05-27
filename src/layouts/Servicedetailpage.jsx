@@ -366,9 +366,9 @@ export default function ServiceDetailPage({ config }) {
             <p className="sdp-hero-desc">{subtitle}</p>
 
             <div className="sdp-hero-actions">
-              <Link to="/pricing" className="mx-btn-primary">See Which Plan Includes This →</Link>
+              <Link to="/price" className="mx-btn-primary">See Which Plan Includes This →</Link>
               <a
-                href="https://api.whatsapp.com/send/?phone=918148181288"
+                href="https://api.whatsapp.com/send/?phone=919884021188"
                 className="mx-btn-ghost"
                 target="_blank"
                 rel="noreferrer"
@@ -456,9 +456,9 @@ export default function ServiceDetailPage({ config }) {
               <h2>{ctaTitle}</h2>
               <p>{ctaDesc}</p>
               <div className="sdp-cta-btns">
-                <Link to="/pricing" className="mx-btn-primary">View Plans & Pricing →</Link>
+                <Link to="/price" className="mx-btn-primary">View Plans & Pricing →</Link>
                 <a
-                  href="https://api.whatsapp.com/send/?phone=918148181288"
+                  href="https://api.whatsapp.com/send/?phone=919884021188"
                   className="mx-btn-ghost"
                   target="_blank"
                   rel="noreferrer"

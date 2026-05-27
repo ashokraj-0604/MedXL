@@ -12,13 +12,13 @@ export default function CaseStudies() {
           display: flex; align-items: flex-end; justify-content: space-between;
           flex-wrap: wrap; gap: 24px; max-width: 1200px; margin: 0 auto 56px;
         }
-        .cases-view {
-          font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px;
-          text-transform: uppercase; color: var(--brand-light);
-          text-decoration: none; display: flex; align-items: center; gap: 8px;
-          transition: gap .3s;
-        }
-        .cases-view:hover { gap: 14px; }
+        // .cases-view {
+        //   font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px;
+        //   text-transform: uppercase; color: var(--brand-light);
+        //   text-decoration: none; display: flex; align-items: center; gap: 8px;
+        //   transition: gap .3s;
+        // }
+        // .cases-view:hover { gap: 14px; }
         .cases-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; max-width: 1200px; margin: 0 auto; }
         .case-card {
           background: var(--bg-raised); border: 1px solid var(--border-faint);
@@ -65,7 +65,7 @@ export default function CaseStudies() {
             <div className="section-eyebrow">Case Studies</div>
             <h2 className="section-title">Real Results for <em>Real Hospitals</em></h2>
           </div>
-          <a href="#" className="cases-view">View all studies →</a>
+          {/* <a href="#" className="cases-view">View all studies →</a> */}
         </div>
         <div className="cases-grid">
           {cases.map((c,i)=>(

@@ -80,8 +80,8 @@ export default function Hero() {
               <Link to="/price#plans" className="mh-btn-primary">
                 See Plans From ₹1L/yr →
               </Link>
-              <a href="tel:+918148181288" className="mh-btn-secondary">
-                📞 +91 81481 81288
+              <a href="tel:+919884021188" className="mh-btn-secondary">
+                📞 +91 98840 21188
               </a>
             </div>
 
@@ -168,7 +168,6 @@ export default function Hero() {
               </div>
             </div>
           </div>
-
         </div>
       </section>
     </>

@@ -20,6 +20,11 @@ import Lims from './Products/Lims'
 import Lms from './Products/Lms'
 import Telemedicine from './Products/Telemedicine'
 import Mobileapp from './Products/Mobileapp'
+import Email from './Services/Email'
+import Training from './Services/Training'
+import Opbilling from './Products/Opbilling'
+import Cookies from './Footer/cookies'
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -45,6 +50,10 @@ export default function App() {
         <Route path= "/Lms" element={<Lms />} />
         <Route path= "/Telemedicine" element={<Telemedicine />} />
         <Route path= "/Mobileapp" element={<Mobileapp />} />
+        <Route path= "/Email" element={<Email />} />
+        <Route path= "/Training" element={<Training />} />
+        <Route path= "/Opbilling" element={<Opbilling />} />
+        <Route path= "/Cookies" element={<Cookies />} />
       </Routes>
     </BrowserRouter>
   )
