@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import MedXLLogo from '../components/MedXLLogo'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import '../styles/medxl-hero.css'  // ← shared hero primitives
@@ -126,7 +125,7 @@ export default function AboutPage() {
             <div className="mh-ring mh-ring-3" />
             <div className="mh-ring mh-ring-2"><div className="mh-ring-dot mh-ring-dot-alt" /></div>
             <div className="mh-ring mh-ring-1"><div className="mh-ring-dot" /></div>
-            <div className="mh-ring-center"><MedXLLogo size={50} /></div>
+            <div className="mh-ring-center"></div>
           </div>
 
           <div className="mh-inner">

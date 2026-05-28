@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import MedXLLogo from './MedXLLogo'
 import '../styles/medxl-hero.css'  // ← all hero primitives live here now
 // import '../styles/medxl.css'     // ← root tokens (already global)
 
@@ -52,7 +51,7 @@ export default function Hero() {
           <div className="mh-ring mh-ring-2"><div className="mh-ring-dot mh-ring-dot-alt" /></div>
           <div className="mh-ring mh-ring-1"><div className="mh-ring-dot" /></div>
           <div className="mh-ring-center">
-            <MedXLLogo size={52} />
+          
           </div>
         </div>
 

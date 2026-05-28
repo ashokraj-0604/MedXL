@@ -6,7 +6,6 @@ const TELEMEDICINE_CONFIG = {
   tag: 'Telemedicine Platform',
   badgeLabel: 'Telemedicine',
   accentRgb: '197,45,181',
-
   title: 'Extend Your Hospital\'s Reach.',
   titleHighlight: 'Beyond Four Walls.',
 

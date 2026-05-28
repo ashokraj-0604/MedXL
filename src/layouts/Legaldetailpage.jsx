@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import MedXLLogo from '../components/MedXLLogo'
 
 /*
   LegalPage — shared layout for Terms, Privacy, and Cookie Policy pages.
