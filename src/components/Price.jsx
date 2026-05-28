@@ -183,6 +183,7 @@ export default function Pricing() {
           letter-spacing: 2px; text-transform: uppercase; cursor: pointer;
           border: 1px solid var(--p-color); transition: all .3s;
           background: transparent; color: var(--p-color);
+          text-decoration: none; 
         }
         .plan-card.popular .plan-btn {
           background: var(--p-color); color: #0d0f0e;
@@ -208,7 +209,7 @@ export default function Pricing() {
               Just a single dedicated IT partner that knows hospitals.
             </p>
           </div>
-          <a href="#" className="pricing-cta-link">Get a custom quote →</a>
+          <a href="/price" className="pricing-cta-link">Get a custom quote →</a>
         </div>
 
         <div className="pricing-grid">
@@ -242,7 +243,7 @@ export default function Pricing() {
                   ))}
                 </ul>
                 <div className="plan-footer">
-                  <button className="plan-btn">Get Started →</button>
+                  <a href="/price" className="plan-btn"> Get Started →</a>
                 </div>
               </div>
             </div>

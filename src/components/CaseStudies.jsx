@@ -54,8 +54,8 @@ export default function CaseStudies() {
         .case-result { display: flex; align-items: center; justify-content: space-between; }
         .case-result-label { font-size: 12.5px; color: var(--text-muted); }
         .case-result-val { font-family: var(--font-display); font-size: 20px; font-weight: 800; color: var(--c-color); letter-spacing: -.5px; }
-        .case-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 20px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--c-color); text-decoration: none; transition: gap .3s; }
-        .case-link:hover { gap: 12px; }
+        // .case-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 20px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--c-color); text-decoration: none; transition: gap .3s; }
+        // .case-link:hover { gap: 12px; }
         @media (max-width: 1024px) { .cases-grid { grid-template-columns: 1fr 1fr; } }
         @media (max-width: 640px) { .cases { padding: 80px 20px; } .cases-grid { grid-template-columns: 1fr; } }
       `}</style>
@@ -85,7 +85,7 @@ export default function CaseStudies() {
                   </div>
                 ))}
               </div>
-              <a href="#" className="case-link">Read full case study →</a>
+              {/* <a href="#" className="case-link">Read full case study →</a> */}
             </div>
           ))}
         </div>

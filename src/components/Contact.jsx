@@ -26,14 +26,14 @@ export default function Contact() {
 
     // Build the WhatsApp message text
     const lines = [
-      `👋 *New Contact Form Submission*`,
+      ` Request from MedXL Website`,
       ``,
-      `*Name:* ${form.name}`,
-      `*Email:* ${form.email}`,
-      form.phone   ? `*Phone:* ${form.phone}`     : null,
-      form.service ? `*Service:* ${form.service}` : null,
+      `Name: ${form.name}`,
+      `Email: ${form.email}`,
+      form.phone   ? `Phone: ${form.phone}`     : null,
+      form.service ? `Service: ${form.service}` : null,
       ``,
-      `*Message:*`,
+      `Message:`,
       form.message,
     ]
       .filter((l) => l !== null)

@@ -268,51 +268,6 @@ export default function Footer() {
         .ft-link-icon { font-size: 13px; opacity: .45; transition: opacity .25s; }
         .ft-links a:hover .ft-link-icon { opacity: 1; }
 
-        /* ── NEWSLETTER ── */
-        .ft-newsletter {
-          position: relative; z-index: 1;
-          margin: 56px 56px 0;
-          padding: 36px 40px;
-          background: var(--bg-surface);
-          border: 1px solid var(--border-faint);
-          border-radius: 20px;
-          display: flex; align-items: center;
-          justify-content: space-between;
-          gap: 32px; flex-wrap: wrap;
-        }
-        .ft-nl-left { display: flex; align-items: center; gap: 16px; }
-        /* Reuse .mx-icon-box.brand */
-        .ft-nl-icon {
-          width: 48px; height: 48px; border-radius: 12px;
-          background: rgba(197,45,181,.12);
-          border: 1px solid rgba(197,45,181,.28);
-          display: flex; align-items: center; justify-content: center;
-          font-size: 22px; flex-shrink: 0;
-        }
-        .ft-nl-title {
-          font-family: var(--font-display); font-size: 18px;
-          font-weight: 700; color: var(--text-primary); letter-spacing: -0.4px;
-        }
-        .ft-nl-sub { font-size: 13px; color: var(--text-muted); margin-top: 3px; font-weight: 300; }
-        .ft-nl-form { display: flex; gap: 10px; flex-wrap: wrap; }
-        .ft-nl-input {
-          padding: 11px 18px; border-radius: 10px;
-          background: var(--bg-raised);
-          border: 1px solid var(--border-faint);
-          color: var(--text-primary); font-family: var(--font-body);
-          font-size: 14px; outline: none; width: 240px;
-          transition: border-color .3s, box-shadow .3s;
-        }
-        .ft-nl-input:focus {
-          border-color: var(--border-default);
-          box-shadow: 0 0 0 3px rgba(197,45,181,.1);
-        }
-        .ft-nl-input::placeholder { color: var(--text-disabled); }
-        .ft-nl-success {
-          display: flex; align-items: center; gap: 10px;
-          font-size: 14px; color: var(--brand-light); font-weight: 600;
-        }
-
         /* ── TAGS ── */
         .ft-tags-section {
           position: relative; z-index: 1;
@@ -471,35 +426,6 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* ── NEWSLETTER ── */}
-        <div className="ft-newsletter">
-          <div className="ft-nl-left">
-            <div className="ft-nl-icon">📬</div>
-            <div>
-              <div className="ft-nl-title">Stay in the Loop</div>
-              <div className="ft-nl-sub">Latest healthcare technology insights, weekly.</div>
-            </div>
-          </div>
-          <div className="ft-nl-form">
-            {subscribed ? (
-              <div className="ft-nl-success">✅ Subscribed! Welcome aboard.</div>
-            ) : (
-              <>
-                <input
-                  className="ft-nl-input"
-                  type="email"
-                  placeholder="Enter your email address"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  onKeyDown={e => e.key === 'Enter' && handleSubscribe()}
-                />
-                <button className="mx-btn-primary" onClick={handleSubscribe}>
-                  Subscribe →
-                </button>
-              </>
-            )}
-          </div>
-        </div>
 
         {/* ── TAGS ── */}
         <div className="ft-tags-section">

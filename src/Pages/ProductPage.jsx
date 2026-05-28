@@ -581,8 +581,8 @@ export default function ProductsPage() {
               </p>
 
               <div className="ph-actions">
-                <Link to="/pricing" className="mx-btn-primary">View Pricing →</Link>
-                <a href="#contact" className="mx-btn-ghost">Request a Demo</a>
+                <Link to="/price" className="mx-btn-primary">View Pricing →</Link>
+                <a href="/#contact" className="mx-btn-ghost">Request a Demo</a>
               </div>
 
               {/* Trust badges */}

@@ -274,7 +274,7 @@ export default function PricingPage() {
               </p>
 
               <div className="mh-actions">
-                <a href="https://api.whatsapp.com/send/?phone=919884021188" className="mh-btn-primary" target="_blank" rel="noreferrer">
+                <a href="#plans" className="mh-btn-primary">
                   Start From ₹1L/yr →
                 </a>
                 <a href="tel:+919884021188" className="mh-btn-secondary">
@@ -340,9 +340,9 @@ export default function PricingPage() {
                     <span className="mh-card-status-dot" />
                     All Plans Available
                   </div>
-                  <a href="https://api.whatsapp.com/send/?phone=919884021188" className="mh-card-footer-btn" target="_blank" rel="noreferrer">
-                    Get a Quote →
-                  </a>
+                  <a href="#compare" className="mh-card-footer-btn">
+                  Get a Quote →
+                </a>
                 </div>
               </div>
 
@@ -430,7 +430,7 @@ export default function PricingPage() {
         </section>
 
         {/* ══ COMPARE TABLE ══ */}
-        <section className="pr-compare-section">
+        <section className="pr-compare-section" id ="compare">
           <div className="mx-container">
             <div className="mx-text-center" style={{ marginBottom:40 }}>
               <div className="mx-tag">Compare Plans</div>
