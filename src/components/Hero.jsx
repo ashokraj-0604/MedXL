@@ -71,7 +71,7 @@ export default function Hero() {
             </h1>
 
             <p className="mh-desc">
-              End-to-end IT service &amp; support crafted exclusively for 30–150 bedded
+              End-to-end IT service &amp; support crafted exclusively for 20–150 bedded
               hospitals. Website, HMS, EHR, Social Media, LMS &amp; more — all managed for you.
             </p>
 

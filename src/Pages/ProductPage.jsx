@@ -762,7 +762,7 @@ export default function ProductsPage() {
                     <div className="pd-int-node" key={node.label}>
                       {node.icon} {node.label}
                     </div>
-                    {i < integrationNodes.length - 1 && (
+                    {i < integrationNodes.length + 1 && (
                       <div className="pd-int-arrow" key={`arr-${i}`}>⇄</div>
                     )}
                   </div>

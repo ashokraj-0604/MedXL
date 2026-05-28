@@ -180,8 +180,8 @@ const PRIVACY_CONFIG = {
         <>
           <p>For privacy-related queries, complaints, or to exercise your data rights, contact our Data Protection Officer:</p>
           <p>
-            📧 <a href="mailto:privacy@medxl.in">privacy@medxl.in</a><br />
-            📞 <a href="tel:+918148181288">+91 81481 81288</a><br />
+            📧 <a href="mailto:info@medxl.in">info@medxl.in</a><br />
+            📞 <a href="tel:+919884021188">+91 98840 21188</a><br />
             📍 MedXL Ventures Private Limited, Chennai, Tamil Nadu — 600 001
           </p>
           <p>We will acknowledge your request within 3 business days and endeavour to resolve it within 30 days.</p>

@@ -25,7 +25,7 @@ export default function About() {
     if (ref.current) obs.observe(ref.current)
     return () => obs.disconnect()
   }, [])
-  const c0 = useCountUp(30,started)
+  const c0 = useCountUp(20,started)
   const c1 = useCountUp(150, started)
   const c2 = useCountUp(40,   started)
   const c3 = useCountUp(2,   started)
