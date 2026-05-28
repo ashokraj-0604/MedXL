@@ -1,4 +1,4 @@
-import ProductDetailPage from '../layouts/ProductDetailPage'
+import ProductDetailPage from '../layouts/Productdetailpage'
 
 const HMS_CONFIG = {
   slug: 'hms',

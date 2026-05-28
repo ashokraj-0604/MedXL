@@ -1,4 +1,4 @@
-import ServiceDetailPage from '../layouts/ServiceDetailPage'
+import ServiceDetailPage from '../layouts/Servicedetailpage'
 
 const ANALYTICS_CONFIG = {
   slug: 'analytics',

@@ -1,4 +1,4 @@
-import ProductDetailPage from '../layouts/ProductDetailPage'
+import ProductDetailPage from '../layouts/Productdetailpage'
 
 const LMS_CONFIG = {
   slug: 'lms',
