@@ -176,23 +176,23 @@ export default function Navbar() {
 
       <nav className={`nav ${scrolled ? 'scrolled' : ''}`}>
         <a href="/" className="nav-logo-wrap">
-  <img src={medxlIcon} alt="MedXL" width={34} height={34}
-       style={{ display: 'block', flexShrink: 0 }} />
-  <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-    <span className="nav-logo-text">MEDXL</span>
-    <span style={{
-      fontFamily: 'var(--font-body)',
-      fontSize: '9px',
-      fontWeight: 500,
-      color: 'var(--text-muted)',
-      letterSpacing: '0.4px',
-      whiteSpace: 'nowrap',
-      marginTop: '-8px'
-    }}>
-      Where Hospitals Meets Excellence
-    </span>
-  </div>
-</a>
+          <img src={medxlIcon} alt="MedXL" width={34} height={34}
+              style={{ display: 'block', flexShrink: 0 }} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+            <span className="nav-logo-text">MEDXL</span>
+            <span style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '9px',
+              fontWeight: 500,
+              color: 'var(--text-muted)',
+              letterSpacing: '0.4px',
+              whiteSpace: 'nowrap',
+              marginTop: '-8px'
+            }}>
+              Where Hospitals Meet Excellence
+            </span>
+          </div>
+        </a>
         <ul className="nav-links">
           {links.map(l => (
             <li key={l.label}>
@@ -214,29 +214,29 @@ export default function Navbar() {
       <div className={`nav-backdrop ${open ? 'open' : ''}`} onClick={close} />
       <div className={`nav-drawer ${open ? 'open' : ''}`}>
        <div className="drawer-top">
-  <img src={medxlIcon} alt="MedXL" width={30} height={30}
-       style={{ display: 'block', flexShrink: 0 }} />
-  <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-    <span style={{
-      fontFamily: 'var(--font-display)', fontSize: 18
-      , fontWeight: 800,
-      background: 'var(--brand-grad)',
-      WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'
-    }}>
-      MEDXL
-    </span>
-    <span style={{
-      fontFamily: 'var(--font-body)',
-      fontSize: '9px',
-      fontWeight: 500,
-      color: 'var(--text-muted)',
-      letterSpacing: '0.4px',
-      whiteSpace: 'nowrap'
-    }}>
-      Where Hospitals Meets Excellence
-    </span>
-  </div>
-</div>
+        <img src={medxlIcon} alt="MedXL" width={30} height={30}
+            style={{ display: 'block', flexShrink: 0 }} />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+          <span style={{
+            fontFamily: 'var(--font-display)', fontSize: 18
+            , fontWeight: 800,
+            background: 'var(--brand-grad)',
+            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'
+          }}>
+            MEDXL
+          </span>
+          <span style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '9px',
+            fontWeight: 500,
+            color: 'var(--text-muted)',
+            letterSpacing: '0.4px',
+            whiteSpace: 'nowrap'
+          }}>
+            Where Hospitals Meet Excellence
+          </span>
+        </div>
+      </div>
         <ul className="drawer-links">
           {links.map(l => (
             <li key={l.label}>
