@@ -1,17 +1,17 @@
 const cases = [
   { tag:'🏥 Hospitals Management', color:'#C52DB5', title:'Arogya General Hospital, Mumbai',         challenge:'A 150-bed facility struggling with long patient wait times and inefficient resource allocation across departments.', solution:'MedXL implemented cloud-based HMS and Resource Management tools with real-time analytics.', results:[{label:'Reduction in wait times',val:'40%'},{label:'Bed turnover improvement',val:'25%'},{label:'Annual cost savings',val:'₹2Cr'}] },
   { tag:'📱 Digital Transformation',color:'#F5A623', title:"Sunshine Children's Hospital, Bangalore", challenge:'An 80-bed pediatric hospital struggling to manage patient records and parent communication efficiently.', solution:'MedXL implemented EHR systems and developed a custom patient communication mobile app.', results:[{label:'Reduction in paperwork',val:'50%'},{label:'Patient satisfaction boost',val:'35%'},{label:'Missed appointments down',val:'25%'}] },
-  { 
-  tag: '🎓 LMS', 
-  color: '#34D399', 
-  title: 'Greenfield International School, Pune', 
-  challenge: 'A 5,000-student institution struggling with fragmented learning tools, low student engagement, and no centralized progress tracking.', 
-  solution: 'Deployed a full-featured Learning Management System with live classes, assignments, quizzes, attendance tracking, and parent dashboards.', 
+  {
+  tag: '📚 LMS',
+  color: '#818CF8',
+  title: 'Apollo Hospitals, Chennai',
+  challenge: 'A 450-bed hospital struggling with inconsistent staff training, compliance gaps, and high onboarding costs across multiple departments.',
+  solution: 'MedXL deployed a Hospital LMS with role-based learning paths, compliance tracking, and automated certification management for clinical and non-clinical staff.',
   results: [
-    { label: 'Student engagement rate', val: '87%' }, 
-    { label: 'Admin time saved weekly', val: '40 hrs' }, 
-    { label: 'Course completion rate up', val: '65%' }
-  ] 
+    { label: 'Staff trained digitally', val: '1,200+' },
+    { label: 'Onboarding time reduced', val: '40%' },
+    { label: 'Compliance pass rate', val: '98%' }
+  ]
 },
 { 
   tag: '🏥 Healthcare Course Creation', 
@@ -25,18 +25,17 @@ const cases = [
     { label: 'Training cost reduced', val: '50%' }
   ] 
 },
-
-{ 
-  tag: '💼 End-to-End IT Package', 
-  color: '#A78BFA', 
-  title: 'Horizon Retail Group, Chennai', 
-  challenge: 'A mid-size retail chain with 25 outlets running on disconnected legacy systems, facing data silos, cybersecurity gaps, and zero cloud infrastructure.', 
-  solution: 'Delivered a complete IT overhaul — cloud migration, ERP integration, cybersecurity hardening, helpdesk setup, and 24/7 managed IT support.', 
+  {
+  tag: '💼 End-to-End IT Package',
+  color: '#FB923C',
+  title: 'Fortis Healthcare, Delhi NCR',
+  challenge: 'A 1,000-bed hospital network with fragmented legacy systems, poor inter-department data flow, and no unified digital infrastructure.',
+  solution: 'MedXL implemented a full IT package — EHR, HIMS, LMS, telemedicine, billing automation, and cybersecurity — with 24/7 managed support and staff training.',
   results: [
-    { label: 'System downtime reduced', val: '90%' }, 
-    { label: 'Operational efficiency up', val: '45%' }, 
-    { label: 'IT support tickets resolved', val: '<2 hrs avg' }
-  ] 
+    { label: 'Systems integrated', val: '12' },
+    { label: 'Operational cost savings', val: '₹1.2Cr' },
+    { label: 'Uptime achieved', val: '99.9%' }
+  ]
 }
 ]
 export default function CaseStudies() {
