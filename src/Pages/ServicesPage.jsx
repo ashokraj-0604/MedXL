@@ -709,139 +709,111 @@ useEffect(() => {
             </div>
           </div>
         </section>
-        {/* ══════════════════════════════════════════════════════
-    SECTION: SERVICE TESTIMONIALS
-    Focus: delivery quality, onboarding, ROI, support
-══════════════════════════════════════════════════════ */}
-<section className="mx-section">
-  <div className="mx-container">
-    <div className="mx-text-center" style={{ marginBottom: 52 }}>
-      <div className="mx-tag">Client Reviews</div>
-      <h2 className="mx-section-title">What Hospitals Say About <em>Our Services</em></h2>
-      <p className="mx-section-sub">From website launches to cybersecurity audits — hear from the teams who live with our services daily.</p>
+        {[
+  {
+    stars: 5,
+    service: '🌐 Website + Appointment Booking',
+    quote: 'Our old website was embarrassing. MedXL rebuilt it in 3 weeks — mobile-friendly, appointment booking live on day one. Our walk-ins dropped 20% because patients now book online before coming in.',
+    name: 'Dr. Priya Venkatesh',
+    role: 'Director',
+    hospital: 'Nikhil Children\'s Care Centre, Hyderabad',
+    avatar: '👩‍⚕️',
+  },
+  {
+    stars: 5,
+    service: '🔍 SEO & Digital Marketing',
+    quote: 'Within 4 months of MedXL handling our SEO and Google Ads, we were ranking #1 for "multispecialty hospital Coimbatore". New patient registrations went up 38% — numbers we can actually track.',
+    name: 'Mr. Karthik Sundaram',
+    role: 'Hospital Administrator',
+    hospital: 'Kaveri Multispecialty Hospital, Coimbatore',
+    avatar: '👨‍💼',
+  },
+  {
+    stars: 5,
+    service: '🛡️ Cybersecurity & Compliance',
+    quote: 'After a ransomware scare at a nearby hospital, we called MedXL. They completed our full security audit, set up RBAC, and got us DPDP-compliant in under 6 weeks. We sleep better now.',
+    name: 'Dr. Amit Srivastava',
+    role: 'CEO',
+    hospital: 'Madhya Pradesh Trauma & Care Centre, Bhopal',
+    avatar: '👨‍⚕️',
+  },
+  {
+    stars: 5,
+    service: '📱 Social Media Management',
+    quote: 'MedXL set up and now manages all our social channels. Within two months our Facebook page had 4,000 followers and we started getting direct appointment enquiries through Instagram DMs. Remarkable turnaround.',
+    name: 'Mr. Hassan Al-Farsi',
+    role: 'Operations Director',
+    hospital: 'Al Shifa Medical Centre, Dubai, UAE',
+    avatar: '👨‍💼',
+    foreign: true,
+  },
+  {
+    stars: 5,
+    service: '📊 Data Analytics & Reporting',
+    quote: 'The monthly dashboard MedXL sends us is the first thing I open every month. Patient acquisition source, top-performing departments, revenue trends — all in one clean report. Priceless.',
+    name: 'Dr. Rajiv Malhotra',
+    role: 'Medical Director',
+    hospital: 'Rajputana General Hospital, Jaipur',
+    avatar: '👨‍⚕️',
+  },
+  {
+    stars: 5,
+    service: '🎓 Staff IT Training & Onboarding',
+    quote: 'Our team had zero prior experience with digital hospital tools. MedXL\'s trainers conducted remote onboarding sessions across time zones and had our full staff of 60 confident within 10 days. Exceptional delivery.',
+    name: 'Ms. Priscilla Owusu',
+    role: 'Hospital CEO',
+    hospital: 'Accra Central Clinic, Accra, Ghana',
+    avatar: '👩‍💼',
+    foreign: true,
+  },
+].map(r => (
+  <div className="mx-card" key={r.name} style={{ display:'flex', flexDirection:'column', gap:14 }}>
+    {/* Service label */}
+    <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:8 }}>
+      <div style={{
+        fontFamily:'var(--font-mono)', fontSize:10, letterSpacing:'1px',
+        color:'var(--brand-light)', background:'rgba(197,45,181,.1)',
+        border:'1px solid rgba(197,45,181,.22)', borderRadius:100,
+        padding:'3px 12px', textTransform:'uppercase'
+      }}>{r.service}</div>
+      {r.foreign && (
+        <div style={{
+          fontFamily:'var(--font-mono)', fontSize:9, letterSpacing:'1px',
+          color:'#60a5fa', background:'rgba(96,165,250,.1)',
+          border:'1px solid rgba(96,165,250,.22)', borderRadius:100,
+          padding:'3px 10px', textTransform:'uppercase'
+        }}>🌍 International</div>
+      )}
     </div>
 
-    <div className="mx-grid-3">
-      {[
-        {
-          stars: 5,
-          service: '🌐 Website + Appointment Booking',
-          quote: 'Our old website was embarrassing. MedXL rebuilt it in 3 weeks — mobile-friendly, appointment booking live on day one. Our walk-ins dropped 20% because patients now book online before coming in.',
-          name: 'Dr. Priya Venkatesh',
-          role: 'Director',
-          hospital: 'Nikhil Children\'s Care Centre, Hyderabad',
-          avatar: '👩‍⚕️',
-        },
-        {
-          stars: 5,
-          service: '🔍 SEO & Digital Marketing',
-          quote: 'Within 4 months of MedXL handling our SEO and Google Ads, we were ranking #1 for "multispecialty hospital Coimbatore". New patient registrations went up 38% — numbers we can actually track.',
-          name: 'Mr. Karthik Sundaram',
-          role: 'Hospital Administrator',
-          hospital: 'Kaveri Multispecialty Hospital, Coimbatore',
-          avatar: '👨‍💼',
-        },
-        {
-          stars: 5,
-          service: '🛡️ Cybersecurity & Compliance',
-          quote: 'After a ransomware scare at a nearby hospital, we called MedXL. They completed our full security audit, set up RBAC, and got us DPDP-compliant in under 6 weeks. We sleep better now.',
-          name: 'Dr. Amit Srivastava',
-          role: 'CEO',
-          hospital: 'Madhya Pradesh Trauma & Care Centre, Bhopal',
-          avatar: '👨‍⚕️',
-        },
-        {
-          stars: 5,
-          service: '📱 Social Media Management',
-          quote: 'We had zero social presence. MedXL set up our Instagram, Facebook, and Google My Business — now we get 3–5 patient enquiries a week just from social. Our staff couldn\'t believe it.',
-          name: 'Mrs. Deepa Nair',
-          role: 'Operations Head',
-          hospital: 'Amritha Palliative & General Clinic, Kochi',
-          avatar: '👩‍💼',
-        },
-        {
-          stars: 5,
-          service: '📊 Data Analytics & Reporting',
-          quote: 'The monthly dashboard MedXL sends us is the first thing I open every month. Patient acquisition source, top-performing departments, revenue trends — all in one clean report. Priceless.',
-          name: 'Dr. Rajiv Malhotra',
-          role: 'Medical Director',
-          hospital: 'Rajputana General Hospital, Jaipur',
-          avatar: '👨‍⚕️',
-        },
-        {
-          stars: 5,
-          service: '🎓 Staff IT Training & Onboarding',
-          quote: 'Our nursing staff was resistant to new software. MedXL\'s trainers were patient, practical, and even created Hindi-language reference cards. Adoption was 100% within two weeks.',
-          name: 'Mrs. Sunita Agarwal',
-          role: 'Head of Nursing',
-          hospital: 'Dhanwantari Women\'s Hospital, Lucknow',
-          avatar: '👩‍💼',
-        },
-      ].map(r => (
-        <div className="mx-card" key={r.name} style={{ display:'flex', flexDirection:'column', gap:14 }}>
-          {/* Service label */}
-          <div style={{
-            fontFamily:'var(--font-mono)', fontSize:10, letterSpacing:'1px',
-            color:'var(--brand-light)', background:'rgba(197,45,181,.1)',
-            border:'1px solid rgba(197,45,181,.22)', borderRadius:100,
-            padding:'3px 12px', width:'fit-content', textTransform:'uppercase'
-          }}>{r.service}</div>
-
-          {/* Stars */}
-          <div style={{ display:'flex', gap:3 }}>
-            {Array(r.stars).fill(0).map((_,i) => (
-              <span key={i} style={{ color:'#f59e0b', fontSize:13 }}>★</span>
-            ))}
-          </div>
-
-          {/* Quote */}
-          <p className="mx-muted" style={{ fontSize:13.5, lineHeight:1.75, flexGrow:1 }}>
-            "{r.quote}"
-          </p>
-
-          {/* Author */}
-          <div style={{ display:'flex', alignItems:'center', gap:12, paddingTop:14, borderTop:'1px solid var(--border-faint)' }}>
-            <div style={{
-              width:40, height:40, borderRadius:'50%',
-              background:'var(--bg-elevated)', border:'1px solid var(--border-default)',
-              display:'flex', alignItems:'center', justifyContent:'center',
-              fontSize:19, flexShrink:0
-            }}>{r.avatar}</div>
-            <div>
-              <div style={{ fontFamily:'var(--font-body)', fontSize:13, fontWeight:700, color:'var(--text-primary)' }}>{r.name}</div>
-              <div style={{ fontFamily:'var(--font-mono)', fontSize:10, color:'var(--text-muted)', letterSpacing:'.3px' }}>{r.role}</div>
-              <div style={{ fontFamily:'var(--font-mono)', fontSize:10, color:'var(--brand-hot)', letterSpacing:'.5px', marginTop:2 }}>{r.hospital}</div>
-            </div>
-          </div>
-        </div>
+    {/* Stars */}
+    <div style={{ display:'flex', gap:3 }}>
+      {Array(r.stars).fill(0).map((_,i) => (
+        <span key={i} style={{ color:'#f59e0b', fontSize:13 }}>★</span>
       ))}
     </div>
 
-    {/* Service-specific outcome bar */}
-    <div style={{
-      marginTop:52, padding:'28px 32px',
-      background:'var(--bg-raised)', border:'1px solid var(--border-faint)',
-      borderRadius:18, display:'flex', justifyContent:'space-around',
-      alignItems:'center', flexWrap:'wrap', gap:24
-    }}>
-      {[
-        { icon:'🌐', num:'3 Weeks',  label:'Avg Website Go-Live'    },
-        { icon:'📈', num:'38% ↑',    label:'Avg Patient Acquisition' },
-        { icon:'🛡️', num:'100%',     label:'DPDP/HIPAA Compliant'   },
-        { icon:'⭐', num:'4.9 / 5',  label:'Service Rating'          },
-      ].map(b => (
-        <div key={b.label} style={{ display:'flex', alignItems:'center', gap:12 }}>
-          <span style={{ fontSize:26 }}>{b.icon}</span>
-          <div>
-            <div style={{ fontFamily:'var(--font-display)', fontSize:20, fontWeight:800, color:'var(--text-primary)', letterSpacing:'-.5px' }}>{b.num}</div>
-            <div style={{ fontFamily:'var(--font-mono)', fontSize:10, color:'var(--text-muted)', letterSpacing:'.5px', textTransform:'uppercase' }}>{b.label}</div>
-          </div>
-        </div>
-      ))}
-    </div>
+    {/* Quote */}
+    <p className="mx-muted" style={{ fontSize:13.5, lineHeight:1.75, flexGrow:1 }}>
+      "{r.quote}"
+    </p>
 
+    {/* Author */}
+    <div style={{ display:'flex', alignItems:'center', gap:12, paddingTop:14, borderTop:'1px solid var(--border-faint)' }}>
+      <div style={{
+        width:40, height:40, borderRadius:'50%',
+        background:'var(--bg-elevated)', border:'1px solid var(--border-default)',
+        display:'flex', alignItems:'center', justifyContent:'center',
+        fontSize:19, flexShrink:0
+      }}>{r.avatar}</div>
+      <div>
+        <div style={{ fontFamily:'var(--font-body)', fontSize:13, fontWeight:700, color:'var(--text-primary)' }}>{r.name}</div>
+        <div style={{ fontFamily:'var(--font-mono)', fontSize:10, color:'var(--text-muted)', letterSpacing:'.3px' }}>{r.role}</div>
+        <div style={{ fontFamily:'var(--font-mono)', fontSize:10, color:'var(--brand-hot)', letterSpacing:'.5px', marginTop:2 }}>{r.hospital}</div>
+      </div>
+    </div>
   </div>
-</section>
+))}
         <Footer />
       </div>
     </>
