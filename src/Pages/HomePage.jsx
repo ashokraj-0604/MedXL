@@ -5,7 +5,6 @@ import Services from '../components/Services'
 import About from '../components/About'
 import CaseStudies from '../components/CaseStudies'
 import Process from '../components/Process'
-import Technologies from '../components/Technologies'
 import Testimonials from '../components/Testimonials'
 import FAQ from '../components/Faq'
 import Blogs from '../components/Price'
@@ -40,7 +39,6 @@ export default function HomePage() {
       <About />
       <CaseStudies />
       <Process />
-      <Technologies />
       <Testimonials />
       <FAQ />
       <Blogs />
