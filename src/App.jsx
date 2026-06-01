@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useEffect } from 'react'
 import Navbar from './components/Navbar'
 import HomePage from './Pages/HomePage'
 import AboutPage from './Pages/AboutPage'
@@ -26,6 +27,22 @@ import Opbilling from './Pages/Opbilling'
 import Cookies from './Pages/cookies'
 
 export default function App() {
+  
+  useEffect(() => {
+    const script1 = document.createElement('script');
+    script1.async = true;
+    script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-P8VJ1DNBLF';
+    document.head.appendChild(script1);
+
+    const script2 = document.createElement('script');
+    script2.innerHTML = `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-P8VJ1DNBLF');
+    `;
+    document.head.appendChild(script2);
+  }, []);
   return (
     <BrowserRouter>
       <Navbar />
