@@ -1,28 +1,7 @@
 import { useEffect, useRef } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import '../styles/medxl-hero.css'  // ← shared hero primitives
-// import '../styles/medxl.css'     // ← root tokens + section primitives (already global)
-
-/*
- * AboutPage.jsx — MedXL Design System v2.0
- *
- * ── HOW THIS PAGE WORKS ──
- *   Hero shell  → 100% from medxl-hero.css (.mh-*)
- *   Sections    → medxl.css primitives (.mx-*)
- *   Page-only   → tiny <style> block below for parts that
- *                 don't belong in the shared stylesheet
- *
- * ── REUSE PATTERN ──
- *   Copy the hero JSX below (everything inside <section className="mh-hero">)
- *   into ProductPage.jsx / PricePage.jsx, swap:
- *     • .mh-card-body children  (stats / price display / feature list)
- *     • eyebrow text, h1, desc, CTAs
- *     • floating badge numbers/labels
- *     • .mh-card-chip top-right text
- *   Everything else (rings, blob, mesh, buttons, trust, card frame) stays identical.
- */
-
+import '../styles/medxl-hero.css'
 export default function AboutPage() {
   const blobRef = useRef(null)
 
@@ -41,11 +20,6 @@ export default function AboutPage() {
 
   return (
     <>
-      {/*
-       * PAGE-SPECIFIC STYLES ONLY
-       * Nothing here that belongs to the hero shell — that lives in medxl-hero.css.
-       * Only about-page section styles go here.
-       */}
       <style>{`
         /* ── Why-item slide-in row ── */
         .ab-why-item {
@@ -437,7 +411,104 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
+        {/* ══════════════════════════════════════════════════════
+    SECTION: TESTIMONIALS
+    About page — client trust & company credibility reviews
+══════════════════════════════════════════════════════ */}
+<section className="mx-section">
+  <div className="mx-container">
+    <div className="mx-text-center" style={{ marginBottom: 52 }}>
+      <div className="mx-tag">Client Testimonials</div>
+      <h2 className="mx-section-title">Trusted by Hospitals <em>Across India</em></h2>
+      <p className="mx-section-sub">Real words from hospital administrators, doctors, and IT heads who made the switch to MedXL.</p>
+    </div>
 
+    <div className="mx-grid-3">
+      {[
+        {
+          stars: 5,
+          quote: 'MedXL completely transformed how our hospital operates. From HMS to our website and social media — everything is handled by one team. We finally have time to focus on patients, not IT problems.',
+          name: 'Dr. Suresh Ramalingam',
+          role: 'Medical Director',
+          hospital: 'Kaveri Multispecialty Hospital, Coimbatore',
+          avatar: '👨‍⚕️',
+        },
+        {
+          stars: 5,
+          quote: 'We were skeptical about outsourcing our entire IT setup to a single vendor. But MedXL delivered beyond expectations — go-live in 4 weeks, zero downtime, and our staff adapted within days.',
+          name: 'Mrs. Anitha Krishnamurthy',
+          role: 'Hospital Administrator',
+          hospital: 'Dhanwantari Women\'s Hospital, Lucknow',
+          avatar: '👩‍💼',
+        },
+        {
+          stars: 5,
+          quote: 'The monthly reports alone are worth the investment. We now know exactly where patients come from, which services are growing, and what to improve. No other vendor offered this level of insight.',
+          name: 'Dr. Rajiv Malhotra',
+          role: 'CEO & Founder',
+          hospital: 'Rajputana General Hospital, Jaipur',
+          avatar: '👨‍💼',
+        },
+      ].map(r => (
+        <div className="mx-card" key={r.name} style={{ display:'flex', flexDirection:'column', justifyContent:'space-between', gap:16 }}>
+          {/* Stars */}
+          <div style={{ display:'flex', gap:3 }}>
+            {Array(r.stars).fill(0).map((_, i) => (
+              <span key={i} style={{ color:'#f59e0b', fontSize:14 }}>★</span>
+            ))}
+          </div>
+          {/* Quote */}
+          <p className="mx-muted" style={{ fontSize:13.5, lineHeight:1.7, flexGrow:1 }}>
+            "{r.quote}"
+          </p>
+          {/* Author */}
+          <div style={{ display:'flex', alignItems:'center', gap:12, paddingTop:14, borderTop:'1px solid var(--border-faint)' }}>
+            <div style={{
+              width:42, height:42, borderRadius:'50%',
+              background:'var(--bg-elevated)', border:'1px solid var(--border-default)',
+              display:'flex', alignItems:'center', justifyContent:'center', fontSize:20, flexShrink:0
+            }}>{r.avatar}</div>
+            <div>
+              <div style={{ fontFamily:'var(--font-body)', fontSize:13.5, fontWeight:700, color:'var(--text-primary)' }}>{r.name}</div>
+              <div style={{ fontFamily:'var(--font-mono)', fontSize:11, color:'var(--text-muted)', letterSpacing:'.3px' }}>{r.role}</div>
+              <div style={{ fontFamily:'var(--font-mono)', fontSize:10, color:'var(--brand-hot)', letterSpacing:'.5px', marginTop:2 }}>{r.hospital}</div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {/* Trust bar */}
+    <div style={{
+      marginTop: 52,
+      padding: '28px 32px',
+      background: 'var(--bg-raised)',
+      border: '1px solid var(--border-faint)',
+      borderRadius: 18,
+      display: 'flex',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+      flexWrap: 'wrap',
+      gap: 24,
+    }}>
+      {[
+        { icon:'⭐', num:'4.9 / 5',   label:'Average Client Rating'  },
+        { icon:'🏥', num:'1,800+',    label:'Hospitals Served'        },
+        { icon:'🔁', num:'96%',       label:'Client Renewal Rate'     },
+        { icon:'💬', num:'500+',      label:'Verified Reviews'        },
+      ].map(b => (
+        <div key={b.label} style={{ display:'flex', alignItems:'center', gap:12, textAlign:'left' }}>
+          <span style={{ fontSize:28 }}>{b.icon}</span>
+          <div>
+            <div style={{ fontFamily:'var(--font-display)', fontSize:20, fontWeight:800, color:'var(--text-primary)', letterSpacing:'-.5px' }}>{b.num}</div>
+            <div style={{ fontFamily:'var(--font-mono)', fontSize:11, color:'var(--text-muted)', letterSpacing:'.5px' }}>{b.label}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
         <Footer />
       </div>
     </>

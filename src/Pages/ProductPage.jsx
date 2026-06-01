@@ -774,7 +774,139 @@ export default function ProductsPage() {
             </div>
           </div>
         </section>
+        {/* ══════════════════════════════════════════════════════
+    SECTION: PRODUCT TESTIMONIALS
+    Focus: HMS/EHR usability, clinical workflow, outcomes
+══════════════════════════════════════════════════════ */}
+<section className="mx-section">
+  <div className="mx-container">
+    <div className="mx-text-center" style={{ marginBottom: 52 }}>
+      <div className="mx-tag">Product Reviews</div>
+      <h2 className="mx-section-title">Doctors & Admins Who <em>Use It Every Day</em></h2>
+      <p className="mx-section-sub">Real feedback from clinical and administrative teams on MedXL's HMS, EHR, LIMS, and more.</p>
+    </div>
 
+    <div className="mx-grid-3">
+      {[
+        {
+          stars: 5,
+          product: '🏥 Hospital Management System',
+          quote: 'We replaced three separate billing, OPD, and pharmacy tools with MedXL HMS. The single dashboard alone saved our admin team 2 hours daily. Billing errors dropped to near zero in the first month.',
+          name: 'Mr. Venkat Raman',
+          role: 'Hospital Administrator',
+          hospital: 'Shreeji Orthopaedic Hospital, Ahmedabad',
+          avatar: '👨‍💼',
+        },
+        {
+          stars: 5,
+          product: '📋 Electronic Health Records',
+          quote: 'As a physician, I was skeptical of yet another EHR. But MedXL\'s SOAP note structure, ICD-10 auto-suggest, and one-click e-prescription genuinely cut my documentation time by half. I actually like using it.',
+          name: 'Dr. Meenakshi Iyer',
+          role: 'Senior Physician',
+          hospital: 'Kaveri Multispecialty Hospital, Coimbatore',
+          avatar: '👩‍⚕️',
+        },
+        {
+          stars: 5,
+          product: '🔬 Lab Information System',
+          quote: 'Sample tracking used to be a nightmare — lost reports, delayed results, angry patients. With MedXL LIMS, every sample is tracked end-to-end and reports go directly to patients on WhatsApp. TAT improved by 50%.',
+          name: 'Dr. Suresh Pillai',
+          role: 'Lab Director',
+          hospital: 'Vidarbha Heart & Neuro Institute, Nagpur',
+          avatar: '👨‍⚕️',
+        },
+        {
+          stars: 5,
+          product: '📡 Telemedicine Platform',
+          quote: 'We serve a large rural catchment. The MedXL telemedicine module let us extend specialist consultations to patients 80km away. We added ₹75L in revenue last year from remote OPD alone.',
+          name: 'Dr. Arvind Tiwari',
+          role: 'Medical Director',
+          hospital: 'Lakshmi Multispecialty Hospital, Ranchi',
+          avatar: '👨‍⚕️',
+        },
+        {
+          stars: 5,
+          product: '📱 Hospital Mobile App',
+          quote: 'Our patients love the app. Appointment booking, report download, and bill payment — all in one place. Google Play rating is 4.7 and patients mention it in positive reviews about our hospital.',
+          name: 'Mrs. Anitha Krishnamurthy',
+          role: 'Operations Manager',
+          hospital: 'Dhanwantari Women\'s Hospital, Lucknow',
+          avatar: '👩‍💼',
+        },
+        {
+          stars: 5,
+          product: '📚 LMS for Hospitals',
+          quote: 'NABH accreditation requires documented staff training. MedXL LMS gave us a fully auditable training record for all 120 staff — CPD tracking, assessment scores, compliance certificates. Our auditor was impressed.',
+          name: 'Dr. Nandita Sharma',
+          role: 'Quality & Compliance Head',
+          hospital: 'Rajputana General Hospital, Jaipur',
+          avatar: '👩‍⚕️',
+        },
+      ].map(r => (
+        <div className="mx-card" key={r.name} style={{ display:'flex', flexDirection:'column', gap:14 }}>
+          {/* Product label */}
+          <div style={{
+            fontFamily:'var(--font-mono)', fontSize:10, letterSpacing:'1px',
+            color:'var(--brand-light)', background:'rgba(197,45,181,.1)',
+            border:'1px solid rgba(197,45,181,.22)', borderRadius:100,
+            padding:'3px 12px', width:'fit-content', textTransform:'uppercase'
+          }}>{r.product}</div>
+
+          {/* Stars */}
+          <div style={{ display:'flex', gap:3 }}>
+            {Array(r.stars).fill(0).map((_,i) => (
+              <span key={i} style={{ color:'#f59e0b', fontSize:13 }}>★</span>
+            ))}
+          </div>
+
+          {/* Quote */}
+          <p className="mx-muted" style={{ fontSize:13.5, lineHeight:1.75, flexGrow:1 }}>
+            "{r.quote}"
+          </p>
+
+          {/* Author */}
+          <div style={{ display:'flex', alignItems:'center', gap:12, paddingTop:14, borderTop:'1px solid var(--border-faint)' }}>
+            <div style={{
+              width:40, height:40, borderRadius:'50%',
+              background:'var(--bg-elevated)', border:'1px solid var(--border-default)',
+              display:'flex', alignItems:'center', justifyContent:'center',
+              fontSize:19, flexShrink:0
+            }}>{r.avatar}</div>
+            <div>
+              <div style={{ fontFamily:'var(--font-body)', fontSize:13, fontWeight:700, color:'var(--text-primary)' }}>{r.name}</div>
+              <div style={{ fontFamily:'var(--font-mono)', fontSize:10, color:'var(--text-muted)', letterSpacing:'.3px' }}>{r.role}</div>
+              <div style={{ fontFamily:'var(--font-mono)', fontSize:10, color:'var(--brand-hot)', letterSpacing:'.5px', marginTop:2 }}>{r.hospital}</div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {/* Product-specific outcome bar */}
+    <div style={{
+      marginTop:52, padding:'28px 32px',
+      background:'var(--bg-raised)', border:'1px solid var(--border-faint)',
+      borderRadius:18, display:'flex', justifyContent:'space-around',
+      alignItems:'center', flexWrap:'wrap', gap:24
+    }}>
+      {[
+        { icon:'🏥', num:'7+',      label:'Integrated Products'    },
+        { icon:'⚡', num:'< 2s',    label:'Avg Page Load Time'     },
+        { icon:'🔗', num:'1 DB',    label:'Unified Patient Record' },
+        { icon:'⭐', num:'4.8 / 5', label:'Avg Product Rating'     },
+      ].map(b => (
+        <div key={b.label} style={{ display:'flex', alignItems:'center', gap:12 }}>
+          <span style={{ fontSize:26 }}>{b.icon}</span>
+          <div>
+            <div style={{ fontFamily:'var(--font-display)', fontSize:20, fontWeight:800, color:'var(--text-primary)', letterSpacing:'-.5px' }}>{b.num}</div>
+            <div style={{ fontFamily:'var(--font-mono)', fontSize:10, color:'var(--text-muted)', letterSpacing:'.5px', textTransform:'uppercase' }}>{b.label}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
         <Footer />
       </div>
     </>
