@@ -1,7 +1,43 @@
 const cases = [
   { tag:'🏥 Hospitals Management', color:'#C52DB5', title:'Arogya General Hospital, Mumbai',         challenge:'A 150-bed facility struggling with long patient wait times and inefficient resource allocation across departments.', solution:'MedXL implemented cloud-based HMS and Resource Management tools with real-time analytics.', results:[{label:'Reduction in wait times',val:'40%'},{label:'Bed turnover improvement',val:'25%'},{label:'Annual cost savings',val:'₹2Cr'}] },
   { tag:'📱 Digital Transformation',color:'#F5A623', title:"Sunshine Children's Hospital, Bangalore", challenge:'An 80-bed pediatric hospital struggling to manage patient records and parent communication efficiently.', solution:'MedXL implemented EHR systems and developed a custom patient communication mobile app.', results:[{label:'Reduction in paperwork',val:'50%'},{label:'Patient satisfaction boost',val:'35%'},{label:'Missed appointments down',val:'25%'}] },
-  { tag:'🌐 Telemedicine',color:'#60A5FA',title:'Lakshmi Multispecialty Hospital, Ranchi',       challenge:'A 200-bed hospital wanting to expand rural reach and reduce emergency department overcrowding.', solution:'MedXL implemented EHR, Telemedicine Platform and provided comprehensive staff skill training.', results:[{label:'Rural clinics connected',val:'15'},{label:'Non-emergency visits down',val:'30%'},{label:'Additional revenue',val:'₹75L'}] },
+  { 
+  tag: '🎓 LMS', 
+  color: '#34D399', 
+  title: 'Greenfield International School, Pune', 
+  challenge: 'A 5,000-student institution struggling with fragmented learning tools, low student engagement, and no centralized progress tracking.', 
+  solution: 'Deployed a full-featured Learning Management System with live classes, assignments, quizzes, attendance tracking, and parent dashboards.', 
+  results: [
+    { label: 'Student engagement rate', val: '87%' }, 
+    { label: 'Admin time saved weekly', val: '40 hrs' }, 
+    { label: 'Course completion rate up', val: '65%' }
+  ] 
+},
+{ 
+  tag: '🏥 Healthcare Course Creation', 
+  color: '#F472B6', 
+  title: 'Apollo Wellness Academy, Hyderabad', 
+  challenge: 'A healthcare network needing standardized training for 800+ staff across 12 clinics with no consistent curriculum or compliance tracking.', 
+  solution: 'Built a custom healthcare e-learning suite covering clinical protocols, soft skills, and compliance modules with SCORM-ready content and assessments.', 
+  results: [
+    { label: 'Staff trained in 3 months', val: '800+' }, 
+    { label: 'Compliance audit pass rate', val: '98%' }, 
+    { label: 'Training cost reduced', val: '50%' }
+  ] 
+},
+
+{ 
+  tag: '💼 End-to-End IT Package', 
+  color: '#A78BFA', 
+  title: 'Horizon Retail Group, Chennai', 
+  challenge: 'A mid-size retail chain with 25 outlets running on disconnected legacy systems, facing data silos, cybersecurity gaps, and zero cloud infrastructure.', 
+  solution: 'Delivered a complete IT overhaul — cloud migration, ERP integration, cybersecurity hardening, helpdesk setup, and 24/7 managed IT support.', 
+  results: [
+    { label: 'System downtime reduced', val: '90%' }, 
+    { label: 'Operational efficiency up', val: '45%' }, 
+    { label: 'IT support tickets resolved', val: '<2 hrs avg' }
+  ] 
+}
 ]
 export default function CaseStudies() {
   return (
