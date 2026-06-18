@@ -1,4 +1,5 @@
 import ServiceDetailPage from '../layouts/Servicedetailpage'
+import { Helmet } from 'react-helmet-async'
 
 const SEO_CONFIG = {
   slug: 'seo-marketing',
@@ -78,5 +79,31 @@ const SEO_CONFIG = {
 }
 
 export default function SeoMarketingPage() {
-  return <ServiceDetailPage config={SEO_CONFIG} />
+  return (
+    <>
+    <Helmet>
+ 
+  <title>Digital Marketing for Hospitals India | MedXL SEO Services</title>
+  <meta name="description" content="MedXL offers SEO and digital marketing services exclusively for hospitals and healthcare providers in India. Grow your patient base with data-driven online marketing." />
+  <link rel="canonical" href="https://medxl.in/SeoMarketing" />
+  {/* ── Open Graph ── */}
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://medxl.in/SeoMarketing" />
+  <meta property="og:title"       content="Digital Marketing for Hospitals India | MedXL SEO Services" />
+  <meta property="og:description" content="MedXL offers SEO and digital marketing services exclusively for hospitals and healthcare providers in India. Grow your patient base with data-driven online marketing." />
+  <meta property="og:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+  <meta property="og:site_name"   content="MedXL" />
+  <meta property="og:locale"      content="en_IN" />
+  {/* ── Twitter Cards ── */}
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@medxl_in" />
+  <meta name="twitter:url"         content="https://medxl.in/SeoMarketing" />
+  <meta name="twitter:title"       content="Digital Marketing for Hospitals India | MedXL SEO Services" />
+  <meta name="twitter:description" content="MedXL offers SEO and digital marketing services exclusively for hospitals and healthcare providers in India. Grow your patient base with data-driven online marketing." />
+  <meta name="twitter:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+</Helmet>
+
+      <ServiceDetailPage config={SEO_CONFIG} />
+    </>
+  )
 }

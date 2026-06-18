@@ -1,4 +1,5 @@
 import ProductDetailPage from '../layouts/Productdetailpage'
+import { Helmet } from 'react-helmet-async'
 
 const EHR_CONFIG = {
   slug: 'ehr',
@@ -116,7 +117,32 @@ const EHR_CONFIG = {
   ctaDesc:
     "Book a free 30-minute demo. We'll walk you through clinical note templates, e-prescription, and ABDM integration — tailored to your specialties.",
 }
-
 export default function EHRPage() {
-  return <ProductDetailPage config={EHR_CONFIG} />
+  return (
+    <>
+  <Helmet>
+
+  <title>EMR & EHR Software for Hospitals India | MedXL</title>
+  <meta name="description" content="MedXL's Electronic Health Records (EHR/EMR) software helps hospitals in India digitise patient records, streamline clinical workflows and improve care quality." />
+  <link rel="canonical" href="https://medxl.in/Ehr" />
+  {/* ── Open Graph ── */}
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://medxl.in/Ehr" />
+  <meta property="og:title"       content="EMR & EHR Software for Hospitals India | MedXL" />
+  <meta property="og:description" content="MedXL's Electronic Health Records (EHR/EMR) software helps hospitals in India digitise patient records, streamline clinical workflows and improve care quality." />
+  <meta property="og:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+  <meta property="og:site_name"   content="MedXL" />
+  <meta property="og:locale"      content="en_IN" />
+  {/* ── Twitter Cards ── */}
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@medxl_in" />
+  <meta name="twitter:url"         content="https://medxl.in/Ehr" />
+  <meta name="twitter:title"       content="EMR & EHR Software for Hospitals India | MedXL" />
+  <meta name="twitter:description" content="MedXL's Electronic Health Records (EHR/EMR) software helps hospitals in India digitise patient records, streamline clinical workflows and improve care quality." />
+  <meta name="twitter:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+</Helmet>
+
+      <ProductDetailPage config={EHR_CONFIG} />
+    </>
+  )
 }

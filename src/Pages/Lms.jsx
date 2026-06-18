@@ -1,4 +1,6 @@
 import ProductDetailPage from '../layouts/Productdetailpage'
+import { Helmet } from 'react-helmet-async'
+
 
 const LMS_CONFIG = {
   slug: 'lms',
@@ -118,5 +120,30 @@ const LMS_CONFIG = {
 }
 
 export default function LMSPage() {
-  return <ProductDetailPage config={LMS_CONFIG} />
+  return (
+    <>
+     <Helmet>
+  
+  <title>Hospital Learning Management System | MedXL LMS India</title>
+  <meta name="description" content="Train and upskill your hospital staff with MedXL's LMS. Deliver online courses, track completion, and ensure compliance for healthcare teams across India." />
+  <link rel="canonical" href="https://medxl.in/Lms" />
+  {/* ── Open Graph ── */}
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://medxl.in/Lms" />
+  <meta property="og:title"       content="Hospital Learning Management System | MedXL LMS India" />
+  <meta property="og:description" content="Train and upskill your hospital staff with MedXL's LMS. Deliver online courses, track completion, and ensure compliance for healthcare teams across India." />
+  <meta property="og:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+  <meta property="og:site_name"   content="MedXL" />
+  <meta property="og:locale"      content="en_IN" />
+  {/* ── Twitter Cards ── */}
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@medxl_in" />
+  <meta name="twitter:url"         content="https://medxl.in/Lms" />
+  <meta name="twitter:title"       content="Hospital Learning Management System | MedXL LMS India" />
+  <meta name="twitter:description" content="Train and upskill your hospital staff with MedXL's LMS. Deliver online courses, track completion, and ensure compliance for healthcare teams across India." />
+  <meta name="twitter:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+</Helmet>
+      <ProductDetailPage config={LMS_CONFIG} />
+    </>
+  )
 }

@@ -1,4 +1,5 @@
 import ProductDetailPage from '../layouts/Productdetailpage'
+import { Helmet } from 'react-helmet-async'
 
 const MOBILE_APP_CONFIG = {
   slug: 'mobile-app',
@@ -118,5 +119,31 @@ const MOBILE_APP_CONFIG = {
 }
 
 export default function MobileAppPage() {
-  return <ProductDetailPage config={MOBILE_APP_CONFIG} />
+  return (
+    <>
+    <Helmet>
+
+  <title>Hospital Mobile App Development India | MedXL</title>
+  <meta name="description" content="MedXL builds custom mobile apps for hospitals and clinics in India – patient portals, appointment booking, health records and more for iOS and Android." />
+  <link rel="canonical" href="https://medxl.in/Mobileapp" />
+  {/* ── Open Graph ── */}
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://medxl.in/Mobileapp" />
+  <meta property="og:title"       content="Hospital Mobile App Development India | MedXL" />
+  <meta property="og:description" content="MedXL builds custom mobile apps for hospitals and clinics in India – patient portals, appointment booking, health records and more for iOS and Android." />
+  <meta property="og:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+  <meta property="og:site_name"   content="MedXL" />
+  <meta property="og:locale"      content="en_IN" />
+  {/* ── Twitter Cards ── */}
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@medxl_in" />
+  <meta name="twitter:url"         content="https://medxl.in/Mobileapp" />
+  <meta name="twitter:title"       content="Hospital Mobile App Development India | MedXL" />
+  <meta name="twitter:description" content="MedXL builds custom mobile apps for hospitals and clinics in India – patient portals, appointment booking, health records and more for iOS and Android." />
+  <meta name="twitter:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+</Helmet>
+
+      <ProductDetailPage config={MOBILE_APP_CONFIG} />
+    </>
+  )
 }

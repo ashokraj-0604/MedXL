@@ -1,4 +1,5 @@
 import ServiceDetailPage from '../layouts/Servicedetailpage'
+import { Helmet } from 'react-helmet-async'
 
 const SOCIAL_CONFIG = {
   slug: 'social-media',
@@ -78,5 +79,31 @@ const SOCIAL_CONFIG = {
 }
 
 export default function SocialMediaPage() {
-  return <ServiceDetailPage config={SOCIAL_CONFIG} />
+  return (
+    <>
+<Helmet>
+
+  <title>Social Media Marketing for Hospitals | MedXL India</title>
+  <meta name="description" content="Build your hospital's brand on social media with MedXL. We manage Facebook, Instagram, and LinkedIn campaigns tailored for healthcare providers in India." />
+  <link rel="canonical" href="https://medxl.in/SocialMedia" />
+  {/* ── Open Graph ── */}
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://medxl.in/SocialMedia" />
+  <meta property="og:title"       content="Social Media Marketing for Hospitals | MedXL India" />
+  <meta property="og:description" content="Build your hospital's brand on social media with MedXL. We manage Facebook, Instagram, and LinkedIn campaigns tailored for healthcare providers in India." />
+  <meta property="og:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+  <meta property="og:site_name"   content="MedXL" />
+  <meta property="og:locale"      content="en_IN" />
+  {/* ── Twitter Cards ── */}
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@medxl_in" />
+  <meta name="twitter:url"         content="https://medxl.in/SocialMedia" />
+  <meta name="twitter:title"       content="Social Media Marketing for Hospitals | MedXL India" />
+  <meta name="twitter:description" content="Build your hospital's brand on social media with MedXL. We manage Facebook, Instagram, and LinkedIn campaigns tailored for healthcare providers in India." />
+  <meta name="twitter:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+</Helmet>
+
+      <ServiceDetailPage config={SOCIAL_CONFIG} />
+    </>
+  )
 }

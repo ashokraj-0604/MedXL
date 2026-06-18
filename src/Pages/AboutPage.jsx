@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import '../styles/medxl-hero.css'
+import { Helmet } from 'react-helmet-async'
 export default function AboutPage() {
   const blobRef = useRef(null)
 
@@ -20,6 +21,11 @@ export default function AboutPage() {
 
   return (
     <>
+    <Helmet>
+  <title>About MedXL | Healthcare IT Company in Chennai, India</title>
+  <meta name="description" content="Learn about MedXL – a Chennai-based healthcare IT company building hospital management software, EMR, and digital health solutions for private hospitals across India." />
+  <link rel="canonical" href="https://medxl.in/about" />
+</Helmet>
       <style>{`
         /* ── Why-item slide-in row ── */
         .ab-why-item {

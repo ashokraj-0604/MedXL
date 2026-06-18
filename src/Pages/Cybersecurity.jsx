@@ -1,4 +1,6 @@
 import ServiceDetailPage from '../layouts/Servicedetailpage'
+import { Helmet } from 'react-helmet-async'
+
 
 const CYBERSECURITY_CONFIG = {
   slug: 'cybersecurity',
@@ -79,5 +81,31 @@ const CYBERSECURITY_CONFIG = {
 }
 
 export default function CybersecurityPage() {
-  return <ServiceDetailPage config={CYBERSECURITY_CONFIG} />
+  return (
+    <>
+     <Helmet>
+
+  <title>Healthcare Cybersecurity Solutions | MedXL India</title>
+  <meta name="description" content="Protect your hospital's patient data with MedXL's cybersecurity solutions. HIPAA-aligned data security, threat monitoring, and compliance for healthcare organisations in India." />
+  <link rel="canonical" href="https://medxl.in/CyberSecurity" />
+  {/* ── Open Graph ── */}
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://medxl.in/CyberSecurity" />
+  <meta property="og:title"       content="Healthcare Cybersecurity Solutions | MedXL India" />
+  <meta property="og:description" content="Protect your hospital's patient data with MedXL's cybersecurity solutions. HIPAA-aligned data security, threat monitoring, and compliance for healthcare organisations in India." />
+  <meta property="og:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+  <meta property="og:site_name"   content="MedXL" />
+  <meta property="og:locale"      content="en_IN" />
+  {/* ── Twitter Cards ── */}
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@medxl_in" />
+  <meta name="twitter:url"         content="https://medxl.in/CyberSecurity" />
+  <meta name="twitter:title"       content="Healthcare Cybersecurity Solutions | MedXL India" />
+  <meta name="twitter:description" content="Protect your hospital's patient data with MedXL's cybersecurity solutions. HIPAA-aligned data security, threat monitoring, and compliance for healthcare organisations in India." />
+  <meta name="twitter:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+</Helmet>
+
+      <ServiceDetailPage config={CYBERSECURITY_CONFIG} />
+    </>
+  )
 }

@@ -1,4 +1,6 @@
 import ProductDetailPage from '../layouts/Productdetailpage'
+import { Helmet } from 'react-helmet-async'
+
 
 const HMS_CONFIG = {
   slug: 'hms',
@@ -118,5 +120,32 @@ const HMS_CONFIG = {
 }
 
 export default function HMSPage() {
-  return <ProductDetailPage config={HMS_CONFIG} />
+  return (
+    <>
+      <Helmet>
+ 
+  <title>Hospital Management System (HMS) | MedXL</title>
+  <meta name="description" content="Comprehensive Hospital Management System for OPD, IPD, pharmacy, billing, administration, and patient management. Cloud-based HMS by MedXL." />
+  <link rel="canonical" href="https://medxl.in/hms" />
+  {/* ── Open Graph ── */}
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://medxl.in/hms" />
+  <meta property="og:title"       content="Hospital Management System (HMS) | MedXL" />
+  <meta property="og:description" content="Comprehensive Hospital Management System for OPD, IPD, pharmacy, billing, administration, and patient management. Cloud-based HMS by MedXL." />
+  <meta property="og:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+  <meta property="og:site_name"   content="MedXL" />
+  <meta property="og:locale"      content="en_IN" />
+  
+  {/* ── Twitter Cards ── */}
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@medxl_in" />
+  <meta name="twitter:url"         content="https://medxl.in/hms" />
+  <meta name="twitter:title"       content="Hospital Management System (HMS) | MedXL" />
+  <meta name="twitter:description" content="Comprehensive Hospital Management System for OPD, IPD, pharmacy, billing, administration, and patient management. Cloud-based HMS by MedXL." />
+  <meta name="twitter:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+</Helmet>
+
+      <ProductDetailPage config={HMS_CONFIG} />
+    </>
+  )
 }

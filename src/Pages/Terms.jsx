@@ -1,4 +1,5 @@
 import LegalPage from '../layouts/Legaldetailpage'
+import { Helmet } from 'react-helmet-async'
 
 const noticeText = (
   <p>
@@ -165,5 +166,33 @@ const TERMS_CONFIG = {
 }
 
 export default function TermsPage() {
-  return <LegalPage config={TERMS_CONFIG} />
+  return (
+    <>
+    <Helmet>
+
+  <title>Terms & Conditions | MedXL</title>
+  <meta name="description" content="Read MedXL's terms and conditions governing the use of our hospital management software and healthcare IT services." />
+  <link rel="canonical" href="https://medxl.in/Terms" />
+
+  {/* ── Open Graph ── */}
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://medxl.in/Terms" />
+  <meta property="og:title"       content="Terms & Conditions | MedXL" />
+  <meta property="og:description" content="Read MedXL's terms and conditions governing the use of our hospital management software and healthcare IT services." />
+  <meta property="og:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+  <meta property="og:site_name"   content="MedXL" />
+  <meta property="og:locale"      content="en_IN" />
+
+  {/* ── Twitter Cards ── */}
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@medxl_in" />
+  <meta name="twitter:url"         content="https://medxl.in/Terms" />
+  <meta name="twitter:title"       content="Terms & Conditions | MedXL" />
+  <meta name="twitter:description" content="Read MedXL's terms and conditions governing the use of our hospital management software and healthcare IT services." />
+  <meta name="twitter:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+</Helmet>
+
+      <LegalPage config={TERMS_CONFIG} />
+    </>
+  )
 }

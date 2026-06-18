@@ -1,4 +1,5 @@
 import ProductDetailPage from '../layouts/Productdetailpage'
+import { Helmet } from 'react-helmet-async'
 
 const LIMS_CONFIG = {
   slug: 'lims',
@@ -118,5 +119,31 @@ const LIMS_CONFIG = {
 }
 
 export default function LIMSPage() {
-  return <ProductDetailPage config={LIMS_CONFIG} />
+  return (
+    <>
+    <Helmet>
+
+  <title>Laboratory Information Management System | MedXL LIMS India</title>
+  <meta name="description" content="MedXL LIMS streamlines lab workflows, test reporting, and sample tracking for hospital laboratories in India. Integrated with HMS for seamless operations." />
+  <link rel="canonical" href="https://medxl.in/Lims" />
+  {/* ── Open Graph ── */}
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://medxl.in/Lims" />
+  <meta property="og:title"       content="Laboratory Information Management System | MedXL LIMS India" />
+  <meta property="og:description" content="MedXL LIMS streamlines lab workflows, test reporting, and sample tracking for hospital laboratories in India. Integrated with HMS for seamless operations." />
+  <meta property="og:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+  <meta property="og:site_name"   content="MedXL" />
+  <meta property="og:locale"      content="en_IN" />
+  {/* ── Twitter Cards ── */}
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@medxl_in" />
+  <meta name="twitter:url"         content="https://medxl.in/Lims" />
+  <meta name="twitter:title"       content="Laboratory Information Management System | MedXL LIMS India" />
+  <meta name="twitter:description" content="MedXL LIMS streamlines lab workflows, test reporting, and sample tracking for hospital laboratories in India. Integrated with HMS for seamless operations." />
+  <meta name="twitter:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+</Helmet>
+
+      <ProductDetailPage config={LIMS_CONFIG} />
+    </>
+  )
 }

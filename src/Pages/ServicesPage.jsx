@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import '../medxl.css'
+import { Helmet } from 'react-helmet-async'
 
 /* ─────────────────────────────────────────────────────
    ServicesPage — MedXL Design System v2.0
@@ -165,6 +166,51 @@ useEffect(() => {
 
   return (
     <>
+    <Helmet>
+  <title>Healthcare IT Services | MedXL – HMS, EMR, Analytics & More</title>
+
+  <meta
+    name="description"
+    content="Explore MedXL's full range of healthcare IT services including Hospital Management Software, EHR, Telemedicine, Lab Information Systems, and Digital Marketing for hospitals."
+  />
+
+  <link rel="canonical" href="https://medxl.in/services" />
+
+  {/* Open Graph */}
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://medxl.in/services" />
+  <meta
+    property="og:title"
+    content="Healthcare IT Services | MedXL – HMS, EMR, Analytics & More"
+  />
+  <meta
+    property="og:description"
+    content="Explore MedXL's full range of healthcare IT services including Hospital Management Software, EHR, Telemedicine, Lab Information Systems, and Digital Marketing for hospitals."
+  />
+  <meta
+    property="og:image"
+    content="https://medxl.in/assets/Favicon-BQuMKZDA.png"
+  />
+  <meta property="og:site_name" content="MedXL" />
+  <meta property="og:locale" content="en_IN" />
+
+  {/* Twitter Cards */}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@medxl_in" />
+  <meta name="twitter:url" content="https://medxl.in/services" />
+  <meta
+    name="twitter:title"
+    content="Healthcare IT Services | MedXL – HMS, EMR, Analytics & More"
+  />
+  <meta
+    name="twitter:description"
+    content="Explore MedXL's full range of healthcare IT services including Hospital Management Software, EHR, Telemedicine, Lab Information Systems, and Digital Marketing for hospitals."
+  />
+  <meta
+    name="twitter:image"
+    content="https://medxl.in/assets/Favicon-BQuMKZDA.png"
+  />
+</Helmet>
       <style>{`
         /* ── PAGE-SPECIFIC STYLES ONLY ── */
 

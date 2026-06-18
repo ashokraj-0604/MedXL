@@ -1,4 +1,6 @@
 import ServiceDetailPage from '../layouts/Servicedetailpage'
+import { Helmet } from 'react-helmet-async'
+
 
 const EMAIL_CONFIG = {
   slug: 'email-comms',
@@ -82,5 +84,33 @@ const EMAIL_CONFIG = {
 }
 
 export default function EmailCommsPage() {
-  return <ServiceDetailPage config={EMAIL_CONFIG} />
+  return (
+    <>
+    <Helmet>
+
+  <title>Email Marketing for Hospitals India | MedXL</title>
+  <meta name="description" content="MedXL's email marketing service helps hospitals in India engage patients, promote health campaigns, and drive appointment bookings with targeted email campaigns." />
+  <link rel="canonical" href="https://medxl.in/Email" />
+
+  {/* ── Open Graph ── */}
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://medxl.in/Email" />
+  <meta property="og:title"       content="Email Marketing for Hospitals India | MedXL" />
+  <meta property="og:description" content="MedXL's email marketing service helps hospitals in India engage patients, promote health campaigns, and drive appointment bookings with targeted email campaigns." />
+  <meta property="og:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+  <meta property="og:site_name"   content="MedXL" />
+  <meta property="og:locale"      content="en_IN" />
+
+  {/* ── Twitter Cards ── */}
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@medxl_in" />
+  <meta name="twitter:url"         content="https://medxl.in/Email" />
+  <meta name="twitter:title"       content="Email Marketing for Hospitals India | MedXL" />
+  <meta name="twitter:description" content="MedXL's email marketing service helps hospitals in India engage patients, promote health campaigns, and drive appointment bookings with targeted email campaigns." />
+  <meta name="twitter:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+</Helmet>
+
+      <ServiceDetailPage config={EMAIL_CONFIG} />
+    </>
+  )
 }

@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import Footer from '../components/Footer'
 import '../styles/medxl-hero.css'
+import { Helmet } from 'react-helmet-async'
+
 // import '../styles/medxl.css'  // root tokens — already global
 
 /*
@@ -143,6 +145,29 @@ export default function PricingPage() {
 
   return (
     <>
+    <Helmet>
+  
+  <title>Pricing | MedXL Hospital Management Software Plans – India</title>
+  <meta name="description" content="View MedXL's affordable pricing plans for hospital management software, EMR, and healthcare IT solutions. Flexible plans for clinics, nursing homes and private hospitals in India." />
+  <link rel="canonical" href="https://medxl.in/price" />
+
+  {/* ── Open Graph ── */}
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://medxl.in/price" />
+  <meta property="og:title"       content="Pricing | MedXL Hospital Management Software Plans – India" />
+  <meta property="og:description" content="View MedXL's affordable pricing plans for hospital management software, EMR, and healthcare IT solutions. Flexible plans for clinics, nursing homes and private hospitals in India." />
+  <meta property="og:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+  <meta property="og:site_name"   content="MedXL" />
+  <meta property="og:locale"      content="en_IN" />
+  
+  {/* ── Twitter Cards ── */}
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@medxl_in" />
+  <meta name="twitter:url"         content="https://medxl.in/price" />
+  <meta name="twitter:title"       content="Pricing | MedXL Hospital Management Software Plans – India" />
+  <meta name="twitter:description" content="View MedXL's affordable pricing plans for hospital management software, EMR, and healthcare IT solutions. Flexible plans for clinics, nursing homes and private hospitals in India." />
+  <meta name="twitter:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+</Helmet>
       <style>{`
         /* ── Plans ── */
         .pr-plans-section { padding:80px 0; background:var(--bg-base); }

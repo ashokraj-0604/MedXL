@@ -1,4 +1,5 @@
 import ServiceDetailPage from '../layouts/Servicedetailpage'
+import { Helmet } from 'react-helmet-async'
 
 const CONSULTING_CONFIG = {
   slug: 'it-consulting',
@@ -78,5 +79,30 @@ const CONSULTING_CONFIG = {
 }
 
 export default function ItConsultingPage() {
-  return <ServiceDetailPage config={CONSULTING_CONFIG} />
+  return (
+    <>
+     <Helmet>
+ 
+  <title>Healthcare IT Consulting Services India | MedXL</title>
+  <meta name="description" content="MedXL's healthcare IT consulting helps hospitals in India plan, implement, and optimise their digital infrastructure – from EMR selection to full digital transformation." />
+  <link rel="canonical" href="https://medxl.in/ITconsulting" />
+  {/* ── Open Graph ── */}
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://medxl.in/ITconsulting" />
+  <meta property="og:title"       content="Healthcare IT Consulting Services India | MedXL" />
+  <meta property="og:description" content="MedXL's healthcare IT consulting helps hospitals in India plan, implement, and optimise their digital infrastructure – from EMR selection to full digital transformation." />
+  <meta property="og:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+  <meta property="og:site_name"   content="MedXL" />
+  <meta property="og:locale"      content="en_IN" />
+  {/* ── Twitter Cards ── */}
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@medxl_in" />
+  <meta name="twitter:url"         content="https://medxl.in/ITconsulting" />
+  <meta name="twitter:title"       content="Healthcare IT Consulting Services India | MedXL" />
+  <meta name="twitter:description" content="MedXL's healthcare IT consulting helps hospitals in India plan, implement, and optimise their digital infrastructure – from EMR selection to full digital transformation." />
+  <meta name="twitter:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+</Helmet>
+      <ServiceDetailPage config={CONSULTING_CONFIG} />
+    </>
+  )
 }

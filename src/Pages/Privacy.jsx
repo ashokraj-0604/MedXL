@@ -1,4 +1,5 @@
 import LegalPage from '../layouts/Legaldetailpage'
+import { Helmet } from 'react-helmet-async'
 
 const noticeText = (
   <>
@@ -204,5 +205,33 @@ const PRIVACY_CONFIG = {
 }
 
 export default function PrivacyPage() {
-  return <LegalPage config={PRIVACY_CONFIG} />
+  return (
+    <>
+    <Helmet>
+
+  <title>Privacy Policy | MedXL Healthcare IT</title>
+  <meta name="description" content="MedXL's privacy policy explains how we collect, use, and protect your data in compliance with Indian data protection regulations." />
+  <link rel="canonical" href="https://medxl.in/Privacy" />
+
+  {/* ── Open Graph ── */}
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://medxl.in/Privacy" />
+  <meta property="og:title"       content="Privacy Policy | MedXL Healthcare IT" />
+  <meta property="og:description" content="MedXL's privacy policy explains how we collect, use, and protect your data in compliance with Indian data protection regulations." />
+  <meta property="og:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+  <meta property="og:site_name"   content="MedXL" />
+  <meta property="og:locale"      content="en_IN" />
+
+  {/* ── Twitter Cards ── */}
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@medxl_in" />
+  <meta name="twitter:url"         content="https://medxl.in/Privacy" />
+  <meta name="twitter:title"       content="Privacy Policy | MedXL Healthcare IT" />
+  <meta name="twitter:description" content="MedXL's privacy policy explains how we collect, use, and protect your data in compliance with Indian data protection regulations." />
+  <meta name="twitter:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+</Helmet>
+
+      <LegalPage config={PRIVACY_CONFIG} />
+    </>
+  )
 }

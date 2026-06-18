@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { useEffect } from 'react'
+import { HelmetProvider } from 'react-helmet-async'
 import Navbar from './components/Navbar'
 import HomePage from './Pages/HomePage'
 import AboutPage from './Pages/AboutPage'
@@ -27,51 +27,37 @@ import Opbilling from './Pages/Opbilling'
 import Cookies from './Pages/cookies'
 
 export default function App() {
-  
-  useEffect(() => {
-    const script1 = document.createElement('script');
-    script1.async = true;
-    script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-P8VJ1DNBLF';
-    document.head.appendChild(script1);
-
-    const script2 = document.createElement('script');
-    script2.innerHTML = `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-P8VJ1DNBLF');
-    `;
-    document.head.appendChild(script2);
-  }, []);
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/"home       element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/price" element={<PricingPage />} />
-        <Route path="/products" element={<ProductsPage />} />
-        <Route path= "/Terms" element={<Terms />} />
-        <Route path= "/Privacy" element={<Privacy />} />
-        <Route path= "/Analytics" element={<Analytics />} />
-        <Route path= "/CyberSecurity" element={<CyberSecurity />} />
-        <Route path= "/SeoMarketing" element={<SeoMarketing />} />
-        <Route path= "/Hospitalwebsite" element={<Hospitalwebsite />} />
-        <Route path= "/SocialMedia" element={<SocialMedia />} />
-        <Route path= "/CloudHosting" element={<CloudHosting />} />
-        <Route path= "/ITconsulting" element={<ITconsulting />} />
-        <Route path= "/Hms" element={<Hms />} />
-        <Route path= "/Ehr" element={<Ehr />} />
-        <Route path= "/Lims" element={<Lims />} />
-        <Route path= "/Lms" element={<Lms />} />
-        <Route path= "/Telemedicine" element={<Telemedicine />} />
-        <Route path= "/Mobileapp" element={<Mobileapp />} />
-        <Route path= "/Email" element={<Email />} />
-        <Route path= "/Training" element={<Training />} />
-        <Route path= "/Opbilling" element={<Opbilling />} />
-        <Route path= "/Cookies" element={<Cookies />} />
-      </Routes>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/price" element={<PricingPage />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/Terms" element={<Terms />} />
+          <Route path="/Privacy" element={<Privacy />} />
+          <Route path="/Analytics" element={<Analytics />} />
+          <Route path="/CyberSecurity" element={<CyberSecurity />} />
+          <Route path="/SeoMarketing" element={<SeoMarketing />} />
+          <Route path="/Hospitalwebsite" element={<Hospitalwebsite />} />
+          <Route path="/SocialMedia" element={<SocialMedia />} />
+          <Route path="/CloudHosting" element={<CloudHosting />} />
+          <Route path="/ITconsulting" element={<ITconsulting />} />
+          <Route path="/Hms" element={<Hms />} />
+          <Route path="/Ehr" element={<Ehr />} />
+          <Route path="/Lims" element={<Lims />} />
+          <Route path="/Lms" element={<Lms />} />
+          <Route path="/Telemedicine" element={<Telemedicine />} />
+          <Route path="/Mobileapp" element={<Mobileapp />} />
+          <Route path="/Email" element={<Email />} />
+          <Route path="/Training" element={<Training />} />
+          <Route path="/Opbilling" element={<Opbilling />} />
+          <Route path="/Cookies" element={<Cookies />} />
+        </Routes>
+      </BrowserRouter>
+    </HelmetProvider>
   )
 }

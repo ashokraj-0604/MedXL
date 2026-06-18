@@ -1,4 +1,5 @@
 import ProductDetailPage from '../layouts/Productdetailpage'
+import { Helmet } from 'react-helmet-async'
 
 const OP_BILLING_CONFIG = {
   slug: 'op-billing',
@@ -118,5 +119,52 @@ const OP_BILLING_CONFIG = {
 }
 
 export default function OPBillingPage() {
-  return <ProductDetailPage config={OP_BILLING_CONFIG} />
+  return (
+    <>
+    <Helmet>
+  <title>OPD Billing Software for Hospitals India | MedXL</title>
+
+  <meta
+    name="description"
+    content="MedXL's OPD billing software simplifies outpatient billing, invoice generation, and payment collection for hospitals and clinics across India."
+  />
+
+  <link
+    rel="canonical"
+    href="https://medxl.in/Opbilling"
+  />
+
+  {/* Open Graph */}
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://medxl.in/Opbilling" />
+  <meta property="og:title" content="OPD Billing Software for Hospitals India | MedXL" />
+  <meta
+    property="og:description"
+    content="MedXL's OPD billing software simplifies outpatient billing, invoice generation, and payment collection for hospitals and clinics across India."
+  />
+  <meta
+    property="og:image"
+    content="https://medxl.in/assets/Favicon-BQuMKZDA.png"
+  />
+  <meta property="og:site_name" content="MedXL" />
+  <meta property="og:locale" content="en_IN" />
+
+  {/* Twitter Cards */}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@medxl_in" />
+  <meta name="twitter:url" content="https://medxl.in/Opbilling" />
+  <meta name="twitter:title" content="OPD Billing Software for Hospitals India | MedXL" />
+  <meta
+    name="twitter:description"
+    content="MedXL's OPD billing software simplifies outpatient billing, invoice generation, and payment collection for hospitals and clinics across India."
+  />
+  <meta
+    name="twitter:image"
+    content="https://medxl.in/assets/Favicon-BQuMKZDA.png"
+  />
+</Helmet>
+
+      <ProductDetailPage config={OP_BILLING_CONFIG} />
+    </>
+  )
 }

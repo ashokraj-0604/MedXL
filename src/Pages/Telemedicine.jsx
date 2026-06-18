@@ -1,4 +1,5 @@
 import ProductDetailPage from '../layouts/Productdetailpage'
+import { Helmet } from 'react-helmet-async'
 
 const TELEMEDICINE_CONFIG = {
   slug: 'telemedicine',
@@ -117,5 +118,31 @@ const TELEMEDICINE_CONFIG = {
 }
 
 export default function TelemedicinePage() {
-  return <ProductDetailPage config={TELEMEDICINE_CONFIG} />
+  return (
+    <>
+<Helmet>
+
+  <title>Telemedicine Software for Hospitals India | MedXL</title>
+  <meta name="description" content="MedXL's telemedicine platform enables hospitals in India to offer secure video consultations, remote patient monitoring, and digital prescriptions." />
+  <link rel="canonical" href="https://medxl.in/Telemedicine" />
+  {/* ── Open Graph ── */}
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://medxl.in/Telemedicine" />
+  <meta property="og:title"       content="Telemedicine Software for Hospitals India | MedXL" />
+  <meta property="og:description" content="MedXL's telemedicine platform enables hospitals in India to offer secure video consultations, remote patient monitoring, and digital prescriptions." />
+  <meta property="og:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+  <meta property="og:site_name"   content="MedXL" />
+  <meta property="og:locale"      content="en_IN" />
+  {/* ── Twitter Cards ── */}
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@medxl_in" />
+  <meta name="twitter:url"         content="https://medxl.in/Telemedicine" />
+  <meta name="twitter:title"       content="Telemedicine Software for Hospitals India | MedXL" />
+  <meta name="twitter:description" content="MedXL's telemedicine platform enables hospitals in India to offer secure video consultations, remote patient monitoring, and digital prescriptions." />
+  <meta name="twitter:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+</Helmet>
+
+      <ProductDetailPage config={TELEMEDICINE_CONFIG} />
+    </>
+  )
 }

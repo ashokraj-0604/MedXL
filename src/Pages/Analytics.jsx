@@ -1,4 +1,5 @@
 import ServiceDetailPage from '../layouts/Servicedetailpage'
+import { Helmet } from 'react-helmet-async'
 
 const ANALYTICS_CONFIG = {
   slug: 'analytics',
@@ -79,5 +80,31 @@ const ANALYTICS_CONFIG = {
 }
 
 export default function AnalyticsPage() {
-  return <ServiceDetailPage config={ANALYTICS_CONFIG} />
+  return (
+    <>
+    <Helmet>
+ 
+  <title>Healthcare Analytics & Reporting | MedXL Hospital Insights India</title>
+  <meta name="description" content="MedXL's healthcare analytics platform gives hospital administrators real-time insights into revenue, patient flow, clinical outcomes, and operational efficiency." />
+  <link rel="canonical" href="https://medxl.in/Analytics" />
+  {/* ── Open Graph ── */}
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://medxl.in/Analytics" />
+  <meta property="og:title"       content="Healthcare Analytics & Reporting | MedXL Hospital Insights India" />
+  <meta property="og:description" content="MedXL's healthcare analytics platform gives hospital administrators real-time insights into revenue, patient flow, clinical outcomes, and operational efficiency." />
+  <meta property="og:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+  <meta property="og:site_name"   content="MedXL" />
+  <meta property="og:locale"      content="en_IN" />
+  {/* ── Twitter Cards ── */}
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@medxl_in" />
+  <meta name="twitter:url"         content="https://medxl.in/Analytics" />
+  <meta name="twitter:title"       content="Healthcare Analytics & Reporting | MedXL Hospital Insights India" />
+  <meta name="twitter:description" content="MedXL's healthcare analytics platform gives hospital administrators real-time insights into revenue, patient flow, clinical outcomes, and operational efficiency." />
+  <meta name="twitter:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+</Helmet>
+
+      <ServiceDetailPage config={ANALYTICS_CONFIG} />
+    </>
+  )
 }

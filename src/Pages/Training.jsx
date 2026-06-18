@@ -1,4 +1,5 @@
 import ServiceDetailPage from '../layouts/Servicedetailpage'
+import { Helmet } from 'react-helmet-async'
 
 const TRAINING_CONFIG = {
   slug: 'staff-training',
@@ -82,5 +83,33 @@ const TRAINING_CONFIG = {
 }
 
 export default function StaffTrainingPage() {
-  return <ServiceDetailPage config={TRAINING_CONFIG} />
+  return (
+    <>
+     <Helmet>
+  
+  <title>Hospital Staff IT Training | MedXL Healthcare Training India</title>
+  <meta name="description" content="MedXL provides hands-on IT training for hospital staff in India – covering HMS, EHR, billing systems, and digital health tools to maximise software adoption." />
+  <link rel="canonical" href="https://medxl.in/Training" />
+
+  {/* ── Open Graph ── */}
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://medxl.in/Training" />
+  <meta property="og:title"       content="Hospital Staff IT Training | MedXL Healthcare Training India" />
+  <meta property="og:description" content="MedXL provides hands-on IT training for hospital staff in India – covering HMS, EHR, billing systems, and digital health tools to maximise software adoption." />
+  <meta property="og:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+  <meta property="og:site_name"   content="MedXL" />
+  <meta property="og:locale"      content="en_IN" />
+
+  {/* ── Twitter Cards ── */}
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@medxl_in" />
+  <meta name="twitter:url"         content="https://medxl.in/Training" />
+  <meta name="twitter:title"       content="Hospital Staff IT Training | MedXL Healthcare Training India" />
+  <meta name="twitter:description" content="MedXL provides hands-on IT training for hospital staff in India – covering HMS, EHR, billing systems, and digital health tools to maximise software adoption." />
+  <meta name="twitter:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+</Helmet>
+
+      <ServiceDetailPage config={TRAINING_CONFIG} />
+    </>
+  )
 }

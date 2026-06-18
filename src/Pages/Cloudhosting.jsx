@@ -1,4 +1,5 @@
 import ServiceDetailPage from '../layouts/Servicedetailpage'
+import { Helmet } from 'react-helmet-async'
 
 const HOSTING_CONFIG = {
   slug: 'hosting',
@@ -78,5 +79,31 @@ const HOSTING_CONFIG = {
 }
 
 export default function CloudHostingPage() {
-  return <ServiceDetailPage config={HOSTING_CONFIG} />
+  return (
+    <>
+    <Helmet>
+
+  <title>Cloud Hosting for Hospitals India | MedXL Secure Healthcare Cloud</title>
+  <meta name="description" content="MedXL provides secure, HIPAA-aligned cloud hosting for hospitals and healthcare applications in India. High uptime, data backup, and 24/7 support." />
+  <link rel="canonical" href="https://medxl.in/CloudHosting" />
+  {/* ── Open Graph ── */}
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://medxl.in/CloudHosting" />
+  <meta property="og:title"       content="Cloud Hosting for Hospitals India | MedXL Secure Healthcare Cloud" />
+  <meta property="og:description" content="MedXL provides secure, HIPAA-aligned cloud hosting for hospitals and healthcare applications in India. High uptime, data backup, and 24/7 support." />
+  <meta property="og:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+  <meta property="og:site_name"   content="MedXL" />
+  <meta property="og:locale"      content="en_IN" />
+  {/* ── Twitter Cards ── */}
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@medxl_in" />
+  <meta name="twitter:url"         content="https://medxl.in/CloudHosting" />
+  <meta name="twitter:title"       content="Cloud Hosting for Hospitals India | MedXL Secure Healthcare Cloud" />
+  <meta name="twitter:description" content="MedXL provides secure, HIPAA-aligned cloud hosting for hospitals and healthcare applications in India. High uptime, data backup, and 24/7 support." />
+  <meta name="twitter:image"       content="https://medxl.in/assets/Favicon-BQuMKZDA.png" />
+</Helmet>
+
+      <ServiceDetailPage config={HOSTING_CONFIG} />
+    </>
+  )
 }
