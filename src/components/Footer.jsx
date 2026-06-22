@@ -11,7 +11,7 @@ const footerLinks = {
     { label: 'About MedXL',   icon: '🏢', href: '/about' },
     { label: 'Our Team',      icon: '👥',href: '/team' },
     { label: 'Blogs',         icon: '📝', href: '/blog'},
-    { label: 'Careers',       icon: '💼' },
+    { label: 'Careers',       icon: '💼', href: '/careers' },
     { label: 'Contact Us',    icon: '✉️', href: '/#contact' },
   ],
   'Our Services': [

@@ -28,7 +28,7 @@ import Cookies from './Pages/cookies'
 import BlogPage from './Pages/Blogpage'
 import BlogPostPage from './Pages/Blogpostpage'
 import TeamPage from './Pages/TeamPage'
-
+import CareerPage from './Pages/CareerPage'
 export default function App() {
   return (
     <HelmetProvider>
@@ -62,6 +62,7 @@ export default function App() {
           <Route path="/Blog" element={<BlogPage />} />
           <Route path="/Blog/:id" element={<BlogPostPage />} />
           <Route path="/team" element={<TeamPage />} />
+          <Route path="/careers" element={<CareerPage />} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>
