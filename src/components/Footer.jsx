@@ -9,10 +9,10 @@ import {Link} from 'react-router-dom'
 const footerLinks = {
   Company: [
     { label: 'About MedXL',   icon: '🏢', href: '/about' },
-    { label: 'Our Team',      icon: '👥' },
-    { label: 'Blogs',         icon: '📝' },
+    { label: 'Our Team',      icon: '👥',href: '/team' },
+    { label: 'Blogs',         icon: '📝', href: '/blog'},
     { label: 'Careers',       icon: '💼' },
-    { label: 'Contact Us',    icon: '✉️' },
+    { label: 'Contact Us',    icon: '✉️', href: '/#contact' },
   ],
   'Our Services': [
     { label: 'Cloud Solutions',   icon: '☁️',href:'/Cloudhosting' },

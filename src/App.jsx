@@ -25,6 +25,9 @@ import Email from './Pages/Email'
 import Training from './Pages/Training'
 import Opbilling from './Pages/Opbilling'
 import Cookies from './Pages/cookies'
+import BlogPage from './Pages/Blogpage'
+import BlogPostPage from './Pages/Blogpostpage'
+import TeamPage from './Pages/TeamPage'
 
 export default function App() {
   return (
@@ -56,6 +59,9 @@ export default function App() {
           <Route path="/Training" element={<Training />} />
           <Route path="/Opbilling" element={<Opbilling />} />
           <Route path="/Cookies" element={<Cookies />} />
+          <Route path="/Blog" element={<BlogPage />} />
+          <Route path="/Blog/:id" element={<BlogPostPage />} />
+          <Route path="/team" element={<TeamPage />} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>
