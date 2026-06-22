@@ -1436,8 +1436,19 @@ content: [
 
 // Categories shown as filter pills on /blog — derived automatically, but
 // listed here in the order you want them to appear. "All" is added by BlogPage.
-export const blogCategories = ['HMS', 'EHR & LIS', 'Website', 'Appointment Booking', 'Cloud & Security', 'Digital Transformation'];
-
+export const blogCategories = [
+  'HMS',
+  'EHR & LIS',
+  'EHR',
+  'Website',
+  'Appointment Booking',
+  'Cloud & Security',
+  'Billing',
+  'ABDM',
+  'Telemedicine',
+  'Training',
+  'Digital Marketing',
+];
 export function getPostBySlug(slug) {
   return blogPosts.find(p => p.slug === slug) || null;
 }

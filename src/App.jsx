@@ -60,7 +60,7 @@ export default function App() {
           <Route path="/Opbilling" element={<Opbilling />} />
           <Route path="/Cookies" element={<Cookies />} />
           <Route path="/Blog" element={<BlogPage />} />
-          <Route path="/Blog/:id" element={<BlogPostPage />} />
+          <Route path="/Blog/:slug" element={<BlogPostPage />} />
           <Route path="/team" element={<TeamPage />} />
           <Route path="/careers" element={<CareerPage />} />
         </Routes>
