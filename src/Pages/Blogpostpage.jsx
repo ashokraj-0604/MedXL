@@ -112,7 +112,7 @@ export default function BlogPostPage() {
       <Helmet>
         <title>{post.title} | MedXL Blog</title>
         <meta name="description" content={post.excerpt} />
-        <link rel="canonical" content={`https://medxl.in/blog/${post.slug}`} />
+        <link rel="canonical" href={`https://medxl.in/blog/${post.slug}`} />
       </Helmet>
 
       <style>{`
