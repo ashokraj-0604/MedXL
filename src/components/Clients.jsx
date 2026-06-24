@@ -1,12 +1,12 @@
 const clients = [
   { name: 'Hospital Website & Appointment Booking ',      icon: '🏥' },
-  { name: 'Hospital Management System(HMS) ',     icon: '💊' },
-  { name: 'Electronic Health Records(EHR)',        icon: '🩺' },
-  { name: 'LMS for Healthcare Institutions',     icon: '🔬' },
-  { name: 'Social Media Management',       icon: '❤️' },
-  { name: 'Cloud Hosting & Maintenance',           icon: '🏛️' },
-  { name: 'Cybersecurity & Compliance',   icon: '⭐' },
-  { name: 'Data Analytics & BI',         icon: '🌏' },
+  { name: 'Hospital Management System(HMS) ',     icon: '🖥️' },
+  { name: 'Electronic Health Records(EHR)',        icon: '📋' },
+  { name: 'LMS for Healthcare Institutions',     icon: '🎓' },
+  { name: 'Social Media Management',       icon: '📱' },
+  { name: 'Cloud Hosting & Maintenance',           icon: '☁️' },
+  { name: 'Cybersecurity & Compliance',   icon: '🛡️' },
+  { name: 'Data Analytics & BI',         icon: '📊' },
 ]
 export default function Clients() {
   return (
