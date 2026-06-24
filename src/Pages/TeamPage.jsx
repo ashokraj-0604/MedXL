@@ -11,6 +11,7 @@ import krrishivPhoto from '../assets/team/krrishiv.jpg'
 import vasuPhoto from '../assets/team/vasu.jpg'
 import aakashPhoto from '../assets/team/aakash.jpg'
 import ashokPhoto from '../assets/team/ashok.jpg'
+import guruPhoto from '../assets/team/guru.jpg'
 const team = [
   {
     name: 'Ashok Raj A ',
@@ -27,6 +28,13 @@ const team = [
     accentRgb: '0,175,160',   // teal
   },
   {
+    name: 'Guru Ganesh S',
+    role: 'Business Development Associate',
+    linkedin: 'https://linkedin.com/in/guruganesh7',
+    photo: guruPhoto,
+    accentRgb: '245,166,35',  // gold
+  },
+  {
     name: 'Vasu P',
     role: 'Project Management Associate',
     linkedin: 'https://linkedin.com/in/vasu-p-7b6aa9390',
@@ -40,6 +48,7 @@ const team = [
     photo: aakashPhoto,
     accentRgb: '245,166,35',  // gold
   },
+  
 ]
  
 function initialsOf(name) {

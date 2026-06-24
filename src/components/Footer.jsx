@@ -448,9 +448,6 @@ export default function Footer() {
             <a href="/Privacy">Privacy Policy</a>
             <a href="/Cookies">Cookie Policy</a>
           </div>
-          <div className="ft-made">
-            Built with <span>♥</span> for Healthcare
-          </div>
         </div>
       </footer>
     </>
