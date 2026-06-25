@@ -15,21 +15,21 @@ import guruPhoto from '../assets/team/guru.jpg'
 const team = [
   {
     name: 'Ashok Raj A ',
-    role: 'Fullstack Developer',                 // ← add Ashok's title here
+    role: 'Application Development',                 // ← add Ashok's title here
     linkedin: 'https://www.linkedin.com/in/ashokraj0604/',             // ← add Ashok's LinkedIn URL here
     photo: ashokPhoto,              // ← add Ashok's photo import here once available
     accentRgb: '197,45,181',  // brand magenta
   },
   {
     name: 'Krrishiv B',
-    role: 'Business Development Associate',
+    role: 'Business Expansion',
     linkedin: 'https://www.linkedin.com/in/krrishivb',
     photo: krrishivPhoto,
     accentRgb: '0,175,160',   // teal
   },
   {
     name: 'Guru Ganesh S',
-    role: 'Business Development Associate',
+    role: 'Growth & Partnerships',
     linkedin: 'https://linkedin.com/in/guruganesh7',
     photo: guruPhoto,
     accentRgb: '245,166,35',  // gold
