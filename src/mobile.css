@@ -1,0 +1,719 @@
+/*
+ * mobile.css — MedXL Mobile Fixes v1.0
+ * ─────────────────────────────────────
+ * Import LAST in main.jsx (after all other stylesheets):
+ *   import './mobile.css'
+ *
+ * Desktop styles are completely untouched — every rule here
+ * lives inside @media (max-width: 960px) or narrower.
+ * ─────────────────────────────────────────────────────────
+ */
+
+/* ═══════════════════════════════════════════════════════
+   0. GLOBAL MOBILE RESETS
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 960px) {
+  html {
+    /* Prevent iOS text-size-adjust on rotation */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    /* Prevent horizontal overflow from any element */
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  /* Universal container tightening */
+  .mx-container,
+  .container {
+    padding: 0 20px;
+    width: 100%;
+  }
+
+  /* Kill hover transforms on touch — prevents stuck states */
+  .mx-card:hover,
+  .mx-stat-card:hover,
+  .mx-step:hover {
+    transform: none;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   1. NAVBAR
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 960px) {
+  .nav {
+    height: 64px !important;
+    padding: 0 16px !important;
+  }
+
+  /* Always show background on mobile — no transparent nav */
+  .nav:not(.scrolled) {
+    background: rgba(8, 4, 18, 0.97) !important;
+    backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid var(--border-faint) !important;
+  }
+
+  .nav-logo-text {
+    font-size: 18px !important;
+  }
+
+  /* Hide desktop items — nav.jsx already does this but reinforce */
+  .nav-links,
+  .nav-cta,
+  .nav-phone {
+    display: none !important;
+  }
+
+  /* Hamburger always visible */
+  .nav-ham {
+    display: flex !important;
+  }
+}
+
+/* Drawer refinements on small phones */
+@media (max-width: 480px) {
+  .nav-drawer {
+    width: 100vw !important;     /* Full-width sheet on small screens */
+    border-left: none !important;
+    padding: 88px 20px 40px !important;
+  }
+
+  .drawer-links li a {
+    font-size: 16px !important;
+    padding: 14px 16px !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   2. HERO SECTION  (uses .mh-* classes from medxl-hero.css)
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 960px) {
+  /* Override full-vh on mobile — let content dictate height */
+  #home.mh-hero,
+  .mh-hero {
+    min-height: auto !important;
+    padding: 100px 0 60px !important;
+  }
+
+  /* Stack the two-column inner layout */
+  .mh-inner {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 48px !important;
+    padding: 0 20px !important;
+    align-items: stretch !important;
+  }
+
+  /* Hide orbital rings on mobile — they overflow and mis-position */
+  .mh-rings {
+    display: none !important;
+  }
+
+  /* Mesh / blob — tone down on mobile */
+  .mh-hero-blob {
+    width: 300px !important;
+    height: 300px !important;
+    top: 10% !important;
+    left: 50% !important;
+    opacity: 0.35 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Headings */
+  .mh-h1 {
+    font-size: clamp(32px, 9vw, 48px) !important;
+    letter-spacing: -1.5px !important;
+    line-height: 1.1 !important;
+  }
+
+  /* Description text */
+  .mh-desc {
+    font-size: 15px !important;
+    line-height: 1.75 !important;
+  }
+
+  /* CTA buttons — stack vertically on very small screens */
+  .mh-actions {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    align-items: stretch !important;
+  }
+
+  .mh-btn-primary,
+  .mh-btn-secondary {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 15px 20px !important;
+    font-size: 14px !important;
+  }
+
+  /* Trust badges — 3 in a row but compact */
+  .mh-trust {
+    display: flex !important;
+    gap: 10px !important;
+    flex-wrap: wrap !important;
+  }
+
+  .mh-trust-badge {
+    flex: 1 1 calc(33% - 10px) !important;
+    min-width: 90px !important;
+    padding: 10px 8px !important;
+  }
+
+  .mh-trust-num {
+    font-size: 16px !important;
+  }
+
+  .mh-trust-label {
+    font-size: 10px !important;
+  }
+
+  /* Pricing card — full width, no float badges overlapping */
+  .mh-card-wrap {
+    position: relative !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .mh-card {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .mh-card-header {
+    padding: 20px 20px 16px !important;
+  }
+
+  .mh-card-body {
+    padding: 16px 20px !important;
+  }
+
+  .mh-card-footer {
+    padding: 14px 20px !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+  }
+
+  .mh-card-footer-btn {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+
+  /* Price display */
+  .mh-price {
+    font-size: clamp(36px, 10vw, 52px) !important;
+  }
+
+  /* Floating badges — reposition so they don't overflow */
+  .mh-float {
+    position: static !important;
+    display: inline-flex !important;
+    margin: 4px !important;
+    transform: none !important;
+  }
+
+  .mh-float-1,
+  .mh-float-2 {
+    position: static !important;
+    transform: none !important;
+  }
+
+  /* Put floats below card in a row */
+  .mh-card-wrap::after {
+    content: none !important;
+  }
+}
+
+/* Float badges row under card */
+@media (max-width: 768px) {
+  .mh-card-wrap {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .mh-float {
+    align-self: flex-start !important;
+    padding: 10px 14px !important;
+  }
+
+  /* Side-by-side floats */
+  .mh-floats-row {
+    display: flex !important;
+    gap: 10px !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   3. SECTION TITLES & TYPOGRAPHY
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .mx-section-title,
+  .section-title {
+    font-size: clamp(26px, 7vw, 38px) !important;
+    letter-spacing: -1px !important;
+    line-height: 1.15 !important;
+  }
+
+  .mx-section-sub,
+  .section-desc {
+    font-size: 14px !important;
+    line-height: 1.75 !important;
+    max-width: 100% !important;
+  }
+
+  .mx-tag {
+    font-size: 9px !important;
+    letter-spacing: 2px !important;
+    padding: 4px 12px !important;
+  }
+
+  /* Section padding */
+  .mx-section,
+  .mx-section-surface {
+    padding: 56px 0 !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   4. GRIDS → SINGLE COLUMN
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .mx-grid-2 {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  .mx-grid-3 {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .mx-grid-4 {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 14px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .mx-grid-4 {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   5. CARDS
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .mx-card {
+    padding: 24px 20px !important;
+    border-radius: 16px !important;
+  }
+
+  /* Disable card lift on touch */
+  .mx-card:hover {
+    transform: none !important;
+  }
+
+  .mx-stat-card {
+    padding: 20px 16px !important;
+  }
+
+  .mx-stat-num {
+    font-size: 30px !important;
+  }
+
+  .mx-step {
+    padding: 22px 18px !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   6. HERO (mx-hero — inner page heroes)
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .mx-hero {
+    padding: 56px 0 48px !important;
+  }
+
+  .mx-hero h1 {
+    font-size: clamp(30px, 8vw, 46px) !important;
+    letter-spacing: -1.5px !important;
+    max-width: 100% !important;
+  }
+
+  .mx-hero p {
+    font-size: 15px !important;
+    max-width: 100% !important;
+  }
+
+  .mx-hero-cta {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+
+  .mx-btn-primary,
+  .mx-btn-ghost {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  /* After orb — scale down */
+  .mx-hero::after {
+    width: 240px !important;
+    height: 240px !important;
+    top: -40px !important;
+    right: -40px !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   7. CTA BANNER
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .mx-cta-banner {
+    padding: 40px 24px !important;
+    border-radius: 20px !important;
+  }
+
+  .mx-cta-banner h2 {
+    font-size: clamp(22px, 6vw, 34px) !important;
+    letter-spacing: -1px !important;
+  }
+
+  .mx-cta-banner p {
+    font-size: 14px !important;
+    max-width: 100% !important;
+  }
+
+  .mx-cta-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+
+  .mx-btn-cta-white,
+  .mx-btn-cta-ghost {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 14px 20px !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   8. BUTTONS — touch targets
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .mx-btn-primary,
+  .mx-btn-ghost,
+  .btn-primary,
+  .btn-outline {
+    min-height: 48px !important;  /* iOS recommended touch target */
+    padding: 13px 22px !important;
+    font-size: 14px !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   9. TICKER
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .mx-ticker {
+    padding: 12px 0 !important;
+  }
+
+  .mx-ticker-item {
+    font-size: 10px !important;
+    padding: 0 16px !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   10. PAGE-SPECIFIC: Services / Products listing pages
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Servicedetailpage / Productdetailpage layouts */
+  .mx-page {
+    padding-top: 64px !important;
+  }
+
+  /* Two-col split layouts used on detail pages */
+  .mx-grid-2.detail-split {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* Feature list readable on small screens */
+  .mx-feature-list li {
+    font-size: 13px !important;
+    padding: 10px 12px !important;
+  }
+
+  /* Icon boxes don't need to be large on mobile */
+  .mx-icon-box {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 20px !important;
+    margin-bottom: 14px !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   11. PAGE-SPECIFIC: Pricing page
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Pricing cards typically in a 3-col grid */
+  .pricing-grid,
+  [class*="price-grid"],
+  [class*="plan-grid"] {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  /* Popular badge doesn't clip on mobile */
+  [class*="popular-badge"],
+  [class*="badge-popular"] {
+    position: static !important;
+    display: inline-block !important;
+    margin-bottom: 12px !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   12. PAGE-SPECIFIC: Contact form
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Contact section two-col → single col */
+  [class*="contact-grid"],
+  [class*="contact-inner"] {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* Form inputs full-width */
+  [class*="contact"] input,
+  [class*="contact"] textarea,
+  [class*="contact"] select {
+    width: 100% !important;
+    font-size: 16px !important; /* Prevents iOS zoom on focus */
+  }
+
+  /* Inline form pairs → stacked */
+  [class*="form-row"],
+  [class*="input-row"] {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   13. PAGE-SPECIFIC: Team / About
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Team grid — 2-up on mobile */
+  [class*="team-grid"] {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+  }
+
+  [class*="team-card"] img,
+  [class*="member-photo"] {
+    height: 180px !important;
+    object-fit: cover !important;
+  }
+}
+
+@media (max-width: 400px) {
+  [class*="team-grid"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   14. PAGE-SPECIFIC: FAQ
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  [class*="faq-item"],
+  [class*="accordion-item"] {
+    border-radius: 12px !important;
+  }
+
+  [class*="faq-question"],
+  [class*="accordion-trigger"] {
+    font-size: 14px !important;
+    padding: 16px !important;
+    line-height: 1.5 !important;
+  }
+
+  [class*="faq-answer"],
+  [class*="accordion-content"] {
+    font-size: 14px !important;
+    padding: 0 16px 16px !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   15. PAGE-SPECIFIC: Testimonials / Clients
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Testimonial cards — single col */
+  [class*="testimonial-grid"],
+  [class*="review-grid"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* Client logos — tighter grid */
+  [class*="client-grid"],
+  [class*="logo-grid"] {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 16px !important;
+  }
+
+  [class*="client-logo"] img,
+  [class*="logo-grid"] img {
+    max-height: 36px !important;
+    width: auto !important;
+    margin: 0 auto !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   16. FOOTER
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Footer multi-column → stacked */
+  [class*="footer-grid"],
+  [class*="footer-inner"],
+  [class*="footer-cols"] {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* Footer bottom bar — stack items */
+  [class*="footer-bottom"],
+  [class*="footer-bar"] {
+    flex-direction: column !important;
+    gap: 12px !important;
+    text-align: center !important;
+  }
+
+  [class*="footer-links"] {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 12px !important;
+  }
+
+  /* Footer brand block */
+  [class*="footer-brand"] p {
+    font-size: 13px !important;
+    max-width: 100% !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   17. MISC OVERFLOW GUARDS
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 960px) {
+  /* Anything that might push past viewport */
+  section,
+  article,
+  aside,
+  main {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Tables — horizontal scroll rather than break layout */
+  table {
+    display: block !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    white-space: nowrap !important;
+  }
+
+  /* Images never overflow their container */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* SVGs that might be sized absolutely */
+  svg {
+    max-width: 100% !important;
+  }
+
+  /* Prevent long words / URLs from breaking layout */
+  p, li, h1, h2, h3, h4 {
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   18. iOS-SPECIFIC FIXES
+   ═══════════════════════════════════════════════════════ */
+@supports (-webkit-touch-callout: none) {
+  /* Prevent double-tap zoom on buttons/links */
+  a, button {
+    touch-action: manipulation !important;
+  }
+
+  /* iOS safe area for notched iPhones */
+  .nav {
+    padding-left: max(16px, env(safe-area-inset-left)) !important;
+    padding-right: max(16px, env(safe-area-inset-right)) !important;
+  }
+
+  .nav-drawer {
+    padding-bottom: max(40px, env(safe-area-inset-bottom)) !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   19. REDUCED MOTION
+   ═══════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .mx-ticker-inner {
+    animation: none !important;
+  }
+}
