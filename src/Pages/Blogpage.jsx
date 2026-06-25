@@ -466,14 +466,14 @@ export default function BlogPage() {
         {/* ── FEATURED POST ── */}
         <section className="mx-section" style={{ paddingTop: 0 }}>
           <div className="mx-container">
-            <Link
-              to={`/blog/${featured.slug}`}
-              className="bp-featured"
-              style={{ '--accent': featuredAccent }}
-            >
+            <Link to={`/blog/${featured.slug}`} className="bp-featured">
               <div className="bp-featured-visual">
                 <span className="bp-featured-badge">✦ Featured</span>
-                <span className="bp-featured-icon">{featured.icon}</span>
+                <img 
+                  src={featured.image}
+                  alt={featured.title}
+                  className="bp-featured-image"
+                />
               </div>
               <div className="bp-featured-body">
                 <div className="bp-featured-meta">
@@ -518,35 +518,31 @@ export default function BlogPage() {
               {visible.length === 0 && (
                 <div className="bp-empty">No articles in this category yet — check back soon.</div>
               )}
-              {visible.map(post => {
-                const accent = accentFor(post.category)
-                return (
-                  <Link
-                    to={`/blog/${post.slug}`}
-                    className="bp-card"
-                    key={post.slug}
-                    style={{ '--accent': accent }}
-                  >
-                    <div className="bp-card-visual">
-                      <span className="bp-card-badge">{post.category}</span>
-                      <span className="bp-card-icon">{post.icon}</span>
+              {visible.map(post => (
+                <Link to={`/blog/${post.slug}`} className="bp-card" key={post.slug}>
+                  <div className="bp-card-visual">
+                    <span className={`bp-card-badge ${categoryAccent[post.category] || 'brand'}`}>{post.category}</span>
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="bp-card-image"
+                    />
+                  </div>
+                  <div className="bp-card-body">
+                    <div className="bp-card-meta">
+                      <span>{formatDate(post.date)}</span>
+                      <span className="bp-dot" />
+                      <span>{post.readTime}</span>
                     </div>
-                    <div className="bp-card-body">
-                      <div className="bp-card-meta">
-                        <span>{formatDate(post.date)}</span>
-                        <span className="bp-dot" />
-                        <span>{post.readTime}</span>
-                      </div>
-                      <h3 className="bp-card-title">{post.title}</h3>
-                      <p className="bp-card-excerpt">{post.excerpt}</p>
-                      <div className="bp-card-footer">
-                        <span className="bp-card-author">👤 {post.author}</span>
-                        <span className="bp-card-readlink">Read →</span>
-                      </div>
+                    <h3 className="bp-card-title">{post.title}</h3>
+                    <p className="bp-card-excerpt">{post.excerpt}</p>
+                    <div className="bp-card-footer">
+                      <span className="bp-card-author">👤 {post.author}</span>
+                      <span className="bp-card-readlink">Read →</span>
                     </div>
-                  </Link>
-                )
-              })}
+                  </div>
+                </Link>
+              ))}
             </div>
             {hasMore && (
               <div className="bp-loadmore-wrap">

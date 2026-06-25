@@ -112,12 +112,14 @@ export default function BlogPostPage() {
       <Helmet>
         <title>{post.title} | MedXL Blog</title>
         <meta name="description" content={post.excerpt} />
-        <link rel="canonical" href={`https://medxl.in/blog/${post.slug}`} />
+        <link rel="canonical" content={`https://medxl.in/blog/${post.slug}`} />
       </Helmet>
 
       <style>{`
         .bpd-visual {
-          height: 220px; border-radius: 22px; position: relative; overflow: hidden;
+          height: 220px;
+           max-width: 700px;
+           margin: 0 auto 36px; border-radius: 22px; position: relative; overflow: hidden;
           display: flex; align-items: center; justify-content: center; margin-bottom: 36px;
           background: radial-gradient(circle at 30% 20%, rgba(197,45,181,.30), transparent 60%), var(--bg-elevated);
           border: 1px solid var(--border-faint);
@@ -127,7 +129,11 @@ export default function BlogPostPage() {
           background-image: radial-gradient(rgba(197,45,181,.18) 1px, transparent 1px);
           background-size: 28px 28px;
         }
-        .bpd-visual-icon { font-size: 64px; position: relative; z-index: 1; }
+        .bpd-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
         .bpd-related-card {
           display: flex; flex-direction: column; text-decoration: none;
           background: var(--bg-raised); border: 1px solid var(--border-faint);
@@ -165,9 +171,7 @@ export default function BlogPostPage() {
               <span>{post.readTime}</span>
             </div>
 
-            <div className="bpd-visual">
-              <span className="bpd-visual-icon">{post.icon}</span>
-            </div>
+            
 
             {post.content.map((block, i) => <Block block={block} key={i} />)}
 
