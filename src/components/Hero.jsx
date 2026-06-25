@@ -86,7 +86,7 @@ export default function Hero() {
 
             <div className="mh-trust">
               {[
-                { icon: '🏥', num: '1,800+', label: 'Hospitals Served' },
+                { icon: '🏥', num: '180+', label: 'Hospitals Served' },
                 { icon: '✅', num: '20+',    label: 'Yrs Expertise'    },
                 { icon: '⭐', num: '99.9%',  label: 'Uptime SLA'       },
               ].map(b => (

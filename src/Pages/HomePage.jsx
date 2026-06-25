@@ -13,7 +13,7 @@ import Footer from '../components/Footer'
 import { useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
-
+import Product from '../components/Product'
 export default function HomePage() {
   const location = useLocation()
 
@@ -170,6 +170,7 @@ export default function HomePage() {
       <Hero />
       <Clients />
       <Services />
+      <Product />
       <About />
       <CaseStudies />
       <Process />

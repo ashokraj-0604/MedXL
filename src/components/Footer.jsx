@@ -47,7 +47,7 @@ const socials = [
 ]
 
 const stats = [
-  { num: '1,800+', label: 'Hospitals Served', icon: '🏥' },
+  { num: '180+', label: 'Hospitals Served', icon: '🏥' },
   { num: '20+',    label: 'Yrs of Expertise', icon: '✅' },
   { num: '2cr+',   label: 'Saved / year',     icon: '💰' },
   { num: '99%',    label: 'Uptime SLA',       icon: '⭐' },

@@ -29,6 +29,8 @@ import BlogPage from './Pages/Blogpage'
 import BlogPostPage from './Pages/Blogpostpage'
 import TeamPage from './Pages/TeamPage'
 import CareerPage from './Pages/CareerPage'
+import ClaimWisePage from './Pages/Claimwise'
+import NABHAccreditationPage from './Pages/NABH'
 export default function App() {
   return (
     <HelmetProvider>
@@ -63,6 +65,8 @@ export default function App() {
           <Route path="/Blog/:slug" element={<BlogPostPage />} />
           <Route path="/team" element={<TeamPage />} />
           <Route path="/careers" element={<CareerPage />} />
+          <Route path="/claimwise" element={<ClaimWisePage />} />
+          <Route path="/nabh"element={<NABHAccreditationPage />} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>

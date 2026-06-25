@@ -192,7 +192,7 @@ export default function AboutPage() {
                   <div className="mh-stat-grid">
                     {[
                       { num:'20+',   label:'Years Experience', gold:false },
-                      { num:'1800+', label:'Hospitals Served', gold:false },
+                      { num:'180+', label:'Hospitals Served', gold:false },
                       { num:'99.9%', label:'Uptime SLA',       gold:true  },
                       { num:'₹1L',   label:'Plans Start From', gold:false },
                     ].map(s => (
@@ -315,7 +315,7 @@ export default function AboutPage() {
                 <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:14 }}>
                   {[
                     { num:'20+',   label:'Years of Experience', gold:false },
-                    { num:'1800+', label:'Hospitals Served',    gold:false },
+                    { num:'180+', label:'Hospitals Served',    gold:false },
                     { num:'99.9%', label:'Uptime SLA',          gold:true  },
                     { num:'₹1L',   label:'Plans Start From',    gold:false },
                   ].map(s => (

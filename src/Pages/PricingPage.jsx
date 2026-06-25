@@ -125,6 +125,7 @@ export default function PricingPage() {
   const location  = useLocation()
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     const fn = (e) => {
       if (!blobRef.current) return
       const x = (e.clientX / window.innerWidth  - 0.5) * 50
