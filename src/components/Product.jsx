@@ -401,7 +401,7 @@ export default function ProductsSection() {
                   }}
                 >
                   <span className="ps-badge-dot" style={{ background: 'rgb(197,45,181)', color: 'rgb(197,45,181)' }} />
-                  Coming Soon · AI Claims Intelligence
+                  AI Claims Intelligence
                 </span>
 
                 <div className="ps-card-eyebrow">MedXL ClaimWise</div>
@@ -442,14 +442,6 @@ export default function ProductsSection() {
                   >
                     Know More →
                   </Link>
-                  <a
-                    href="https://api.whatsapp.com/send/?phone=918148181288&text=I'd%20like%20to%20join%20the%20ClaimWise%20waitlist"
-                    className="ps-btn-ghost"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Join Waitlist ↗
-                  </a>
                 </div>
               </div>
             </div>
@@ -526,7 +518,7 @@ export default function ProductsSection() {
                     Know More →
                   </Link>
                   <a
-                    href="https://api.whatsapp.com/send/?phone=918148181288&text=I'd%20like%20a%20free%20NABH%20readiness%20assessment"
+                    href="https://api.whatsapp.com/send/?phone=9884021188&text=I'd%20like%20a%20free%20NABH%20readiness%20assessment"
                     className="ps-btn-ghost"
                     target="_blank"
                     rel="noreferrer"

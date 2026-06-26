@@ -109,12 +109,77 @@ export default function BlogPostPage() {
 
   return (
     <>
-      <Helmet>
+     <Helmet>
+        {/* Basic SEO */}
         <title>{post.title} | MedXL Blog</title>
         <meta name="description" content={post.excerpt} />
-        <link rel="canonical" content={`https://medxl.in/blog/${post.slug}`} />
-      </Helmet>
+        <meta name="keywords" content={post.tags.join(", ")} />
+        <link
+          rel="canonical"
+          href={`https://medxl.in/blog/${post.slug}`}
+        />
 
+        {/* Open Graph */}
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.excerpt} />
+        <meta
+          property="og:url"
+          content={`https://medxl.in/blog/${post.slug}`}
+        />
+        <meta
+          property="og:image"
+          content={`https://medxl.in${post.image}`}
+        />
+        <meta property="og:site_name" content="MedXL" />
+        <meta property="og:locale" content="en_IN" />
+        <meta property="article:published_time" content={post.date} />
+        <meta property="article:author" content={post.author} />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@medxl_in" />
+        <meta name="twitter:title" content={post.title} />
+        <meta name="twitter:description" content={post.excerpt} />
+        <meta
+          name="twitter:image"
+          content={`https://medxl.in${post.image}`}
+        />
+
+        {/* BlogPosting Schema */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            headline: post.title,
+            description: post.excerpt,
+            image: `https://medxl.in${post.image}`,
+            datePublished: post.date,
+            dateModified: post.date,
+
+            author: {
+              "@type": "Organization",
+              name: post.author
+            },
+
+            publisher: {
+              "@type": "Organization",
+              name: "MedXL",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://medxl.in/Favicon.jpeg"
+              }
+            },
+
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": `https://medxl.in/blog/${post.slug}`
+            },
+
+            url: `https://medxl.in/blog/${post.slug}`
+          })}
+        </script>
+      </Helmet>
       <style>{`
         .bpd-visual {
           height: 220px;
@@ -130,10 +195,10 @@ export default function BlogPostPage() {
           background-size: 28px 28px;
         }
         .bpd-image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
         .bpd-related-card {
           display: flex; flex-direction: column; text-decoration: none;
           background: var(--bg-raised); border: 1px solid var(--border-faint);

@@ -9,7 +9,6 @@ import Testimonials from '../components/Testimonials'
 import FAQ from '../components/Faq'
 import Blogs from '../components/Price'
 import Contact from '../components/Contact'
-import Footer from '../components/Footer'
 import { useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
@@ -169,8 +168,8 @@ export default function HomePage() {
       <Navbar />
       <Hero />
       <Clients />
-      <Services />
       <Product />
+      <Services />
       <About />
       <CaseStudies />
       <Process />
@@ -178,7 +177,6 @@ export default function HomePage() {
       <FAQ />
       <Blogs />
       <Contact />
-      <Footer />
     </>
   )
 }

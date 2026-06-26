@@ -33,10 +33,18 @@ const footerLinks = {
 }
 
 const tags = [
-  'Data Analytics', 'Website Design', 'Web Development',
-  'Software Solutions', 'Digital Marketing', 'eLearning',
-  'LMS for Healthcare', 'Healthcare IT', 'Cloud EHR',
-  'Cloud Solutions', 'Hospital Branding', 'Cloud HIMS',
+  { label: 'Data Analytics', href: '/Analytics' },
+  { label: 'Website Design', href: '/Hospitalwebsite'  },
+  { label: 'LIMS', href:'/Lims' },
+  { label: 'Social Media', href:'/Socialmedia' },
+  { label: 'Seo Marketing', href:'/SeoMarketing' },
+  { label: 'Cyber Security', href:'/CyberSecurity' },
+  { label: 'LMS for Hospitals', href:'/Lms' },
+  { label: 'IT consulting', href:'/ITconsulting' },
+  { label: 'EHR', href: '/Ehr' },
+  { label: 'Cloud Solutions', href: '/Cloudhosting' },
+  { label: 'Hospital Billing', href:'/Opbilling' },
+  { label: 'HMS', href: '/Hms' },
 ]
 
 const socials = [
@@ -430,9 +438,16 @@ export default function Footer() {
         {/* ── TAGS ── */}
         <div className="ft-tags-section">
           <div className="ft-tags-label">Popular Topics</div>
+
           <div className="ft-tags">
-            {tags.map(t => (
-              <a href="#" className="ft-tag" key={t}>{t}</a>
+            {tags.map((tag) => (
+              <button
+                key={tag.label}
+                className="ft-tag"
+                onClick={() => (window.location.href = tag.href)}
+              >
+                {tag.label}
+              </button>
             ))}
           </div>
         </div>

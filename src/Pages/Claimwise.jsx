@@ -1,75 +1,80 @@
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { useRef, useEffect } from 'react'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
+// import './medxl.css'  ← import once at your app root
 
+/* ─────────────────────────────────────────────────────────
+   DATA
+───────────────────────────────────────────────────────── */
 const heroStats = [
-  { num: '₹26,000Cr+', label: 'Health Claims Rejected / Year' },
-  { num: '3–12 mo', label: 'PMJAY Payment Delays' },
-  { num: '<10%', label: 'Claims Auto-Adjudicated in India' },
-  { num: '₹500', label: 'Govt Incentive / Digital Claim' },
+  { num: '₹26,000Cr+', label: 'Claims rejected yearly in India' },
+  { num: '50–60%',     label: 'Of hospital revenue is claims'   },
+  { num: 'Before',     label: 'Denials stopped at the source'   },
 ]
 
-const leaks = [
-  { leak: 'Pre-auth rejections', detail: 'Cashless requests bounce because a document is missing, a field is wrong, or a policy detail mismatches — delaying care and the claim.' },
-  { leak: 'Denials at discharge', detail: 'The dreaded "pay upfront and claim reimbursement" — often because the final bill wasn\'t submitted correctly or on time.' },
-  { leak: 'Documentation errors', detail: 'A typo in the discharge summary, an illegible bill, a mismatched date — and an otherwise valid claim is rejected.' },
-  { leak: 'Settlement shortfalls', detail: 'The TPA approves less than billed and the gap is never reconciled — silently writing off lakhs.' },
-  { leak: 'PMJAY delays', detail: 'Government scheme payments delayed 3 months to a year, leaving hospitals with large sums pending.' },
-  { leak: 'Endless follow-up', detail: 'Staff spend hours on portals and phone calls chasing claim status across a dozen different TPA systems.' },
+const claimChecks = [
+  { type: 'check', label: 'Policy & eligibility',   detail: 'verified'              },
+  { type: 'check', label: 'Documents',               detail: 'complete & legible'    },
+  { type: 'check', label: 'Procedure codes',         detail: 'matched to package'    },
+  { type: 'warn',  label: 'Discharge summary',       detail: '— signature added'     },
 ]
 
-const solutionSteps = [
-  { num: '01', title: 'Capture & Verify Coverage', text: "At admission, ClaimWise pulls the patient's policy or ABHA, instantly verifying eligibility, sum insured, sub-limits, and exclusions — flagging coverage gaps before treatment, not after." },
-  { num: '02', title: 'Validate the Pre-Auth Packet', text: "AI assembles the cashless pre-authorization request and checks it against that payer's specific rules — flagging every gap before submission." },
-  { num: '03', title: 'Submit via NHCX / TPA', text: 'The clean, complete claim is submitted through NHCX or the right TPA channel — in the standard format, first time, meeting the 3-hour cashless mandate.' },
-  { num: '04', title: 'Track to Settlement — Live', text: 'Real-time status across every payer in one dashboard. No portal-hopping, no follow-up calls.' },
-  { num: '05', title: 'Auto-Build Appeals on Denial', text: 'If a claim is denied or short-paid, ClaimWise instantly generates a payer-specific appeal with supporting documents.' },
-  { num: '06', title: 'Reconcile What Was Paid', text: 'Matches the settled amount against what was billed and approved, and flags every shortfall.' },
+const accredCards = [
+  { icon: '📋', title: 'Complete digital records',        body: 'Both standards require thorough, retrievable medical records. Our HMS and EHR keep every patient record complete, secure, and accessible on demand — exactly what assessors look for.' },
+  { icon: '💊', title: 'Medication safety',               body: 'Pharmacy management with drug-interaction alerts, high-alert flags, and full e-prescription tracking — directly supporting the medication-management chapters of NABH and JCI.' },
+  { icon: '📊', title: 'Quality indicators & audits',     body: 'Automated quality dashboards, incident reporting, and trend analysis give you the measurable quality data accreditation requires — generated continuously, not scrambled before an audit.' },
+  { icon: '🔒', title: 'Data security & access control',  body: 'Encrypted, India-hosted infrastructure with role-based access and audit logging — meeting the information-security and patient-confidentiality requirements of both standards.' },
+  { icon: '🎓', title: 'Staff training records (LMS)',    body: 'Our Learning Management System documents every staff training, competency, and certification — closing one of the most common gaps assessors flag in the HR chapters.' },
+  { icon: '🏥', title: 'Infection control & facility data', body: 'Track infection surveillance, equipment maintenance, and facility-safety records in one place — supporting the infection-control and facility-management standards.' },
 ]
 
-const modules = [
-  { icon: '🛡️', name: 'Pre-Submission Validator', tag: 'The Core', desc: 'Validates every cashless, TPA, and PMJAY packet against payer-specific rules before submission — preventing the majority of denials at the source.' },
-  { icon: '📥', name: 'Unified Claims Queue', desc: 'Every claim across every payer and scheme in one intelligent inbox — auto-classified, prioritised, and integrated with your HMS.' },
-  { icon: '📡', name: 'Live Settlement Tracker', desc: 'Real-time status of every claim from pre-auth to bank credit, across all TPAs and NHCX — with ageing alerts for claims stuck too long.' },
-  { icon: '↩️', name: 'Denial Recovery Engine', desc: 'Auto-generates payer-specific appeal packets with supporting clinical documents the moment a claim is denied or short-paid.' },
-  { icon: '📊', name: 'Reconciliation & Analytics', desc: 'Matches settled amounts to billed and approved, and shows which payers, codes, and gaps drive denials.' },
+const products = [
+  { icon: '🏥', name: 'HMS',          tag: 'Cloud',           desc: 'Complete hospital management — OPD, IPD, billing, pharmacy, wards, and analytics in one cloud system.' },
+  { icon: '📋', name: 'EHR',          tag: 'ABDM Ready',      desc: 'Electronic health records with SOAP notes, ICD-10 coding, e-prescriptions, and a full patient timeline.' },
+  { icon: '🛡️', name: 'ClaimWise',   tag: 'New · AI',        desc: 'AI claims validation and denial-prevention for cashless, TPA, and PMJAY — get paid faster, in full.' },
+  { icon: '🔬', name: 'LIMS',         tag: 'NABL Ready',      desc: 'Lab information system with order management, barcoding, quality control, and digital reports.' },
+  { icon: '📱', name: 'Hospital App', tag: 'Android · iOS',   desc: 'Patient app for appointments, reports, payments, and telemedicine — branded for your hospital.' },
+  { icon: '📚', name: 'LMS',          tag: 'Training',        desc: 'Staff learning and competency tracking — CME, compliance training, and accreditation-ready records.' },
 ]
 
-const builtForIndia = [
-  { icon: '🏥', title: 'Cashless, TPA & PMJAY', text: 'Handles cashless pre-auth, TPA reimbursement, and government-scheme flows in one platform.' },
-  { icon: '📜', title: 'IRDAI & Scheme Rules', text: 'A rules engine encoding IRDAI norms, scheme requirements, and per-TPA quirks.' },
-  { icon: '🔖', title: 'India Coding & Packages', text: 'ICD-10 plus Indian scheme package codes and tariff structures, built in.' },
-  { icon: '🔗', title: 'NHCX + HMS Integration', text: 'Connects to NHCX, the MedXL HMS/EHR, and TPA portals — no double entry.' },
-  { icon: '💬', title: 'WhatsApp & Portal Intake', text: 'Documents flow in via WhatsApp, portal, or HMS — built for how Indian hospitals actually work.' },
-  { icon: '🔒', title: 'DPDP-Compliant by Design', text: "Encrypted, India-hosted, consent-based — meeting India's data-protection law from day one." },
+const services = [
+  { icon: '🌐', name: 'Website + Booking', desc: 'Mobile-first hospital website with online appointment booking and doctor profiles.' },
+  { icon: '☁️', name: 'Cloud Hosting',     desc: '99.9% uptime, SSL, daily backups, and 24×7 monitoring — fully managed.' },
+  { icon: '📣', name: 'Social & SEO',      desc: 'Social media management, local SEO, and content that brings patients to you.' },
+  { icon: '🛡️', name: 'Security & Compliance', desc: 'DPDP & ABDM compliance, cybersecurity, and patient-data protection built in.' },
 ]
 
-const whyNowStats = [
-  { icon: '⚡', num: '3-Hour', label: 'Cashless Mandate' },
-  { icon: '💰', num: '₹500', label: 'Govt Incentive / Claim' },
-  { icon: '🔗', num: '47+', label: 'Payers Live on NHCX' },
-  { icon: '📈', num: 'Expanding', label: 'To OPD & Pharmacy' },
+const pricingPlans = [
+  {
+    id: 'starter', name: 'Starter', price: '₹1 Lakh', featured: false,
+    features: ['Hospital website + booking', 'Cloud hosting + SSL', '3 social media profiles', 'Domain email + basic SEO', '2 IT consultations / year'],
+    cta: 'Get started' ,
+  },
+  {
+    id: 'growth', name: 'Growth', price: '₹2.5 Lakh', featured: true,
+    features: ['Everything in Starter', 'HMS + EHR + OP billing', 'Social management + Google Ads', 'Dedicated account manager', 'Staff training + IT helpdesk'],
+    cta: 'Choose Growth',
+  },
+  {
+    id: 'enterprise', name: 'Enterprise', price: '₹5 Lakh', featured: false,
+    features: ['Everything in Growth', 'Hospital mobile app + LMS', 'LIMS + telemedicine', '24×7 IT helpdesk', 'NABH / JCI readiness support'],
+    cta: 'Talk to us',
+  },
 ]
 
-const whoBenefits = [
-  { icon: '🏛️', title: 'PMJAY & Scheme Hospitals', text: 'Facing 3–12 month payment delays and high rejection rates from documentation gaps.' },
-  { icon: '🛏️', title: 'High-Cashless Hospitals (50–150 beds)', text: '50–60% of revenue is cashless — denials and shortfalls hit cash flow hardest here.' },
-  { icon: '🔬', title: 'Single-Specialty Surgical Centres', text: 'Ortho, cardiac, eye, maternity — high-value claims where one denial means lakhs.' },
-  { icon: '🆕', title: 'New Hospitals Setting Up', text: 'Want claims done right from day one, bundled naturally with MedXL HMS.' },
-  { icon: '🏠', title: 'Nursing Homes & Smaller Clinics', text: 'Lower claim volume but little in-house claims expertise — value the automation.' },
-]
-
-export default function ClaimWisePage() {
+/* ─────────────────────────────────────────────────────────
+   COMPONENT
+───────────────────────────────────────────────────────── */
+export default function HomePage() {
   const blobRef = useRef(null)
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+     window.scrollTo(0, 0)
     const fn = (e) => {
       if (!blobRef.current) return
-      const x = (e.clientX / window.innerWidth - 0.5) * 40
-      const y = (e.clientY / window.innerHeight - 0.5) * 40
-      blobRef.current.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`
+      const x = (e.clientX / window.innerWidth  - 0.5) * 50
+      const y = (e.clientY / window.innerHeight - 0.5) * 50
+      blobRef.current.style.transform =
+        `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`
     }
     window.addEventListener('mousemove', fn)
     return () => window.removeEventListener('mousemove', fn)
@@ -78,403 +83,681 @@ export default function ClaimWisePage() {
   return (
     <>
       <style>{`
-        .cw-page { background: var(--bg-base); color: var(--text-primary); font-family: var(--font-body); }
-
-        /* ════════════════════════════════════════
-           HERO
-        ════════════════════════════════════════ */
-        .cw-hero { position: relative; overflow: hidden; padding: 130px 56px 70px; }
-        .cw-hero-mesh {
-          position: absolute; inset: 0; pointer-events: none; z-index: 0;
-          background:
-            radial-gradient(ellipse 60% 55% at 14% 50%, rgba(197,45,181,.18) 0%, transparent 65%),
-            radial-gradient(ellipse 45% 40% at 86% 18%, rgba(92,37,132,.16) 0%, transparent 60%);
+        /* ── KEYFRAMES ── */
+        @keyframes hp-blob {
+          0%,100%{ border-radius:60% 40% 30% 70%/60% 30% 70% 40%; }
+          33%    { border-radius:30% 60% 70% 40%/50% 60% 30% 60%; }
+          66%    { border-radius:50% 40% 60% 30%/40% 70% 40% 60%; }
         }
-        .cw-hero-grid {
-          position: absolute; inset: 0; pointer-events: none; z-index: 0;
+        @keyframes hp-spin-cw  { to{ transform:translate(-50%,-50%) rotate(360deg); } }
+        @keyframes hp-spin-ccw { to{ transform:translate(-50%,-50%) rotate(-360deg); } }
+        @keyframes hp-pulse    { 0%{transform:scale(1);opacity:.8;} 100%{transform:scale(2.4);opacity:0;} }
+        @keyframes hp-float    { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-12px);} }
+        @keyframes hp-fade-up  { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
+        @keyframes hp-fade-in  { from{opacity:0;transform:scale(.97);} to{opacity:1;transform:scale(1);} }
+
+        /* ══ HERO ══════════════════════════════════════════════ */
+        .hp-hero {
+          min-height: 100vh;
+          background: var(--bg-base);
+          display: flex; align-items: center;
+          padding: 120px 56px 80px;
+          position: relative; overflow: hidden;
+        }
+        .hp-hero-mesh {
+          position: absolute; inset: 0; z-index: 0; pointer-events: none;
+          background:
+            radial-gradient(ellipse 60% 55% at 15% 50%, rgba(197,45,181,.18) 0%, transparent 65%),
+            radial-gradient(ellipse 45% 40% at 85% 20%, rgba(92,37,132,.15) 0%, transparent 60%),
+            radial-gradient(ellipse 35% 35% at 70% 85%, rgba(140,42,158,.12) 0%, transparent 60%);
+        }
+        .hp-hero-grid {
+          position: absolute; inset: 0; z-index: 0; pointer-events: none;
           background-image:
             linear-gradient(rgba(197,45,181,.05) 1px, transparent 1px),
             linear-gradient(90deg, rgba(197,45,181,.05) 1px, transparent 1px);
           background-size: 72px 72px;
         }
-        .cw-hero-blob {
-          position: absolute; top: 38%; left: 82%; transform: translate(-50%, -50%);
-          width: 560px; height: 560px;
+        .hp-hero-blob {
+          position: absolute; top: 45%; left: 62%;
+          transform: translate(-50%, -50%);
+          width: 700px; height: 700px;
           background: radial-gradient(circle, rgba(197,45,181,.12) 0%, transparent 70%);
-          border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-          animation: blob 13s ease-in-out infinite; filter: blur(50px);
-          transition: transform 1.4s cubic-bezier(.4,0,.2,1); pointer-events: none; z-index: 0;
+          border-radius: 60% 40% 30% 70%/60% 30% 70% 40%;
+          animation: hp-blob 12s ease-in-out infinite;
+          filter: blur(50px);
+          transition: transform 1.4s cubic-bezier(.4,0,.2,1);
+          pointer-events: none; z-index: 0;
         }
-        .cw-hero-inner { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; text-align: center; }
-        .cw-breadcrumb {
-          display: flex; align-items: center; justify-content: center; gap: 8px;
-          font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px;
-          text-transform: uppercase; color: var(--text-disabled); margin-bottom: 22px;
+
+        /* Orbital rings */
+        .hp-rings {
+          position: absolute; right: 5%; top: 50%;
+          transform: translateY(-50%);
+          width: 500px; height: 500px;
+          z-index: 1; pointer-events: none;
         }
-        .cw-breadcrumb a { color: var(--brand-light); text-decoration: none; }
-        .cw-eyebrow {
+        .hp-ring {
+          position: absolute; border-radius: 50%;
+          border: 1px solid rgba(197,45,181,.12);
+          top: 50%; left: 50%;
+          transform: translate(-50%,-50%);
+        }
+        .hp-ring-1{ width:160px; height:160px; border-color:rgba(197,45,181,.35); animation:hp-spin-cw  18s linear infinite; }
+        .hp-ring-2{ width:280px; height:280px;                                    animation:hp-spin-ccw 26s linear infinite; }
+        .hp-ring-3{ width:400px; height:400px;                                    animation:hp-spin-cw  38s linear infinite; }
+        .hp-ring-4{ width:500px; height:500px; border-color:rgba(197,45,181,.05); }
+        .hp-ring-dot {
+          position: absolute; width: 8px; height: 8px; border-radius: 50%;
+          background: var(--brand-grad); box-shadow: 0 0 14px var(--brand-hot);
+          top: 50%; left: 0; transform: translate(-50%,-50%);
+        }
+        .hp-ring-dot-2 {
+          background: var(--brand-light); box-shadow: 0 0 14px var(--brand-light);
+          top: 0; left: 50%;
+        }
+        .hp-ring-center {
+          position: absolute; top: 50%; left: 50%;
+          transform: translate(-50%,-50%);
+          width: 110px; height: 110px; border-radius: 50%;
+          background: var(--bg-raised);
+          border: 2px solid var(--border-default);
+          display: flex; align-items: center; justify-content: center;
+          font-size: 32px;
+          box-shadow: 0 0 60px rgba(197,45,181,.25), inset 0 0 24px rgba(197,45,181,.08);
+        }
+
+        /* Hero inner layout */
+        .hp-hero-inner {
+          display: grid; grid-template-columns: 1fr 1fr;
+          gap: 64px; align-items: center;
+          max-width: 1240px; margin: 0 auto;
+          position: relative; z-index: 2; width: 100%;
+        }
+
+        /* Hero copy */
+        .hp-eyebrow {
           display: inline-flex; align-items: center; gap: 10px;
-          font-family: var(--font-mono); font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-          color: var(--brand-light); background: rgba(197,45,181,.12); border: 1px solid rgba(197,45,181,.28);
-          padding: 6px 16px; border-radius: 100px; margin: 0 auto 24px; width: fit-content;
+          font-family: var(--font-mono); font-size: 10px;
+          letter-spacing: 3px; text-transform: uppercase;
+          color: var(--brand-light); margin-bottom: 24px;
+          background: rgba(197,45,181,.12);
+          border: 1px solid rgba(197,45,181,.28);
+          padding: 6px 14px; border-radius: 100px; width: fit-content;
+          animation: hp-fade-up .6s var(--ease) both;
         }
-        .cw-eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand-hot); position: relative; }
-        .cw-eyebrow-dot::after {
-          content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 1px solid var(--brand-hot);
-          animation: pulse-ring 2s ease-out infinite;
+        .hp-eyebrow-pulse {
+          width: 6px; height: 6px; border-radius: 50%;
+          background: var(--brand-hot); position: relative; flex-shrink: 0;
         }
-        .cw-hero-title {
-          font-family: var(--font-display); font-weight: 800; font-size: clamp(36px, 5.4vw, 60px);
-          letter-spacing: -2.2px; line-height: 1.08; color: var(--text-primary); margin-bottom: 18px;
+        .hp-eyebrow-pulse::after {
+          content: ''; position: absolute; inset: -4px; border-radius: 50%;
+          border: 1px solid var(--brand-hot);
+          animation: hp-pulse 2s ease-out infinite;
         }
-        .cw-hero-title em {
-          font-style: normal; background: var(--brand-grad);
-          -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        .hp-product-label {
+          font-family: var(--font-mono); font-size: 12px; letter-spacing: 3px;
+          text-transform: uppercase; color: var(--brand-light);
+          margin-bottom: 14px; font-weight: 500;
+          animation: hp-fade-up .6s .05s var(--ease) both;
         }
-        .cw-hero-kicker { font-size: 18px; color: var(--text-secondary); font-weight: 500; margin-bottom: 18px; }
-        .cw-hero-desc {
-          font-size: 16px; color: var(--text-secondary); line-height: 1.8; font-weight: 300;
-          max-width: 620px; margin: 0 auto 32px;
+        .hp-hero-title {
+          font-family: var(--font-display);
+          font-size: clamp(40px, 4.8vw, 72px);
+          font-weight: 800; line-height: 1.0;
+          color: var(--text-primary); letter-spacing: -2.5px;
+          margin-bottom: 24px;
+          animation: hp-fade-up .6s .1s var(--ease) both;
         }
-        .cw-hero-actions { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-bottom: 44px; }
+        .hp-hero-title em {
+          font-style: normal;
+          background: var(--brand-grad);
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        .hp-hero-desc {
+          font-family: var(--font-body); font-size: 17px;
+          color: var(--text-secondary); line-height: 1.8;
+          font-weight: 300; margin-bottom: 36px; max-width: 540px;
+          animation: hp-fade-up .6s .2s var(--ease) both;
+        }
+        .hp-hero-desc strong { color: var(--text-primary); font-weight: 600; }
+        .hp-hero-actions {
+          display: flex; gap: 14px; flex-wrap: wrap;
+          margin-bottom: 40px;
+          animation: hp-fade-up .6s .3s var(--ease) both;
+        }
+        .hp-hero-stats {
+          display: flex; gap: 28px; flex-wrap: wrap;
+          padding-top: 32px;
+          border-top: 1px solid var(--border-faint);
+          animation: hp-fade-up .6s .4s var(--ease) both;
+        }
+        .hp-stat { display: flex; flex-direction: column; }
+        .hp-stat-num {
+          font-family: var(--font-display); font-size: 22px;
+          font-weight: 800; color: var(--text-primary); line-height: 1;
+          letter-spacing: -0.5px;
+        }
+        .hp-stat-label {
+          font-size: 12px; color: var(--text-muted); margin-top: 5px;
+          font-family: var(--font-mono); letter-spacing: .5px;
+        }
 
-        .cw-hero-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border-faint); border: 1px solid var(--border-faint); border-radius: 18px; overflow: hidden; }
-        .cw-hero-stat { background: var(--bg-raised); padding: 22px 16px; text-align: center; transition: background .25s; }
-        .cw-hero-stat:hover { background: var(--bg-elevated); }
-        .cw-hero-stat-num { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--brand-hot); letter-spacing: -.6px; line-height: 1; margin-bottom: 6px; }
-        .cw-hero-stat-label { font-family: var(--font-mono); font-size: 9px; color: var(--text-muted); letter-spacing: .5px; text-transform: uppercase; }
+        /* ── HERO CLAIM CARD ── */
+        .hp-card-wrap { position: relative; padding: 28px 28px 24px; animation: hp-fade-in .8s .3s var(--ease) both; }
+        .hp-claim-card {
+          background: var(--bg-raised);
+          border: 1px solid var(--border-subtle);
+          border-radius: 20px; padding: 24px;
+          box-shadow: 0 30px 70px rgba(0,0,0,.5), 0 0 60px rgba(197,45,181,.08);
+          position: relative; z-index: 2;
+        }
+        .hp-cc-head {
+          display: flex; align-items: center; justify-content: space-between;
+          padding-bottom: 16px; border-bottom: 1px solid var(--border-faint);
+          margin-bottom: 16px;
+        }
+        .hp-cc-title {
+          font-family: var(--font-display); font-weight: 700;
+          font-size: 15px; color: var(--text-primary);
+        }
+        .hp-cc-badge {
+          background: rgba(34,197,94,.12); color: #22C55E;
+          font-size: 11px; font-weight: 700; padding: 5px 12px;
+          border-radius: 100px; display: flex; align-items: center; gap: 5px;
+          font-family: var(--font-mono); letter-spacing: .5px;
+        }
+        .hp-cc-row {
+          display: flex; align-items: center; gap: 12px; padding: 9px 0;
+        }
+        .hp-cc-icon {
+          width: 26px; height: 26px; border-radius: 50%;
+          background: rgba(34,197,94,.12); color: #22C55E;
+          display: flex; align-items: center; justify-content: center;
+          font-size: 12px; font-weight: 800; flex-shrink: 0;
+        }
+        .hp-cc-icon.warn { background: rgba(245,166,35,.12); color: var(--accent); }
+        .hp-cc-label {
+          font-size: 13.5px; color: var(--text-secondary); flex: 1;
+          font-family: var(--font-body);
+        }
+        .hp-cc-label strong { color: var(--text-primary); font-weight: 600; }
+        .hp-cc-foot {
+          margin-top: 16px; padding-top: 16px;
+          border-top: 1px solid var(--border-faint);
+          display: flex; align-items: center; justify-content: space-between;
+        }
+        .hp-cc-foot-label { font-size: 12px; color: var(--text-muted); }
+        .hp-cc-foot-label strong { color: #22C55E; }
+        .hp-cc-amt {
+          font-family: var(--font-display); font-size: 22px;
+          font-weight: 800; letter-spacing: -0.5px;
+          background: var(--brand-grad);
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
 
-        /* ════════════════════════════════════════
-           SECTION LABEL / SHARED
-        ════════════════════════════════════════ */
-        .cw-section-label {
-          font-family: var(--font-mono); font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
-          color: var(--brand-light); background: rgba(197,45,181,.09); border: 1px solid rgba(197,45,181,.25);
-          padding: 5px 14px; border-radius: 100px; width: fit-content; margin-bottom: 16px;
+        /* Floating badges */
+        .hp-float {
+          position: absolute; border-radius: 14px; padding: 11px 15px;
+          display: flex; align-items: center; gap: 10px;
+          backdrop-filter: blur(16px); z-index: 3;
+          box-shadow: 0 16px 40px rgba(0,0,0,.4);
         }
-        .cw-section-title { font-family: var(--font-display); font-size: clamp(24px,3vw,34px); font-weight: 700; color: var(--text-primary); letter-spacing: -.7px; margin-bottom: 16px; }
-        .cw-section-desc { font-size: 15px; color: var(--text-secondary); line-height: 1.8; font-weight: 300; max-width: 700px; margin-bottom: 36px; }
+        .hp-float-1 {
+          top: 0; left: 0;
+          background: linear-gradient(135deg, rgba(34,197,94,.18), rgba(34,197,94,.06));
+          border: 1px solid rgba(34,197,94,.28);
+          animation: hp-float 5s ease-in-out infinite;
+        }
+        .hp-float-2 {
+          bottom: 0; right: 0;
+          background: linear-gradient(135deg, rgba(197,45,181,.2), rgba(197,45,181,.07));
+          border: 1px solid var(--border-default);
+          animation: hp-float 6s 1.2s ease-in-out infinite;
+        }
+        .hp-float-ico { font-size: 22px; flex-shrink: 0; }
+        .hp-float-t { font-size: 10px; color: var(--text-muted); font-family: var(--font-mono); letter-spacing: .5px; text-transform: uppercase; }
+        .hp-float-v { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--text-primary); }
 
-        /* ════════════════════════════════════════
-           LEAK TABLE
-        ════════════════════════════════════════ */
-        .cw-leak-table { display: flex; flex-direction: column; gap: 10px; }
-        .cw-leak-row {
-          display: grid; grid-template-columns: 220px 1fr; gap: 20px;
-          padding: 18px 22px; background: var(--bg-raised); border: 1px solid var(--border-faint);
-          border-radius: 14px; transition: border-color .25s, background .25s;
+        /* ══ ACCREDITATION ════════════════════════════════════ */
+        .hp-accred-section {
+          padding: 88px 0;
+          background: var(--bg-surface);
+          border-top: 1px solid var(--border-faint);
+          border-bottom: 1px solid var(--border-faint);
         }
-        .cw-leak-row:hover { border-color: rgba(197,45,181,.35); background: var(--bg-elevated); }
-        .cw-leak-name { font-family: var(--font-display); font-size: 14.5px; font-weight: 700; color: var(--text-primary); }
-        .cw-leak-detail { font-size: 13.5px; color: var(--text-secondary); line-height: 1.7; font-weight: 300; }
+        .hp-accred-chips {
+          display: flex; justify-content: center; gap: 14px;
+          margin-bottom: 44px; flex-wrap: wrap;
+        }
+        .hp-accred-chip {
+          display: inline-flex; align-items: center; gap: 12px;
+          background: var(--bg-raised); border: 1px solid var(--border-subtle);
+          border-radius: 100px; padding: 12px 24px;
+          box-shadow: 0 4px 16px rgba(197,45,181,.1);
+          transition: border-color .25s;
+        }
+        .hp-accred-chip:hover { border-color: var(--border-default); }
+        .hp-accred-seal {
+          width: 32px; height: 32px; border-radius: 50%;
+          background: var(--brand-grad); color: #fff;
+          display: flex; align-items: center; justify-content: center;
+          font-size: 13px; font-weight: 800;
+          box-shadow: 0 4px 12px rgba(197,45,181,.3);
+        }
+        .hp-accred-chip-title {
+          font-family: var(--font-display); font-weight: 700;
+          font-size: 15px; color: var(--text-primary);
+        }
+        .hp-accred-chip-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+        .hp-accred-grid {
+          display: grid; grid-template-columns: repeat(3, 1fr);
+          gap: 20px; margin-bottom: 40px;
+        }
+        .hp-accred-card {
+          background: var(--bg-raised);
+          border: 1px solid var(--border-faint);
+          border-radius: 16px; padding: 28px 24px;
+          transition: all .3s var(--ease); position: relative; overflow: hidden;
+        }
+        .hp-accred-card::before {
+          content: ''; position: absolute; top: 0; left: 0; right: 0;
+          height: 2px; background: var(--brand-grad);
+          transform: scaleX(0); transform-origin: left;
+          transition: transform .35s var(--ease);
+        }
+        .hp-accred-card:hover { transform: translateY(-4px); border-color: var(--border-default); background: var(--bg-elevated); }
+        .hp-accred-card:hover::before { transform: scaleX(1); }
+        .hp-accred-card h3 {
+          font-family: var(--font-display); font-size: 17px;
+          font-weight: 700; color: var(--text-primary);
+          margin-bottom: 10px; letter-spacing: -0.3px;
+        }
+        .hp-accred-card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; font-weight: 300; }
 
-        /* ════════════════════════════════════════
-           SOLUTION STEPS
-        ════════════════════════════════════════ */
-        .cw-steps { display: flex; flex-direction: column; gap: 4px; }
-        .cw-step {
-          display: grid; grid-template-columns: 56px 1fr; gap: 22px;
-          padding: 20px 4px; position: relative;
+        /* Accred CTA bar */
+        .hp-accred-cta {
+          display: flex; align-items: center; justify-content: space-between;
+          gap: 24px; flex-wrap: wrap;
+          background: var(--bg-raised); border: 1px solid var(--border-subtle);
+          border-radius: 18px; padding: 28px 36px;
+          box-shadow: 0 8px 24px rgba(197,45,181,.08);
         }
-        .cw-step:not(:last-child)::before {
-          content: ''; position: absolute; left: 27px; top: 56px; bottom: -8px; width: 1px;
-          background: var(--border-default);
+        .hp-accred-cta h3 {
+          font-family: var(--font-display); font-size: 19px;
+          font-weight: 700; color: var(--text-primary); margin-bottom: 5px; letter-spacing: -0.3px;
         }
-        .cw-step-num {
-          width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0;
-          background: var(--brand-grad); display: flex; align-items: center; justify-content: center;
-          font-family: var(--font-display); font-weight: 800; font-size: 16px; color: #fff;
-          box-shadow: 0 8px 20px rgba(197,45,181,.3); position: relative; z-index: 1;
-        }
-        .cw-step-title { font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; letter-spacing: -.3px; }
-        .cw-step-text { font-size: 14px; color: var(--text-secondary); line-height: 1.75; font-weight: 300; }
+        .hp-accred-cta p { font-size: 14px; color: var(--text-muted); font-weight: 300; }
 
-        /* ════════════════════════════════════════
-           MODULE / FEATURE / BENEFIT GRIDS
-        ════════════════════════════════════════ */
-        .cw-grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
-        .cw-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-        .cw-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+        /* ══ PRODUCTS ═════════════════════════════════════════ */
+        .hp-prod-section { padding: 88px 0; background: var(--bg-base); }
+        .hp-prod-grid {
+          display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+        }
+        .hp-prod-card {
+          background: var(--bg-raised);
+          border: 1px solid var(--border-faint);
+          border-radius: 16px; padding: 26px;
+          transition: all .3s var(--ease); position: relative; overflow: hidden;
+        }
+        .hp-prod-card::before {
+          content: ''; position: absolute; top: 0; left: 0; right: 0;
+          height: 2px; background: var(--brand-grad);
+          transform: scaleX(0); transform-origin: left;
+          transition: transform .35s var(--ease);
+        }
+        .hp-prod-card:hover { transform: translateY(-5px); border-color: var(--border-default); background: var(--bg-elevated); }
+        .hp-prod-card:hover::before { transform: scaleX(1); }
+        .hp-prod-name {
+          font-family: var(--font-display); font-size: 17px;
+          font-weight: 700; color: var(--text-primary);
+          margin-bottom: 8px; letter-spacing: -0.3px;
+          display: flex; align-items: center; gap: 8px;
+        }
+        .hp-prod-tag {
+          font-family: var(--font-mono); font-size: 9px; letter-spacing: 1px;
+          text-transform: uppercase;
+          background: rgba(197,45,181,.12); color: var(--brand-light);
+          border: 1px solid rgba(197,45,181,.22);
+          padding: 3px 8px; border-radius: 6px; font-weight: 500;
+        }
+        .hp-prod-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; font-weight: 300; }
 
-        .cw-card {
-          background: var(--bg-raised); border: 1px solid var(--border-faint); border-radius: 18px;
-          padding: 26px 22px; position: relative; overflow: hidden; transition: all .3s var(--ease);
+        /* ══ SERVICES ═════════════════════════════════════════ */
+        .hp-services-section {
+          padding: 88px 0;
+          background: var(--bg-surface);
+          border-top: 1px solid var(--border-faint);
+          border-bottom: 1px solid var(--border-faint);
         }
-        .cw-card::before {
-          content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-          background: var(--brand-grad); transform: scaleX(0); transform-origin: left; transition: transform .35s var(--ease);
+        .hp-serv-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .hp-serv-card {
+          background: rgba(197,45,181,.06);
+          border: 1px solid var(--border-faint);
+          border-radius: 14px; padding: 24px;
+          transition: all .25s var(--ease);
         }
-        .cw-card:hover { transform: translateY(-5px); border-color: rgba(197,45,181,.35); background: var(--bg-elevated); }
-        .cw-card:hover::before { transform: scaleX(1); }
-        .cw-card-icon {
-          width: 44px; height: 44px; border-radius: 12px; background: rgba(197,45,181,.12);
-          border: 1px solid rgba(197,45,181,.25); display: flex; align-items: center; justify-content: center;
-          font-size: 20px; margin-bottom: 14px;
+        .hp-serv-card:hover { background: rgba(197,45,181,.1); border-color: var(--border-default); }
+        .hp-serv-ico { font-size: 26px; margin-bottom: 14px; }
+        .hp-serv-name {
+          font-family: var(--font-display); font-size: 15px;
+          font-weight: 700; color: var(--text-primary);
+          margin-bottom: 7px; letter-spacing: -0.2px;
         }
-        .cw-card-tag {
-          display: inline-block; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 1.5px;
-          text-transform: uppercase; color: var(--brand-hot); background: rgba(197,45,181,.12);
-          border: 1px solid rgba(197,45,181,.3); padding: 3px 9px; border-radius: 100px; margin-bottom: 10px;
-        }
-        .cw-card-name { font-family: var(--font-display); font-size: 14.5px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; letter-spacing: -.2px; }
-        .cw-card-desc { font-size: 12.5px; color: var(--text-muted); line-height: 1.7; }
+        .hp-serv-desc { font-size: 13px; color: var(--text-muted); line-height: 1.55; font-weight: 300; }
 
-        /* ════════════════════════════════════════
-           CALLOUT
-        ════════════════════════════════════════ */
-        .cw-callout {
-          margin-top: 28px; padding: 22px 26px; border-radius: 16px;
-          background: linear-gradient(120deg, rgba(197,45,181,.14), rgba(92,37,132,.18));
-          border: 1px solid rgba(197,45,181,.3);
+        /* ══ PRICING ══════════════════════════════════════════ */
+        .hp-pricing-section { padding: 88px 0; background: var(--bg-base); }
+        .hp-price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+        .hp-price-card {
+          background: var(--bg-raised);
+          border: 1px solid var(--border-faint);
+          border-radius: 20px; padding: 30px 26px;
+          display: flex; flex-direction: column; position: relative;
+          transition: all .3s var(--ease);
         }
-        .cw-callout-label { font-family: var(--font-mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--brand-light); margin-bottom: 8px; }
-        .cw-callout p { font-size: 14px; color: var(--text-secondary); line-height: 1.75; margin: 0; font-weight: 300; }
-        .cw-callout strong { color: var(--text-primary); }
+        .hp-price-card:hover { border-color: var(--border-default); transform: translateY(-4px); background: var(--bg-elevated); }
+        .hp-price-card.featured {
+          background: linear-gradient(165deg, rgba(92,37,132,.6), rgba(140,42,158,.4));
+          border-color: var(--border-default);
+          box-shadow: 0 24px 56px rgba(140,42,158,.28);
+          transform: scale(1.03);
+        }
+        .hp-price-card.featured:hover { transform: scale(1.03) translateY(-4px); }
+        .hp-price-badge {
+          position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+          background: var(--accent); color: var(--bg-base);
+          font-family: var(--font-mono); font-size: 10px; font-weight: 700;
+          letter-spacing: 1.5px; text-transform: uppercase;
+          padding: 5px 16px; border-radius: 100px; white-space: nowrap;
+        }
+        .hp-price-name {
+          font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px;
+          text-transform: uppercase; color: var(--text-muted);
+          font-weight: 500; margin-bottom: 12px;
+        }
+        .hp-price-card.featured .hp-price-name { color: var(--brand-light); }
+        .hp-price-amt {
+          font-family: var(--font-display); font-size: 38px;
+          font-weight: 800; line-height: 1; letter-spacing: -1.5px;
+          background: var(--brand-grad);
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        .hp-price-card.featured .hp-price-amt {
+          background: none; -webkit-text-fill-color: var(--text-primary);
+        }
+        .hp-price-per {
+          font-size: 13px; color: var(--text-muted); margin: 6px 0 20px;
+        }
+        .hp-price-feat { display: flex; flex-direction: column; gap: 8px; flex: 1; margin-bottom: 24px; }
+        .hp-price-feat li {
+          font-size: 13.5px; color: var(--text-secondary); display: flex; gap: 9px;
+          align-items: flex-start; font-weight: 400;
+        }
+        .hp-price-card.featured .hp-price-feat li { color: rgba(242,234,255,.85); }
+        .hp-price-feat li::before { content: '✓'; color: var(--brand-light); font-weight: 800; flex-shrink: 0; }
+        .hp-price-btn {
+          text-align: center; padding: 13px; border-radius: 100px;
+          font-family: var(--font-body); font-weight: 700; font-size: 14px;
+          border: 1.5px solid var(--border-default);
+          color: var(--brand-light); text-decoration: none;
+          transition: all .2s; display: block;
+        }
+        .hp-price-btn:hover { background: rgba(197,45,181,.12); border-color: var(--border-strong); }
+        .hp-price-card.featured .hp-price-btn {
+          background: #fff; color: var(--bg-base);
+          border-color: #fff; box-shadow: 0 4px 14px rgba(255,255,255,.2);
+        }
+        .hp-price-card.featured .hp-price-btn:hover {
+          background: rgba(255,255,255,.9);
+        }
 
-        /* ════════════════════════════════════════
-           CTA BANNER
-        ════════════════════════════════════════ */
-        .cw-cta-wrap { padding: 80px 56px; max-width: 1200px; margin: 0 auto; }
-        .cw-cta {
-          position: relative; overflow: hidden; text-align: center;
-          background: linear-gradient(135deg, rgba(197,45,181,.18) 0%, rgba(92,37,132,.22) 100%);
-          border: 1px solid rgba(197,45,181,.3); border-radius: 28px; padding: 56px 56px;
+        /* ══ CTA BAND ═════════════════════════════════════════ */
+        .hp-cta-band {
+          padding: 80px 0;
+          background: var(--bg-surface);
+          border-top: 1px solid var(--border-faint);
         }
-        .cw-cta::before {
-          content: ''; position: absolute; inset: 0;
-          background-image: radial-gradient(rgba(197,45,181,.07) 1px, transparent 1px);
-          background-size: 32px 32px; pointer-events: none;
-        }
-        .cw-cta::after {
-          content: ''; position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
-          width: 360px; height: 360px; border-radius: 50%; background: rgba(197,45,181,.14); filter: blur(60px); pointer-events: none;
-        }
-        .cw-cta-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
-        .cw-cta-chip {
-          display: inline-flex; align-items: center; gap: 7px;
-          font-family: var(--font-mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
-          color: var(--text-muted); background: var(--bg-raised); border: 1px solid var(--border-faint);
-          padding: 5px 14px; border-radius: 100px; margin-bottom: 18px;
-        }
-        .cw-cta h2 { font-family: var(--font-display); font-size: clamp(24px,3vw,36px); font-weight: 800; color: var(--text-primary); letter-spacing: -1px; margin-bottom: 12px; }
-        .cw-cta p { font-size: 14.5px; color: var(--text-secondary); line-height: 1.75; margin-bottom: 28px; }
-        .cw-cta-btns { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
 
-        @media (max-width: 1024px) {
-          .cw-grid-5 { grid-template-columns: repeat(3, 1fr); }
-          .cw-grid-3 { grid-template-columns: repeat(2, 1fr); }
-          .cw-hero-stats { grid-template-columns: repeat(2,1fr); }
+        /* ══ RESPONSIVE ═══════════════════════════════════════ */
+        @media (max-width: 960px) {
+          .hp-hero { padding: 110px 20px 80px; }
+          .hp-hero-inner { grid-template-columns: 1fr; gap: 48px; }
+          .hp-rings { display: none; }
+          .hp-float-1, .hp-float-2 { display: none; }
+          .hp-accred-grid { grid-template-columns: 1fr 1fr; }
+          .hp-prod-grid { grid-template-columns: 1fr 1fr; }
+          .hp-serv-grid { grid-template-columns: 1fr 1fr; }
+          .hp-price-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+          .hp-price-card.featured { transform: none; }
         }
-        @media (max-width: 768px) {
-          .cw-hero { padding: 110px 20px 50px; }
-          .cw-grid-5, .cw-grid-3, .cw-grid-2 { grid-template-columns: 1fr; }
-          .cw-leak-row { grid-template-columns: 1fr; gap: 8px; }
-          .cw-cta-wrap { padding: 56px 20px; }
-          .cw-cta { padding: 40px 24px; }
+        @media (max-width: 600px) {
+          .hp-accred-grid, .hp-prod-grid, .hp-serv-grid { grid-template-columns: 1fr; }
+          .hp-hero-stats { gap: 20px; }
+          .hp-accred-cta { flex-direction: column; }
         }
       `}</style>
 
-      <div className="cw-page">
-        <Navbar />
+      <div style={{ background: 'var(--bg-base)', color: 'var(--text-primary)', fontFamily: 'var(--font-body)', paddingTop: 70 }}>
 
-        {/* ── HERO ── */}
-        <section className="cw-hero">
-          <div className="cw-hero-mesh" />
-          <div className="cw-hero-grid" />
-          <div className="cw-hero-blob" ref={blobRef} />
+        {/* ══ HERO — CLAIMWISE ══ */}
+        <section className="hp-hero">
+          <div className="hp-hero-mesh" />
+          <div className="hp-hero-grid" />
+          <div className="hp-hero-blob" ref={blobRef} />
 
-          <div className="cw-hero-inner">
-            <div className="cw-breadcrumb">
-              <Link to="/">Home</Link><span>›</span><span>ClaimWise</span>
+          {/* Orbital rings */}
+          <div className="hp-rings">
+            <div className="hp-ring hp-ring-4" />
+            <div className="hp-ring hp-ring-3" />
+            <div className="hp-ring hp-ring-2"><div className="hp-ring-dot hp-ring-dot-2" /></div>
+            <div className="hp-ring hp-ring-1"><div className="hp-ring-dot" /></div>
+            <div className="hp-ring-center">🛡️</div>
+          </div>
+
+          <div className="hp-hero-inner">
+            {/* Left: copy */}
+            <div>
+              <div className="hp-eyebrow">
+                <span className="hp-eyebrow-pulse" />
+                New from MedXL
+              </div>
+              <div className="hp-product-label">MedXL ClaimWise</div>
+              <h1 className="hp-hero-title">
+                Fewer denials.<br />
+                Faster settlements.<br />
+                <em>Full payment.</em>
+              </h1>
+              <p className="hp-hero-desc">
+                AI-powered claims validation for Indian hospitals. MedXL ClaimWise checks every
+                cashless, TPA, and PMJAY claim <strong>before</strong> you submit it — preventing
+                denials, speeding settlements, and recovering the revenue your hospital is losing today.
+              </p>
+              <div className="hp-hero-actions">
+                <Link to="/products" className="mx-btn-primary">Know more →</Link>
+                <a href="/#contact" className="mx-btn-ghost">Book a demo</a>
+              </div>
+              <div className="hp-hero-stats">
+                {heroStats.map(s => (
+                  <div className="hp-stat" key={s.label}>
+                    <span className="hp-stat-num">{s.num}</span>
+                    <span className="hp-stat-label">{s.label}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div className="cw-eyebrow">
-              <span className="cw-eyebrow-dot" />
-              Coming Soon · AI Claims Intelligence
-            </div>
-
-            <h1 className="cw-hero-title">
-              The Claim That <em>Doesn't Come Back</em>
-            </h1>
-
-            <p className="cw-hero-kicker">Introducing MedXL ClaimWise</p>
-
-            <p className="cw-hero-desc">
-              An AI-powered claims validation and denial-prevention platform, purpose-built
-              for Indian hospitals — engineered to win back the single biggest source of
-              lost revenue in Indian healthcare: delayed and denied insurance, TPA, and
-              PMJAY claims.
-            </p>
-
-            <div className="cw-hero-actions">
-              <a
-                href="https://api.whatsapp.com/send/?phone=918148181288&text=I'd%20like%20to%20join%20the%20ClaimWise%20waitlist"
-                className="mx-btn-primary"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Join the Waitlist →
-              </a>
-              <a href="#how-it-works" className="mx-btn-ghost">See How It Works</a>
-            </div>
-
-            <div className="cw-hero-stats">
-              {heroStats.map(s => (
-                <div className="cw-hero-stat" key={s.label}>
-                  <div className="cw-hero-stat-num">{s.num}</div>
-                  <div className="cw-hero-stat-label">{s.label}</div>
+            {/* Right: claim card */}
+            <div className="hp-card-wrap">
+              <div className="hp-claim-card">
+                <div className="hp-cc-head">
+                  <div className="hp-cc-title">Pre-Auth · Cashless</div>
+                  <div className="hp-cc-badge">● Validated</div>
                 </div>
-              ))}
+                {claimChecks.map((c, i) => (
+                  <div className="hp-cc-row" key={i}>
+                    <div className={`hp-cc-icon${c.type === 'warn' ? ' warn' : ''}`}>
+                      {c.type === 'warn' ? '!' : '✓'}
+                    </div>
+                    <div className="hp-cc-label">
+                      <strong>{c.label}</strong> {c.detail}
+                    </div>
+                  </div>
+                ))}
+                <div className="hp-cc-foot">
+                  <div className="hp-cc-foot-label">Denial risk · <strong>Low</strong></div>
+                  <div className="hp-cc-amt">₹1,92,400</div>
+                </div>
+              </div>
+              {/* Floating badges */}
+              <div className="hp-float hp-float-1">
+                <div className="hp-float-ico">✅</div>
+                <div>
+                  <div className="hp-float-t">Validated</div>
+                  <div className="hp-float-v">Ready to submit</div>
+                </div>
+              </div>
+              <div className="hp-float hp-float-2">
+                <div className="hp-float-ico">↩️</div>
+                <div>
+                  <div className="hp-float-t">Recovered</div>
+                  <div className="hp-float-v">₹1.4L appeal won</div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ── THE PROBLEM ── */}
-        <section className="mx-section">
+        {/* ══ ACCREDITATION ══ */}
+        <section className="hp-accred-section" id="accreditation">
           <div className="mx-container">
-            <div className="cw-section-label">The Problem</div>
-            <h2 className="cw-section-title">The Cash-Flow Wound</h2>
-            <p className="cw-section-desc">
-              More than half of a private hospital's revenue now flows through insurance,
-              TPAs, and government schemes — and it's the slowest, most fragile money the
-              hospital handles. Here's exactly where it bleeds.
-            </p>
-
-            <div className="cw-leak-table">
-              {leaks.map(l => (
-                <div className="cw-leak-row" key={l.leak}>
-                  <div className="cw-leak-name">{l.leak}</div>
-                  <div className="cw-leak-detail">{l.detail}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="cw-callout">
-              <div className="cw-callout-label">The Human Reality</div>
-              <p>
-                A mid-sized hospital can have <strong>₹20–30 lakh — even crores — locked in
-                pending and disputed claims</strong> at any time. That's salaries unpaid,
-                medicines unbought, growth frozen.
+            <div className="mx-text-center" style={{ marginBottom: 44 }}>
+              <div className="mx-tag">NABH & JCI Accreditation</div>
+              <h2 className="mx-section-title">
+                Get accreditation-ready with the<br />
+                <em>right IT foundation</em>
+              </h2>
+              <p className="mx-section-sub">
+                NABH and JCI both demand robust documentation, secure records, medication safety,
+                and measurable quality. MedXL gives your hospital the technology backbone that makes
+                meeting those standards far simpler.
               </p>
             </div>
-          </div>
-        </section>
 
-        {/* ── THE SOLUTION ── */}
-        <section className="mx-section-surface" id="how-it-works">
-          <div className="mx-container">
-            <div className="cw-section-label">The Solution</div>
-            <h2 className="cw-section-title">From Admission to Bank Credit — Automatically</h2>
-            <p className="cw-section-desc">
-              ClaimWise validates, submits, tracks, and recovers every cashless, TPA, and
-              PMJAY claim — so fewer denials happen, and the ones that do get recovered fast.
-            </p>
-
-            <div className="cw-steps">
-              {solutionSteps.map(s => (
-                <div className="cw-step" key={s.num}>
-                  <div className="cw-step-num">{s.num}</div>
+            <div className="hp-accred-chips">
+              {[
+                { seal: 'N', title: 'NABH', sub: 'National accreditation, India' },
+                { seal: 'J', title: 'JCI',  sub: 'Joint Commission International' },
+              ].map(c => (
+                <div className="hp-accred-chip" key={c.title}>
+                  <div className="hp-accred-seal">{c.seal}</div>
                   <div>
-                    <div className="cw-step-title">{s.title}</div>
-                    <div className="cw-step-text">{s.text}</div>
+                    <div className="hp-accred-chip-title">{c.title}</div>
+                    <div className="hp-accred-chip-sub">{c.sub}</div>
                   </div>
                 </div>
               ))}
             </div>
-          </div>
-        </section>
 
-        {/* ── FIVE MODULES ── */}
-        <section className="mx-section">
-          <div className="mx-container">
-            <div className="cw-section-label">Five Connected Modules</div>
-            <h2 className="cw-section-title">Start With Validation. Grow Into the Platform.</h2>
-            <p className="cw-section-desc">
-              ClaimWise ships as five connected modules. A hospital can start with
-              validation alone and expand — easy to adopt, simple to grow into.
-            </p>
-
-            <div className="cw-grid-5">
-              {modules.map(m => (
-                <div className="cw-card" key={m.name}>
-                  <div className="cw-card-icon">{m.icon}</div>
-                  {m.tag && <span className="cw-card-tag">{m.tag}</span>}
-                  <div className="cw-card-name">{m.name}</div>
-                  <div className="cw-card-desc">{m.desc}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── BUILT FOR INDIA ── */}
-        <section className="mx-section-surface">
-          <div className="mx-container">
-            <div className="cw-section-label">Built for Indian Healthcare</div>
-            <h2 className="cw-section-title">Every Payer. Every Scheme. Every Quirk.</h2>
-
-            <div className="cw-grid-3">
-              {builtForIndia.map(f => (
-                <div className="cw-card" key={f.title}>
-                  <div className="cw-card-icon">{f.icon}</div>
-                  <div className="cw-card-name">{f.title}</div>
-                  <div className="cw-card-desc">{f.text}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── WHY NOW ── */}
-        <section className="mx-section">
-          <div className="mx-container">
-            <div className="cw-section-label">Why Now</div>
-            <h2 className="cw-section-title">The Government Just Rebuilt the Rails</h2>
-            <p className="cw-section-desc">
-              The National Health Claims Exchange (NHCX) is a single gateway connecting
-              hospitals, insurers, TPAs, and government schemes — moving claims from a
-              dozen portals to one standard format.
-            </p>
-
-            <div className="cw-grid-2" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
-              {whyNowStats.map(s => (
-                <div className="cw-card" key={s.label} style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: 22, marginBottom: 8 }}>{s.icon}</div>
-                  <div className="cw-card-name" style={{ fontSize: 17 }}>{s.num}</div>
-                  <div className="cw-card-desc">{s.label}</div>
+            <div className="hp-accred-grid">
+              {accredCards.map(card => (
+                <div className="hp-accred-card" key={card.title}>
+                  <div className="mx-icon-box brand" style={{ marginBottom: 18 }}>{card.icon}</div>
+                  <h3>{card.title}</h3>
+                  <p>{card.body}</p>
                 </div>
               ))}
             </div>
 
-            <div className="cw-callout">
-              <div className="cw-callout-label">Why This Matters</div>
-              <p>
-                NHCX standardizes the rails — but it doesn't tell a hospital whether their
-                claim is correct, complete, and denial-proof <strong>before</strong> they hit
-                submit. That validation layer is exactly where MedXL ClaimWise lives.
+            <div className="hp-accred-cta">
+              <div>
+                <h3>Planning for NABH or JCI accreditation?</h3>
+                <p>Get our free readiness guide and a session on where your hospital stands today.</p>
+              </div>
+              <a href="/nabh" className="mx-btn-primary">Get the accreditation guide</a>
+            </div>
+          </div>
+        </section>
+
+        {/* ══ PRODUCTS ══ */}
+        <section className="hp-prod-section" id="products">
+          <div className="mx-container">
+            <div className="mx-text-center" style={{ marginBottom: 48 }}>
+              <div className="mx-tag">Software Products</div>
+              <h2 className="mx-section-title">One platform for your <em>entire hospital</em></h2>
+              <p className="mx-section-sub">
+                Purpose-built, ABDM-ready software designed for Indian clinical workflows —
+                not repurposed generic tools.
               </p>
             </div>
-          </div>
-        </section>
-
-        {/* ── WHO BENEFITS ── */}
-        <section className="mx-section-surface">
-          <div className="mx-container">
-            <div className="cw-section-label">Who Benefits Most</div>
-            <h2 className="cw-section-title">Built for Hospitals Like Yours</h2>
-
-            <div className="cw-grid-3">
-              {whoBenefits.map(w => (
-                <div className="cw-card" key={w.title}>
-                  <div className="cw-card-icon">{w.icon}</div>
-                  <div className="cw-card-name">{w.title}</div>
-                  <div className="cw-card-desc">{w.text}</div>
+            <div className="hp-prod-grid">
+              {products.map(p => (
+                <div className="hp-prod-card" key={p.name}>
+                  <div className="mx-icon-box brand" style={{ marginBottom: 16 }}>{p.icon}</div>
+                  <div className="hp-prod-name">
+                    {p.name}
+                    <span className="hp-prod-tag">{p.tag}</span>
+                  </div>
+                  <p className="hp-prod-desc">{p.desc}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
-        <Footer />
+
+        {/* ══ SERVICES ══ */}
+        <section className="hp-services-section" id="services">
+          <div className="mx-container">
+            <div className="mx-text-center" style={{ marginBottom: 48 }}>
+              <div className="mx-tag">IT Services & Support</div>
+              <h2 className="mx-section-title">Your complete IT department</h2>
+              <p className="mx-section-sub" style={{ color: 'var(--text-secondary)' }}>
+                Everything beyond software — website, marketing, security, and support —
+                under one annual partnership.
+              </p>
+            </div>
+            <div className="hp-serv-grid">
+              {services.map(s => (
+                <div className="hp-serv-card" key={s.name}>
+                  <div className="hp-serv-ico">{s.icon}</div>
+                  <div className="hp-serv-name">{s.name}</div>
+                  <div className="hp-serv-desc">{s.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ══ PRICING ══ */}
+        <section className="hp-pricing-section" id="pricing">
+          <div className="mx-container">
+            <div className="mx-text-center" style={{ marginBottom: 48 }}>
+              <div className="mx-tag">Annual Plans</div>
+              <h2 className="mx-section-title">Transparent pricing, <em>no surprises</em></h2>
+              <p className="mx-section-sub">
+                One annual plan covers your hospital's entire IT.
+                No setup fees, no hidden charges. GST applicable.
+              </p>
+            </div>
+            <div className="hp-price-grid">
+              {pricingPlans.map(plan => (
+                <div key={plan.id} className={`hp-price-card${plan.featured ? ' featured' : ''}`}>
+                  {plan.featured && <div className="hp-price-badge">Most Popular</div>}
+                  <div className="hp-price-name">{plan.name}</div>
+                  <div className="hp-price-amt">{plan.price}</div>
+                  <div className="hp-price-per">per year</div>
+                  <ul className="hp-price-feat">
+                    {plan.features.map(f => <li key={f}>{f}</li>)}
+                  </ul>
+                  <a href="/price#plans" className="hp-price-btn">{plan.cta}</a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </div>
     </>
   )

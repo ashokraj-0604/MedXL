@@ -31,6 +31,7 @@ import TeamPage from './Pages/TeamPage'
 import CareerPage from './Pages/CareerPage'
 import ClaimWisePage from './Pages/Claimwise'
 import NABHAccreditationPage from './Pages/NABH'
+import Footer from './components/Footer'
 export default function App() {
   return (
     <HelmetProvider>
@@ -68,6 +69,7 @@ export default function App() {
           <Route path="/claimwise" element={<ClaimWisePage />} />
           <Route path="/nabh"element={<NABHAccreditationPage />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </HelmetProvider>
   )
