@@ -12,7 +12,8 @@ import Contact from '../components/Contact'
 import { useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
-import Product from '../components/Product'
+import Claim from '../components/Claim'
+import Nabh from '../components/Nabh'
 export default function HomePage() {
   const location = useLocation()
 
@@ -168,7 +169,8 @@ export default function HomePage() {
       <Navbar />
       <Hero />
       <Clients />
-      <Product />
+      <Claim />
+      <Nabh />
       <Services />
       <About />
       <CaseStudies />
