@@ -262,41 +262,42 @@ export default function ClaimWiseSection() {
                   <span className="cw-feature-icon">{f.icon}</span>
                   <span>{f.text}</span>
                 </div>
-              ))}
+              ))} 
             </div>
             <Link to="/claimwise" className="cw-btn">Know More →</Link>
           </div>
 
           
           {/* ── Right: feature cards ── */}
-<div className="cw-card">
-  <div className="cw-card-bar" />
+          <div className="cw-card">
+            <div className="cw-card-bar" />
+            <div className="cw-feat-grid">
+              {[
+                { icon: '🛡️', title: 'Pre-submission validation', desc: 'AI checks every field before you submit — zero surprises from the insurer.' },
+                { icon: '📡', title: 'Live settlement tracking',  desc: 'Know exactly where each claim stands, in real time, across all TPAs.' },
+                { icon: '↩️', title: 'Auto-built denial appeals', desc: 'When a claim is denied, ClaimWise drafts the appeal instantly — ready to send.' },
+                { icon: '📋', title: 'PMJAY & TPA ready',         desc: "Built for India's insurance landscape — cashless, reimbursement, and government schemes." },
+              ].map(f => (
+                <div className="cw-feat-card" key={f.title}>
+                  <div className="cw-feat-icon">{f.icon}</div>
+                  <div className="cw-feat-title">{f.title}</div>
+                  <div className="cw-feat-desc">{f.desc}</div>
+                  
+                </div>
+              ))}
+            </div>
 
-  <div className="cw-feat-grid">
-    {[
-      { icon: '🛡️', title: 'Pre-submission validation', desc: 'AI checks every field before you submit — zero surprises from the insurer.' },
-      { icon: '📡', title: 'Live settlement tracking',  desc: 'Know exactly where each claim stands, in real time, across all TPAs.' },
-      { icon: '↩️', title: 'Auto-built denial appeals', desc: 'When a claim is denied, ClaimWise drafts the appeal instantly — ready to send.' },
-      { icon: '📋', title: 'PMJAY & TPA ready',         desc: "Built for India's insurance landscape — cashless, reimbursement, and government schemes." },
-    ].map(f => (
-      <div className="cw-feat-card" key={f.title}>
-        <div className="cw-feat-icon">{f.icon}</div>
-        <div className="cw-feat-title">{f.title}</div>
-        <div className="cw-feat-desc">{f.desc}</div>
-      </div>
-    ))}
-  </div>
-
-  <div className="cw-highlight-strip">
-    <span className="cw-hl-quote">"</span>
-    <p className="cw-hl-text">
-      Most denials are preventable. ClaimWise catches the errors{' '}
-      <strong>before they become rejections</strong> — so your billing team
-      spends time on patients, not paperwork.
-    </p>
-  </div>
-</div>
+            <div className="cw-highlight-strip">
+              <span className="cw-hl-quote">"</span>
+              <p className="cw-hl-text">
+                Most denials are preventable. ClaimWise catches the errors{' '}
+                <strong>before they become rejections</strong> — so your billing team
+                spends time on patients, not paperwork.
+              </p>
+            </div>
+          </div>
         </div>
+        
       </section>
     </>
   )

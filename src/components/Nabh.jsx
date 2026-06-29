@@ -394,8 +394,39 @@ export default function NABHSection() {
                 </div>
               ))}
             </div>
+          </div>
 
-            <div className="nb-cta-row">
+          {/* ── Right: feature cards ── */}
+          <div className="nb-card">
+            <div className="nb-card-bar" />
+            <div className="nb-card-label">NABH · MedXL Readiness Suite</div>
+
+            <div className="nb-feat-grid">
+              {[
+                { icon: '📋', title: 'Chapter-by-chapter tools',   desc: 'Every one of the 10 NABH standards mapped to a specific MedXL module.' },
+                { icon: '🎓', title: 'LMS with NABH library',      desc: 'Pre-loaded training modules, competency records, and one-click audit reports.' },
+                { icon: '✅', title: 'Continuous evidence',         desc: 'HMS and EHR generate assessment-ready documentation automatically — not just before audits.' },
+                { icon: '💰', title: 'Higher reimbursement',        desc: 'NABH-accredited hospitals get 10–15% more from insurers and an extra 10% on PMJAY claims.' },
+              ].map(f => (
+                <div className="nb-feat-card" key={f.title}>
+                  <div className="nb-feat-icon">{f.icon}</div>
+                  <div className="nb-feat-title">{f.title}</div>
+                  <div className="nb-feat-desc">{f.desc}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="nb-highlight-strip">
+              <span className="nb-hl-quote">"</span>
+              <p className="nb-hl-text">
+                Most hospitals train their staff — they just can't{' '}
+                <strong>prove it when the assessor walks in</strong>.
+                MedXL's LMS closes that gap before it becomes a failure.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="nb-cta-row">
               <Link to="/nabh" className="nb-btn-primary">Know More →</Link>
               <a
                 href="https://api.whatsapp.com/send/?phone=9884021188&text=I'd%20like%20a%20free%20NABH%20readiness%20assessment"
@@ -406,38 +437,6 @@ export default function NABHSection() {
                 Free Assessment ↗
               </a>
             </div>
-          </div>
-
-          {/* ── Right: feature cards ── */}
-<div className="nb-card">
-  <div className="nb-card-bar" />
-  <div className="nb-card-label">NABH · MedXL Readiness Suite</div>
-
-  <div className="nb-feat-grid">
-    {[
-      { icon: '📋', title: 'Chapter-by-chapter tools',   desc: 'Every one of the 10 NABH standards mapped to a specific MedXL module.' },
-      { icon: '🎓', title: 'LMS with NABH library',      desc: 'Pre-loaded training modules, competency records, and one-click audit reports.' },
-      { icon: '✅', title: 'Continuous evidence',         desc: 'HMS and EHR generate assessment-ready documentation automatically — not just before audits.' },
-      { icon: '💰', title: 'Higher reimbursement',        desc: 'NABH-accredited hospitals get 10–15% more from insurers and an extra 10% on PMJAY claims.' },
-    ].map(f => (
-      <div className="nb-feat-card" key={f.title}>
-        <div className="nb-feat-icon">{f.icon}</div>
-        <div className="nb-feat-title">{f.title}</div>
-        <div className="nb-feat-desc">{f.desc}</div>
-      </div>
-    ))}
-  </div>
-
-  <div className="nb-highlight-strip">
-    <span className="nb-hl-quote">"</span>
-    <p className="nb-hl-text">
-      Most hospitals train their staff — they just can't{' '}
-      <strong>prove it when the assessor walks in</strong>.
-      MedXL's LMS closes that gap before it becomes a failure.
-    </p>
-  </div>
-</div>
-        </div>
       </section>
     </>
   )
