@@ -338,6 +338,30 @@ export default function NABHSection() {
   padding: 18px 20px;
   display: flex; align-items: flex-start; gap: 14px;
 }
+  /* Desktop */
+.nb-cta-desktop {
+  display: flex;
+}
+
+.nb-cta-mobile {
+  display: none;
+}
+
+/* Mobile */
+@media (max-width: 860px) {
+  .nb-cta-desktop {
+    display: none;
+  }
+
+  .nb-cta-mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+  }
+}
 .nb-hl-quote {
   color: rgb(139,92,246); font-size: 28px; line-height: 1;
   flex-shrink: 0; margin-top: -4px; font-family: Georgia, serif;
@@ -394,6 +418,21 @@ export default function NABHSection() {
                 </div>
               ))}
             </div>
+
+            <div className="nb-cta-row nb-cta-desktop">
+              <Link to="/nabh" className="nb-btn-primary">
+                Know More →
+              </Link>
+
+              <a
+                href="https://api.whatsapp.com/send/?phone=9884021188&text=I'd%20like%20a%20free%20NABH%20readiness%20assessment"
+                className="nb-btn-ghost"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Free Assessment ↗
+              </a>
+            </div>
           </div>
 
           {/* ── Right: feature cards ── */}
@@ -426,17 +465,20 @@ export default function NABHSection() {
             </div>
           </div>
         </div>
-        <div className="nb-cta-row">
-              <Link to="/nabh" className="nb-btn-primary">Know More →</Link>
-              <a
-                href="https://api.whatsapp.com/send/?phone=9884021188&text=I'd%20like%20a%20free%20NABH%20readiness%20assessment"
-                className="nb-btn-ghost"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Free Assessment ↗
-              </a>
-            </div>
+        <div className="nb-cta-row nb-cta-mobile">
+          <Link to="/nabh" className="nb-btn-primary">
+            Know More →
+          </Link>
+
+          <a
+            href="https://api.whatsapp.com/send/?phone=9884021188&text=I'd%20like%20a%20free%20NABH%20readiness%20assessment"
+            className="nb-btn-ghost"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Free Assessment ↗
+          </a>
+        </div>
       </section>
     </>
   )

@@ -209,6 +209,25 @@ export default function ClaimWiseSection() {
   padding: 18px 20px;
   display: flex; align-items: flex-start; gap: 14px;
 }
+  .cw-btn-desktop {
+  display: inline-flex;
+}
+
+.cw-btn-mobile {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .cw-btn-desktop {
+    display: none;
+  }
+
+  .cw-btn-mobile {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+}
 .cw-hl-quote {
   color: rgb(197,45,181); font-size: 28px; line-height: 1;
   flex-shrink: 0; margin-top: -4px; font-family: Georgia, serif;
@@ -264,7 +283,11 @@ export default function ClaimWiseSection() {
                 </div>
               ))} 
             </div>
-            <Link to="/claimwise" className="cw-btn">Know More →</Link>
+            <div className="cw-btn-desktop">
+  <Link to="/claimwise" className="cw-btn">
+    Know More →
+  </Link>
+</div>
           </div>
 
           
@@ -297,6 +320,11 @@ export default function ClaimWiseSection() {
             </div>
           </div>
         </div>
+          <div className="cw-btn-mobile">
+      <Link to="/claimwise" className="cw-btn">
+        Know More →
+      </Link>
+</div>
         
       </section>
     </>
