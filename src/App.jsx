@@ -32,6 +32,7 @@ import CareerPage from './Pages/CareerPage'
 import ClaimWisePage from './Pages/Claimwise'
 import NABHAccreditationPage from './Pages/NABH'
 import Footer from './components/Footer'
+import WhatsAppButton from './components/Whatsapp'
 export default function App() {
   return (
     <HelmetProvider>
@@ -70,6 +71,7 @@ export default function App() {
           <Route path="/nabh"element={<NABHAccreditationPage />} />
         </Routes>
         <Footer />
+        <WhatsAppButton />
       </BrowserRouter>
     </HelmetProvider>
   )

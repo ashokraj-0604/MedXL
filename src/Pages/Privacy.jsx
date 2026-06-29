@@ -194,7 +194,7 @@ const PRIVACY_CONFIG = {
   ctaTitle: 'Contact Our Data Protection Officer',
   ctaDesc:  'Your privacy matters to us. Reach out for any queries about data access, correction, erasure, or your rights under the DPDP Act 2023.',
   ctaPrimary:   { label: '✉ info@medxl.in', href: 'mailto:info@medxl.in' },
-  ctaSecondary: { label: '💬 WhatsApp Us', href: 'https://api.whatsapp.com/send/?phone=918148181288' },
+  ctaSecondary: { label: '💬 WhatsApp Us', href: 'https://api.whatsapp.com/send/?phone=919884021188' },
   footerLinks: [
     { label: 'Home',         to: '/'       },
     { label: 'About',        to: '/about'  },

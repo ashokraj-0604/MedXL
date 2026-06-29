@@ -11,7 +11,6 @@ import krrishivPhoto from '../assets/team/krrishiv.jpg'
 import vasuPhoto from '../assets/team/vasu.jpg'
 import aakashPhoto from '../assets/team/aakash.jpg'
 import ashokPhoto from '../assets/team/ashok.jpg'
-import guruPhoto from '../assets/team/guru.jpg'
 const team = [
   {
     name: 'Ashok Raj A ',
@@ -26,13 +25,6 @@ const team = [
     linkedin: 'https://www.linkedin.com/in/krrishivb',
     photo: krrishivPhoto,
     accentRgb: '0,175,160',   // teal
-  },
-  {
-    name: 'Guru Ganesh S',
-    role: 'Growth & Partnerships',
-    linkedin: 'https://linkedin.com/in/guruganesh7',
-    photo: guruPhoto,
-    accentRgb: '245,166,35',  // gold
   },
   {
     name: 'Vasu P',
